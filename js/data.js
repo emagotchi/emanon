@@ -246,29 +246,29 @@ const eggData = {
     pix: {
         smart: {
             name: { es: "Grupo Inteligente", en: "Smart Group" },
-            img: "assets/eggs/pix_blue.webp"
+            img: "../assets/eggs/pix_blue.webp"
         },
         creative: {
             name: { es: "Grupo Creativo", en: "Creative Group" },
-            img: "assets/eggs/pix_green.webp"
+            img: "../assets/eggs/pix_green.webp"
         },
         charming: {
             name: { es: "Grupo Encantador", en: "Charming Group" },
-            img: "assets/eggs/pix_pink.webp"
+            img: "../assets/eggs/pix_pink.webp"
         }
     },
     party: {
         smart: {
             name: { es: "Grupo Inteligente", en: "Smart Group" },
-            img: "assets/eggs/party_blue_yellow.webp"
+            img: "../assets/eggs/party_blue_yellow.webp"
         },
         creative: {
             name: { es: "Grupo Creativo", en: "Creative Group" },
-            img: "assets/eggs/party_red_green.webp"
+            img: "../assets/eggs/party_red_green.webp"
         },
         charming: {
             name: { es: "Grupo Encantador", en: "Charming Group" },
-            img: "assets/eggs/party_pink_purple.webp"
+            img: "../assets/eggs/party_pink_purple.webp"
         }
     }
 };
@@ -578,7 +578,7 @@ const db = charData.map(c => {
                 es: itemTrans.es || itemName,
                 en: itemName
             },
-            img: `assets/${category}/${sanitize(itemName)}.png`,
+            img: `../assets/${category}/${sanitize(itemName)}.png`,
             downloadUrl: downloadUrl  
         };
     });
@@ -588,7 +588,7 @@ const db = charData.map(c => {
         name: { es: c.name, en: c.name },
         group: c.group,
         versions: c.versions,
-        image: `assets/characters/${c.id}.webp`,
+        image: `../assets/characters/${c.id}.webp`,
         favorites: {
             meals: toItems(c.f.meals, 'meals'),
             snacks: toItems(c.f.snacks, 'snacks'),
