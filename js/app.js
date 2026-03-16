@@ -1,3 +1,42 @@
+/*
+Hi 🎐
+If you're reading this, it means you opened the source code of my little project.
+                            ╱|、
+                          (˚ˎ 。7  
+                           |、˜〵          
+                          じしˍ,)ノ
+						
+This is a personal project that compiles my social media links so I no longer have to rely on third-party platforms. It also includes a fan-made Tamagotchi guide, written in Spanish and created with lots of love♡ (and I hope there will be many more in the future).
+
+All the Tamagotchi resources were taken from Mr. Blinky's website, and for the main page I was partly inspired by Yokiie's website.
+
+You are welcome to:
+• learn from it
+• take inspiration
+• experiment with your own ideas
+
+But if you reuse parts of it, please credit this website ⸜(｡˃ ᵕ ˂ )⸝♡
+
+— Ema
+emanon.vip
+⠀⠀⠀⠀⠀⢀⣠⣤⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢠⣿⡟⠉⠉⠉⠛⠻⢷⣶⣄⣀⣀⣠⣤⣤⣀⣀⣀⣀⡀⠀⠀⢀⣠⣤⣶⡿⠿⠿⢿⣦⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠈⠻⡛⠉⠏⢩⠃⡏⠋⢹⠛⠻⠿⣿⠿⠋⠁⠀⠀⠀⠀⠀⢿⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⢠⡇⡆⠀⢸⢰⡄⢸⠀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⠘⣿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠉⠀⠈⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡿⠋⠀⠀⠀⠀⠀
+⠘⠿⣷⣦⡄⠀⢀⣾⡿⠉⠈⠉⢻⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣶⣶⣶⣤⣀⠀⠀⠀⠀⣠⣴⣶⠀
+⠀⠀⠀⠈⠁⠀⢸⣿⠀⠀⠀⠀⢠⣿⣿⣷⡄⠀⠀⠀⠀⠀⠀⢠⣾⡿⠁⠀⠀⠀⠘⣿⣿⣆⠀⢶⡿⠋⠁⠀⠀
+⠿⠿⣷⣶⡄⠀⢸⣿⣷⣦⣴⣾⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⣿⣿⡄⠀⠀⢀⣠⣼⣿⣿⣿⠀⠀⠀⠀⢀⡀⠀
+⠀⠀⠀⠀⠀⣀⠬⢿⣿⣿⣿⣿⣿⡿⢿⣿⣿⠂⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠘⠛⠛⠛⠛⠃
+⠀⠀⠀⠀⠀⠓⠲⣾⣏⠛⢿⣿⣿⣷⣾⠟⠁⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣧⣼⣿⣿⣟⠁⠓⣆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿⣶⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⣋⣩⣶⡿⠟⠉⠉⠁⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⣿⣿⠻⠻⢷⣦⣀⣤⣶⣶⣶⣶⣾⠿⠟⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡇⠀⠀⢩⠟⠉⠁⢠⣾⡿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣤⣾⠿⠿⣷⣤⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+*/
+
 // State
 let currentLang = 'es';
 let currentVersion = 'pix'; // 'pix' or 'party'
