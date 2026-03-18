@@ -231,7 +231,7 @@ function openModal(char) {
         const listHtml = itemsList.map(item => {
             // If item has downloadUrl, render as clickable link
             const itemNameHtml = item.downloadUrl 
-                ? `<a href="${item.downloadUrl}" target="_blank" rel="noopener" class="fav-item-name fav-item-link">⬇ ${item.name[currentLang]}</a>`
+                ? `<a href="${item.downloadUrl}" target="_blank" rel="noopener" class="fav-item-name fav-item-link">↓ ${item.name[currentLang]}</a>`
                 : `<span class="fav-item-name">${item.name[currentLang]}</span>`;
             
             return `
