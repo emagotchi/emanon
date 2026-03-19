@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="🎐 Tamagotchi Paradise Guide ✦">
+    <meta property="og:description" content="Una guía lo más completa posible sobre el Tamagotchi Paradise :3">
+    <meta property="og:image" content="https://i.pinimg.com/736x/95/63/60/95636021cfff8fded8c39b48cd2ae38b.jpg">
+    <meta property="og:url" content="https://emanon.vip/tmgc-paradise.html">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🎐 Tamagotchi Paradise Guide ✦">
+    <meta name=" twitter:description" content="Una guía lo más completa posible sobre el Tamagotchi Paradise :3">
+    <meta name="twitter:image" content="https://i.pinimg.com/736x/95/63/60/95636021cfff8fded8c39b48cd2ae38b.jpg">
+
+    <title>Tmgc Paradise ✦ Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/tmgc-paradise.css">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+</head>
+
+<body>
+
+    <div id="app" class="app-container">
+
+        <header class="app-header">
+            <div class="header-content">
+                <div class="title-container">
+                    <img src="../assets/logo_tmgchile.png" alt="Logo Tamagotchi" class="logo">
+                    <h1 class="logo-title" id="app-title">Guía Tamagotchi Paradise</h1>
+                </div>
+
+                <div class="controls">
+                    <div class="lang-toggle-container" id="lang-toggle-container">
+                        <button class="lang-btn active" data-lang="es">ES</button>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                    </div>
+                </div>
+            </div>
+
+            <button id="back-btn" class="back-btn hidden">
+                <i class="fa-solid fa-chevron-left"></i> <span id="back-text">Volver a los Niños</span>
+            </button>
+        </header>
+
+        <!-- SELECTION -->
+        <section id="selection-screen" class="view-section active">
+            <div class="selection-intro">
+                <h2>Select your starting Kid</h2>
+                <p>Learn about all possible evolutionary branches depending on how you care for them.</p>
+            </div>
+
+            <div class="tree-selection-container">
+                <div class="base-branch">
+                    <div class="kid-card base-kid" data-id="babymarutchi">
+                        <img src="" alt="Babymarutchi" id="base-img" class="kid-img">
+                        <h3 class="kid-name">Babymarutchi</h3>
+                        <span class="base-label">Base Form</span>
+                    </div>
+                </div>
+
+                <div class="specialized-branches" id="kids-grid">
+                    <!-- Cards will be populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- GUIDE -->
+        <section id="guide-screen" class="view-section hidden">
+            <div class="guide-header">
+                <div class="selected-kid-info">
+                    <img id="guide-kid-img" src="" alt="Kid" class="kid-img-large">
+                    <h2 id="guide-kid-name">Field Kid</h2>
+                </div>
+                <p class="guide-desc">Evolution branches are separated by meals. The final adult form depends on the
+                    care provided.</p>
+            </div>
+
+            <div id="evolutions-container" class="evolutions-container">
+                <!-- Generated lines will go here -->
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-source">
+            <span>for more info visit</span>
+            <a href="https://neomametchi-logs.freeforums.net/thread/408/tamagotchi-paradise" target="_blank">
+                neomametchi
+            </a>
+            <span class="separator">•</span>
+            <span>community logs</span>
+        </div>
+
+        <div class="footer-inner">
+            <div class="footer-left">
+                <img src="../assets/tamagotchile.PNG" class="footer-logo">
+            </div>
+            <div class="footer-center">
+                <span>Fan guide — not affiliated with Bandai</span>
+            </div>
+            <div class="footer-right">
+                <span>Made with ♡ by emagotchi</span>
+                <span class="separator">•</span>
+                <span>© 2026</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="./js/data.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
