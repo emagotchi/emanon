@@ -8,7 +8,7 @@ A small personal website created by **Ema**.
 
 🌐 https://emanon.vip
 
-This project started as a **personal hub for my social media**, so I no longer have to rely on third-party "link in bio" platforms. It also includes a **fan-made Tamagotchi pix guide**, written in Spanish and created with lots of love♡ (and hopefully many more guides in the future).
+This project started as a **personal hub for my social media**, so I no longer have to rely on third-party "link in bio" platforms. It also includes a **fan-made Tamagotchi guide**, written in Spanish and created with lots of love♡ (and hopefully many more guides in the future).
 
 ---
 
@@ -57,6 +57,18 @@ emanon/
 ├── tmgc-pix/            _ tamagotchi pix guide
 │   └── index.html
 │
+├── tmgc-paradise/       _ tamagotchi paradise guide
+│   ├── assets
+│      ├── characters/
+│      ├── meals/
+│      └── stats/
+│   ├── css
+│      ├── tmgc-paradise.css
+│   ├── js
+│      ├── data.js
+│      ├── main.js
+│   └── index.html
+│
 └── index.html           _ main social media hub page
 ```
 
@@ -64,7 +76,11 @@ emanon/
 
 ## ｃｒｅｄｉｔｓ
 
-All Tamagotchi resources were taken from Mr. Blinky's website: http://mrblinky.net/tama/pix/download/
+All Tamagotchi Pix resources were taken from Mr. Blinky's website: http://mrblinky.net/tama/pix/download/
+
+All Tamagotchi Paradise resources were taken from the Tamagotchi Wiki: https://tamagotchi.fandom.com/wiki/Tamagotchi_Paradise/Item_list
+
+Tamagotchi Paradise info were taken from Neomametchi's Forum: https://neomametchi-logs.freeforums.net/thread/408/tamagotchi-paradise
 
 The design of the main page was partly inspired by Yokiie's website: https://unicodeangel.neocities.org/
 
