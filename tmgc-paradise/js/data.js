@@ -21,7 +21,7 @@ const tamagotchiData = {
                 {
                     young: { name: "Sprout Young", image: "assets/characters/land field/sprout-young.webp" },
                     meals: [
-                        { name: { es: "Pellets +5", en: "Pellets +5" }, image: "assets/meals/pellets.webp", location: { es: "General", en: "General" }, cellImage: "assets/stats/onigiri.png" },
+                        { name: { es: "Pellets +1", en: "Pellets +1" }, image: "assets/meals/pellets.webp", location: { es: "General", en: "General" }, cellImage: "assets/stats/onigiri.png" },
                     ],
                     adults: [
                         { name: "Violetchi", image: "assets/characters/land field/sprout species/furawatchi.webp", careMistakes: "0", excellentCares: "5+" },
@@ -83,7 +83,7 @@ const tamagotchiData = {
                 {
                     young: { name: "Float Young", image: "assets/characters/water field/float-young.webp" },
                     meals: [
-                        { name: { es: "Pellets +5", en: "Pellets +5" }, image: "assets/meals/pellets.webp", location: { es: "General", en: "General" }, cellImage: "assets/stats/onigiri.png" },
+                        { name: { es: "Pellets +1", en: "Pellets +1" }, image: "assets/meals/pellets.webp", location: { es: "General", en: "General" }, cellImage: "assets/stats/onigiri.png" },
                     ],
                     adults: [
                         { name: "Kuraratchi", image: "assets/characters/water field/float species/kuraratchi.webp", careMistakes: "0", excellentCares: "5+" },
@@ -145,7 +145,7 @@ const tamagotchiData = {
                 {
                     young: { name: "Rocky Young", image: "assets/characters/sky field/rocky-young.webp" },
                     meals: [
-                        { name: { es: "Pellets +5", en: "Pellets +5" }, image: "assets/meals/pellets.webp", location: { es: "General", en: "General" }, cellImage: "assets/stats/onigiri.png" },
+                        { name: { es: "Pellets +1", en: "Pellets +1" }, image: "assets/meals/pellets.webp", location: { es: "General", en: "General" }, cellImage: "assets/stats/onigiri.png" },
                     ],
                     adults: [
                         { name: "Gemtchi", image: "assets/characters/sky field/mineral species/gemtchi.webp", careMistakes: "0", excellentCares: "5+" },
@@ -207,7 +207,7 @@ const tamagotchiData = {
                 {
                     young: { name: "Sprout Young", image: "assets/characters/forest field/sprout-young.webp" },
                     meals: [
-                        { name: { es: "Pellets", en: "Pellets" }, image: "assets/meals/pellets.webp", location: { es: "General", en: "General" }, cellImage: "assets/stats/onigiri.png" },
+                        { name: { es: "Pellets +1", en: "Pellets +1" }, image: "assets/meals/pellets.webp", location: { es: "General", en: "General" }, cellImage: "assets/stats/onigiri.png" },
                     ],
                     adults: [
                         { name: "Shiitaketchi", image: "assets/characters/forest field/sprout species/shiitaketchi.webp", careMistakes: "0", excellentCares: "5+" },
