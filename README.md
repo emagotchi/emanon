@@ -63,10 +63,10 @@ emanon/
 │      ├── meals/
 │      └── stats/
 │   ├── css
-│      ├── tmgc-paradise.css
+│      └── tmgc-paradise.css
 │   ├── js
 │      ├── data.js
-│      ├── main.js
+│      └── main.js
 │   └── index.html
 │
 └── index.html           _ main social media hub page
