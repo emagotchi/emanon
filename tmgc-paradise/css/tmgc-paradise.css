@@ -680,7 +680,7 @@ body {
     text-decoration: underline;
 }
 
-no-link-style {
+.no-link-style {
     color: inherit;
     text-decoration: none;
     cursor: pointer;
