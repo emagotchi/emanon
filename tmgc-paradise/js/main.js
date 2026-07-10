@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'kid-card';
             const kidName = kid.name[currentLang] || kid.name.en;
             card.innerHTML = `
-                <img src="${kid.image}" alt="${kidName}" class="kid-img">
+                <img loading="lazy" decoding="async" src="${kid.image}" alt="${kidName}" class="kid-img">
                 <h3 class="kid-name">${kidName}</h3>
             `;
 
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const adultsHtml = branch.adults.map(adult => `
                 <div class="adult-card">
-                    <img src="${adult.image}" alt="${adult.name}">
+                    <img loading="lazy" decoding="async" src="${adult.image}" alt="${adult.name}">
                     <h4>${adult.name}</h4>
                     <div class="reqs">
                         ${adult.excellentCares && adult.excellentCares !== "undefined" ? `
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return `
                 <div class="meal-indicator">
                     <div class="meal-images-wrapper">
-                        <img src="${meal.image}" alt="${mealName}" title="${mealName}" class="main-meal-img">
+                        <img loading="lazy" decoding="async" src="${meal.image}" alt="${mealName}" title="${mealName}" class="main-meal-img">
                     </div>
                     <span style="font-size: 0.9rem;">${mealName}</span>
                     <span style="font-size: 0.75rem; color: var(--text-muted);"><i class="fa-solid fa-location-dot"></i> ${locName}</span>
@@ -159,8 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="course">
                     <!-- Young Stage -->
                     <div class="evo-step young-step">
-                        <img src="${branch.young.image}" alt="${branch.young.name}">
-                        ${(branch.young.cellImage || (branch.meals[0] && branch.meals[0].cellImage)) ? `<img src="${branch.young.cellImage || branch.meals[0].cellImage}" class="young-cell-img" title="Cell Icon">` : ''}
+                        <img loading="lazy" decoding="async" src="${branch.young.image}" alt="${branch.young.name}">
+                        ${(branch.young.cellImage || (branch.meals[0] && branch.meals[0].cellImage)) ? `<img loading="lazy" decoding="async" src="${branch.young.cellImage || branch.meals[0].cellImage}" class="young-cell-img" title="Cell Icon">` : ''}
                         <h3>${branch.young.name}</h3>
                     </div>
                     
