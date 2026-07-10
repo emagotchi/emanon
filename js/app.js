@@ -74,7 +74,7 @@ window.imgFail = function(img, altSrc) {
 function imgWithFallback(primary, fallbackExt, alt, cssClass = '') {
     const fallback = primary.replace(/\.\w+$/, '.' + fallbackExt);
     const cls = cssClass ? ` class="${cssClass}"` : '';
-    return `<img src="${primary}" onerror="imgFail(this,'${fallback}')" alt="${alt}"${cls}>`;
+    return `<img src="${primary}" onerror="imgFail(this,'${fallback}')" alt="${alt}" loading="lazy" decoding="async"${cls}>`;
 }
 
 // Helper: get the egg object for the current character and version
