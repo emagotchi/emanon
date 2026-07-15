@@ -258,6 +258,130 @@ const tamagotchiData = {
                     ]
                 }
             ]
+        },
+        {
+            id: "frozen-kid",
+            name: { es: "", en: "Frozen Kid" },
+            image: "assets/characters/glacier field/frozen-kid.webp",
+            evolutionText: {
+                es: "Se obtiene una <img src='assets/stats/ice-cell.png' class='inline-icon'> Célula de Hielo por cada 15 minutos que Babymarutchi pase en el Campo de Hielo. <br> Cuando tengas 4 Células de Hielo, evolucionará en Frozen Kid. <br> Disponible en los shells Orange y White Paradise.",
+                en: "An <img src='assets/stats/ice-cell.png' class='inline-icon'> Ice Cell is obtained for every 15 minutes Babymarutchi spends in the Glacier Field. <br> When it has 4 Ice Cells it will evolve into Frozen Kid. <br> Available on Orange and White Paradise."
+            },
+            evolutions: [
+                {
+                    young: { name: "Float Young", image: "assets/characters/glacier field/float-young.webp" },
+                    meals: [
+                        { name: { es: "Pellets +1", en: "Pellets +1" }, image: "assets/meals/pellets.webp", location: { es: "General", en: "General" }, cellImage: "assets/stats/onigiri.png" },
+                    ],
+                    adults: [
+                        { name: "Nerinetchi", image: "assets/characters/glacier field/float species/nerinetchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Dangouotchi", image: "assets/characters/glacier field/float species/dangouotchi.webp", careMistakes: "0-1" },
+                        { name: "Yaytytchi", image: "assets/characters/glacier field/float species/yaytytchi.webp", careMistakes: "2-5" },
+                        { name: "Yukiraratchi", image: "assets/characters/glacier field/float species/yukiraratchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Roar Young", image: "assets/characters/glacier field/roar-young.webp" },
+                    meals: [
+                        { name: { es: "Carne Enlatada +1", en: "Canned Meat +1" }, image: "assets/meals/white glacier/volcano/canned-meat.webp", location: { es: "Volcán", en: "Volcano" }, cellImage: "assets/stats/frozen-meat-cell.png" },
+                        { name: { es: "Carne Congelada +2", en: "Frozen Meat +2" }, image: "assets/meals/white glacier/volcano/frozen-meat.webp", location: { es: "Volcán", en: "Volcano" }, cellImage: "assets/stats/frozen-meat-cell.png" }
+                    ],
+                    adults: [
+                        { name: "Okojotchi", image: "assets/characters/glacier field/roar species/okojotchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Wolftchi", image: "assets/characters/glacier field/roar species/wolftchi.webp", careMistakes: "0-1" },
+                        { name: "Polakumatchi", image: "assets/characters/glacier field/roar species/polakumatchi.webp", careMistakes: "2-5" },
+                        { name: "Azaratchi", image: "assets/characters/glacier field/roar species/azaratchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Glide Young", image: "assets/characters/glacier field/glide-young.webp" },
+                    meals: [
+                        { name: { es: "Huevas de Salmón +1", en: "Salmon Roe +1" }, image: "assets/meals/white glacier/spring/salmon-roe.webp", location: { es: "Fuente", en: "Spring" }, cellImage: "assets/stats/northern-seafood-cell.png" },
+                        { name: { es: "Marisco del Norte +2", en: "Northern Seafood +2" }, image: "assets/meals/white glacier/spring/northen-seafood.webp", location: { es: "Fuente", en: "Spring" }, cellImage: "assets/stats/northern-seafood-cell.png" }
+                    ],
+                    adults: [
+                        { name: "Icy Irukatchi", image: "assets/characters/glacier field/glide species/icy-irukatchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Ginjirotchi", image: "assets/characters/glacier field/glide species/ginjirotchi.webp", careMistakes: "0-1" },
+                        { name: "Rakkotchi", image: "assets/characters/glacier field/glide species/rakkotchi.webp", careMistakes: "2-5" },
+                        { name: "Hoppentchi", image: "assets/characters/glacier field/glide species/hoppentchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Toddle Young", image: "assets/characters/glacier field/toddle-young.webp" },
+                    meals: [
+                        { name: { es: "Bayas Rojas +1", en: "Red Berries +1" }, image: "assets/meals/white glacier/red-berries.webp", location: { es: "Volcán y Fuente", en: "Volcano & Spring" }, cellImage: "assets/stats/red-berries-cell.png" },
+                        { name: { es: "Remolacha +1", en: "Beet +1" }, image: "assets/meals/white glacier/beet.webp", location: { es: "Volcán y Fuente", en: "Volcano & Spring" }, cellImage: "assets/stats/red-berries-cell.png" }
+                    ],
+                    adults: [
+                        { name: "Lemmingtchi", image: "assets/characters/glacier field/toddle species/lemmingtchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Moosetchi", image: "assets/characters/glacier field/toddle species/moosetchi.webp", careMistakes: "0-1" },
+                        { name: "Raichotchi", image: "assets/characters/glacier field/toddle species/raichotchi.webp", careMistakes: "2-5" },
+                        { name: "Yukiusatchi", image: "assets/characters/glacier field/toddle species/yukiusatchi.webp", careMistakes: "6+" }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "tropical-kid",
+            name: { es: "", en: "Tropical Kid" },
+            image: "assets/characters/tropical field/tropical-kid.webp",
+            evolutionText: {
+                es: "Se obtiene una <img src='assets/stats/tropical-cell.png' class='inline-icon'> Célula Tropical por cada 15 minutos que Babymarutchi pase en el Campo Tropical. <br> Cuando tengas 4 Células Tropicales, evolucionará en Tropical Kid. <br> Disponible en los shells Orange y White Paradise.",
+                en: "A <img src='assets/stats/tropical-cell.png' class='inline-icon'> Tropical Cell is obtained for every 15 minutes Babymarutchi spends in the Tropical Field. <br> When it has 4 Tropical Cells it will evolve into Tropical Kid. <br> Available on Orange and White Paradise."
+            },
+            evolutions: [
+                {
+                    young: { name: "Sprout Young", image: "assets/characters/tropical field/sprout-young.webp" },
+                    meals: [
+                        { name: { es: "Pellets +1", en: "Pellets +1" }, image: "assets/meals/pellets.webp", location: { es: "General", en: "General" }, cellImage: "assets/stats/onigiri.png" },
+                    ],
+                    adults: [
+                        { name: "Yashikitchi", image: "assets/characters/tropical field/sprout species/yashikitchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Tropical Potsunentchi", image: "assets/characters/tropical field/sprout species/tropical-potsunentchi.webp", careMistakes: "0-1" },
+                        { name: "Ananatchi", image: "assets/characters/tropical field/sprout species/ananatchi.webp", careMistakes: "2-5" },
+                        { name: "Avovotchi", image: "assets/characters/tropical field/sprout species/avovotchi_Paradise_sprite.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Roar Young", image: "assets/characters/tropical field/roar-young.webp" },
+                    meals: [
+                        { name: { es: "Medallón Tropical +1", en: "Tropical Patty +1" }, image: "assets/meals/orange tropics/volcano/tropical-patty.webp", location: { es: "Volcán", en: "Volcano" }, cellImage: "assets/stats/tropical-meat-cell.png" },
+                        { name: { es: "Filete Tropical +2", en: "Tropical Steak +2" }, image: "assets/meals/orange tropics/volcano/tropical-steak.webp", location: { es: "Volcán", en: "Volcano" }, cellImage: "assets/stats/tropical-meat-cell.png" }
+                    ],
+                    adults: [
+                        { name: "Tropical Meowtchi", image: "assets/characters/tropical field/roar species/tropical-meowtchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Madillotchi", image: "assets/characters/tropical field/roar species/madillotchi.webp", careMistakes: "0-1" },
+                        { name: "Tarantytchi", image: "assets/characters/tropical field/roar species/tarantytchi.webp", careMistakes: "2-5" },
+                        { name: "Crocotchi", image: "assets/characters/tropical field/roar species/crocotchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Toddle Young", image: "assets/characters/tropical field/toddle-young.webp" },
+                    meals: [
+                        { name: { es: "Plátano +1", en: "Banana +1" }, image: "assets/meals/orange tropics/spring/banana.webp", location: { es: "Fuente", en: "Spring" }, cellImage: "assets/stats/banana-cell.png" },
+                        { name: { es: "Frutas Tropicales +2", en: "Tropical Fruits +2" }, image: "assets/meals/orange tropics/spring/tropical-fruits.webp", location: { es: "Fuente", en: "Spring" }, cellImage: "assets/stats/banana-cell.png" }
+                    ],
+                    adults: [
+                        { name: "Tropical Mametchi", image: "assets/characters/tropical field/toddle species/tropical-mametchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Parorotchi", image: "assets/characters/tropical field/toddle species/parorotchi.webp", careMistakes: "0-1" },
+                        { name: "Tenatchi", image: "assets/characters/tropical field/toddle species/tenatchi.webp", careMistakes: "2-5" },
+                        { name: "Namakemotchi", image: "assets/characters/tropical field/toddle species/namakemotchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Lick Young", image: "assets/characters/tropical field/lick-young.webp" },
+                    meals: [
+                        { name: { es: "Bichitos +1", en: "Meal Critters +1" }, image: "assets/meals/orange tropics/meal-critters.webp", location: { es: "Volcán y Fuente", en: "Volcano & Spring" }, cellImage: "assets/stats/butterflies-cell.png" },
+                        { name: { es: "Snacks de Mariposa +2", en: "Butterfly Snacks +2" }, image: "assets/meals/orange tropics/butterfly-snacks.webp", location: { es: "Volcán y Fuente", en: "Volcano & Spring" }, cellImage: "assets/stats/butterflies-cell.png" }
+                    ],
+                    adults: [
+                        { name: "Kuikuitchi", image: "assets/characters/tropical field/lick species/kuikuitchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Poizutchi", image: "assets/characters/tropical field/lick species/poizutchi.webp", careMistakes: "0-1" },
+                        { name: "Chameleotchi", image: "assets/characters/tropical field/lick species/chameleotchi.webp", careMistakes: "2-5" },
+                        { name: "Iguanatchi", image: "assets/characters/tropical field/lick species/iguanatchi.webp", careMistakes: "6+" }
+                    ]
+                }
+            ]
         }
     ]
 };
