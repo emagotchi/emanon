@@ -26,7 +26,27 @@ document.addEventListener('DOMContentLoaded', () => {
             guideDesc: "Las ramas de evolución se separan por comidas. La forma adulta final depende del cuidado.",
             backBtn: "Volver a Kids",
             location: "Ubicación",
-            cellInfo: "Para obtener esta célula consigue 5 puntos de esta comida:"
+            cellInfo: "Para obtener esta célula consigue 5 puntos de esta comida:",
+            helpTitle: "¿Cómo funcionan los cuidados y las evoluciones?",
+            careHeading: "Cuidados y errores",
+            careBody: "Cada Tamagotchi lleva la cuenta de tus <strong>cuidados excelentes</strong> y tus <strong>errores de cuidado</strong> durante su etapa Young. Un error de cuidado ocurre cuando dejas al Tama con un pedido de atención sin atender por mucho tiempo o al menos 15 minutos (hambre, ánimo bajo, enfermedad sin curar). El adulto en el que evoluciona depende de cuántos errores acumules: mientras mejor lo cuides (0-1 errores), más raro el personaje.",
+            branchHeading: "¿Cómo se elige la rama de comida?",
+            branchBody: "No necesitas exactamente 5 iconos de una misma comida para evolucionar por esa rama. El Tama evoluciona hacia la comida de la que tenga <strong>más células acumuladas</strong>, ignorando las Pellets (comida por defecto) si es que tiene otros tipos de comida adicional. Por ejemplo: con 2 Pellets, 2 de Carne, 1 Zanahoria y 1 Manzana evolucionaría por <strong>Carne</strong>; con 5 Pellets y 1 Zanahoria evolucionaría por <strong>Zanahoria</strong>, porque las Pellets no cuentan para definir la rama a no ser que sólo sean Pellets para la rama Default.",
+            lifeHeading: "Duración de cada etapa",
+            lifeBody: "Los tiempos aproximados de cada etapa son:",
+            stages: [
+                ["Bebé (Baby)", "1-4 horas, según cuánto tarde Babymarutchi en juntar 4 células del mismo campo y cuándo interactúes con la Tama Cell para evolucionar."],
+                ["Niño (Kid)", "24-28 horas."],
+                ["Joven (Young)", "24 horas. Aquí es donde decides la rama y los cuidados que definen al adulto."],
+                ["Adulto (Adult)", "Indefinido, hasta morir por descuido, criar con el Tamagotchi Lab / conexión, o elegir un nuevo huevo."]
+            ],
+            secretTitle: "Personaje secreto",
+            secretHint: "Se obtiene por conexión",
+            revealBtn: "✦ revelar diseño",
+            hideBtn: "ocultar",
+            toolsHeading: "Herramienta útil",
+            toolsBody: "Para planear tus cruces, el <strong>Genes Generator</strong> te deja ver los genes y colores de cada Tamagotchi y hacerte una idea de qué combinar:",
+            toolsLink: "Abrir Tamagotchi Paradise Genes Generator ↗"
         },
         en: {
             title: "Tamagotchi Paradise Guide",
@@ -35,10 +55,54 @@ document.addEventListener('DOMContentLoaded', () => {
             guideDesc: "Evolution branches are separated by meals. The final adult form depends on the care provided.",
             backBtn: "Back to Kids",
             location: "Location",
-            cellInfo: "Get 5 points of a type to get this cell:"
+            cellInfo: "Get 5 points of a type to get this cell:",
+            helpTitle: "How do care and evolutions work?",
+            careHeading: "Care & mistakes",
+            careBody: "Every Tamagotchi tracks your <strong>excellent cares</strong> and <strong>care mistakes</strong> during its Young stage. A care mistake happens when you leave a care call unanswered for too long or at least 15 minutes (hunger, low mood, untreated sickness). The adult it evolves into depends on how many mistakes you rack up: the better you care for it (0-1 mistakes), the rarer the character.",
+            branchHeading: "How is the meal branch chosen?",
+            branchBody: "You don't need exactly 5 icons of the same meal to evolve down that branch. The Tama evolves toward whichever meal it has the <strong>most cells</strong> of, ignoring Pellets (the default food) if it has other types of food. For example: with 2 Pellets, 2 Meat, 1 Carrot and 1 Apple it would evolve via <strong>Meat</strong>; with 5 Pellets and 1 Carrot it would evolve via <strong>Carrot</strong>, because Pellets do not count toward determining the branch unless they are the only food items for the Default branch.",
+            lifeHeading: "How long each stage lasts",
+            lifeBody: "The approximate lifespan of each stage:",
+            stages: [
+                ["Baby", "1-4 hours, depending on how long it takes Babymarutchi to collect 4 of the same Field Cell and when you interact with the Tama Cell to evolve."],
+                ["Kid", "24-28 hours."],
+                ["Young", "24 hours. This is where you pick the branch and the care that defines the adult."],
+                ["Adult", "Indefinite, until death by neglect, breeding via the Tamagotchi Lab / connection, or selecting a new egg."]
+            ],
+            secretTitle: "Secret character",
+            secretHint: "Obtained by connection",
+            revealBtn: "✦ reveal design",
+            hideBtn: "hide",
+            toolsHeading: "Handy tool",
+            toolsBody: "To plan your breeding, the <strong>Genes Generator</strong> lets you preview the genes and colors of each Tamagotchi so you can decide what to mix:",
+            toolsLink: "Open Tamagotchi Paradise Genes Generator ↗"
         }
     };
 
+    function renderHelpAccordion() {
+        const host = document.getElementById('help-accordion');
+        if (!host) return;
+        const t = texts[currentLang];
+        const stagesHtml = t.stages.map(s => `<li><strong>${s[0]}:</strong> ${s[1]}</li>`).join('');
+        host.innerHTML = `
+            <details class="help-box">
+                <summary>${t.helpTitle}</summary>
+                <div class="help-body">
+                    <h4>${t.careHeading}</h4>
+                    <p>${t.careBody}</p>
+                    <h4>${t.branchHeading}</h4>
+                    <p>${t.branchBody}</p>
+                    <h4>${t.lifeHeading}</h4>
+                    <p>${t.lifeBody}</p>
+                    <ul class="lifespans">${stagesHtml}</ul>
+                    <h4>${t.toolsHeading}</h4>
+                    <p>${t.toolsBody}</p>
+                    <a class="tool-link" href="https://tamaparagenerator.streamlit.app/" target="_blank" rel="noopener noreferrer">${t.toolsLink}</a>
+                </div>
+            </details>
+        `;
+    }
+    
     function updateStaticText() {
         if (!currentKid) {
             document.getElementById('app-title').textContent = texts[currentLang].title;
@@ -61,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentLang = target.getAttribute('data-lang');
 
                 updateStaticText();
+                renderHelpAccordion();
                 renderSelectionScreen();
                 if (currentKid) {
                     showGuide(currentKid);
@@ -70,7 +135,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         baseImg.src = tamagotchiData.base.image;
 
+        // Base Babymarutchi card → shows its secret adult form
+        const baseCard = document.querySelector('.base-kid');
+        if (baseCard && tamagotchiData.base.secret) {
+            baseCard.style.cursor = 'pointer';
+            baseCard.addEventListener('click', () => {
+                currentKid = null;
+                showBaseSecret();
+            });
+        }
+
         updateStaticText();
+        renderHelpAccordion();
         renderSelectionScreen();
 
         // Back Button
@@ -184,6 +260,56 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             evolutionsContainer.appendChild(branchEl);
         });
+
+        
+        // Secret / connection character (one per shell)
+        if (kidData.secret) {
+            evolutionsContainer.appendChild(buildSecretCard(kidData.secret));
+        }
+    }
+
+    // Build a reusable "secret character" card (silhouette + reveal button)
+    function buildSecretCard(s) {
+        const t = texts[currentLang];
+        const secretEl = document.createElement('div');
+        secretEl.className = 'secret-card';
+        secretEl.innerHTML = `
+            <span class="secret-badge">🔒 ${t.secretTitle}</span>
+            <img class="secret-img" src="${s.silhouette}" data-sil="${s.silhouette}" data-color="${s.image}" data-revealed="0" alt="${t.secretTitle}">
+            <h3 class="secret-name">???</h3>
+            <p class="secret-cond">${s.condition[currentLang] || s.condition.en}</p>
+            <button class="secret-reveal-btn">${t.revealBtn}</button>
+        `;
+        const img = secretEl.querySelector('.secret-img');
+        const nameEl = secretEl.querySelector('.secret-name');
+        const btn = secretEl.querySelector('.secret-reveal-btn');
+        btn.addEventListener('click', () => {
+            const revealed = img.dataset.revealed === '1';
+            img.src = revealed ? img.dataset.sil : img.dataset.color;
+            img.dataset.revealed = revealed ? '0' : '1';
+            img.classList.toggle('is-revealed', !revealed);
+            nameEl.textContent = revealed ? '???' : s.name;
+            btn.textContent = revealed ? t.revealBtn : t.hideBtn;
+            btn.classList.toggle('revealed', !revealed);
+        });
+        return secretEl;
+    }
+
+    // Show the base Babymarutchi secret (adult form) in the guide screen
+    function showBaseSecret() {
+        selectionScreen.classList.add('hidden');
+        guideScreen.classList.remove('hidden');
+        backBtn.classList.remove('hidden');
+
+        const base = tamagotchiData.base;
+        document.getElementById('app-title').textContent = base.name;
+        guideKidImg.src = base.image;
+        guideKidName.textContent = base.name;
+        document.querySelector('.guide-desc').innerHTML = base.label[currentLang];
+
+        evolutionsContainer.innerHTML = '';
+        evolutionsContainer.appendChild(buildSecretCard(base.secret));
+        
     }
 
     init();
