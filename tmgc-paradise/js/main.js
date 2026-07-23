@@ -150,14 +150,36 @@ document.addEventListener('DOMContentLoaded', () => {
         renderSelectionScreen();
 
         // Back Button
-        backBtn.addEventListener('click', () => {
-            guideScreen.classList.add('hidden');
-            selectionScreen.classList.remove('hidden');
-            backBtn.classList.add('hidden');
-            currentKid = null;
-            document.getElementById('app-title').textContent = texts[currentLang].title;
-            window.scrollTo({ top: 0, behavior: 'auto' });
-        });
+        backBtn.addEventListener('click', goBackToKids);
+    }
+
+    function goBackToKids() {
+        guideScreen.classList.add('hidden');
+        selectionScreen.classList.remove('hidden');
+        backBtn.classList.add('hidden');
+        currentKid = null;
+        document.getElementById('app-title').textContent = texts[currentLang].title;
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        updateFab();
+    }
+
+    // Contextual floating button: "back" inside a guide, "scroll up" in the list
+    function updateFab() {
+        const fab = document.getElementById('fab-nav');
+        if (!fab) return;
+        const inGuide = !guideScreen.classList.contains('hidden');
+        if (inGuide) {
+            fab.classList.remove('mode-top');
+            fab.querySelector('.fab-arrow').textContent = '‹';
+            fab.querySelector('.fab-label').textContent = texts[currentLang].backBtn;
+            fab.classList.add('show');
+        } else if (window.scrollY > 400) {
+            fab.classList.add('mode-top');
+            fab.querySelector('.fab-arrow').textContent = '↑';
+            fab.classList.add('show');
+        } else {
+            fab.classList.remove('show');
+        }
     }
 
     function renderSelectionScreen() {
@@ -186,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         guideScreen.classList.remove('hidden');
         backBtn.classList.remove('hidden');
         window.scrollTo({ top: 0, behavior: 'auto' });
+        updateFab();
 
         const kidName = kidData.name[currentLang] || kidData.name.en;
         document.getElementById('app-title').textContent = kidName;
@@ -303,6 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
         guideScreen.classList.remove('hidden');
         backBtn.classList.remove('hidden');
         window.scrollTo({ top: 0, behavior: 'auto' });
+        updateFab();
 
         const base = tamagotchiData.base;
         document.getElementById('app-title').textContent = base.name;
@@ -312,8 +336,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         evolutionsContainer.innerHTML = '';
         evolutionsContainer.appendChild(buildSecretCard(base.secret));
-        
     }
 
+    // Contextual floating button (back / scroll-up)
+    const fab = document.getElementById('fab-nav');
+    if (fab) {
+        window.addEventListener('scroll', updateFab);
+        fab.addEventListener('click', () => {
+            if (fab.classList.contains('mode-top')) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                goBackToKids();
+            }
+        });
+    }
     init();
 });
