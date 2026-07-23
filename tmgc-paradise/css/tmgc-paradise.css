@@ -715,44 +715,39 @@ body {
         position: static;
     }
 	
-    /* Botón "volver" flotante: siempre accesible sin subir hasta arriba */
-    .back-btn:not(.hidden) {
-        position: fixed;
-        left: 16px;
-        bottom: 84px;
-        z-index: 50;
-        padding: 0.7rem 1.2rem;
-        box-shadow: 0 6px 20px rgba(74, 90, 106, 0.28);
-        background: var(--primary-color);
-        color: #fff;
-    }
+   .back-btn { display: none !important; }
 }
 
-/* Botón flotante "subir al inicio" (aparece al hacer scroll) */
-#scroll-top-btn {
+#fab-nav {
     position: fixed;
     right: 16px;
-    bottom: 84px;
+    bottom: 88px;
     z-index: 50;
-    width: 46px;
-    height: 46px;
+    height: 48px;
+    min-width: 48px;
+    padding: 0 18px 0 14px;
     border: none;
-    border-radius: 50%;
+    border-radius: 999px;
     background: var(--hover-color);
     color: #fff;
-    font-size: 20px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 6px 18px rgba(159, 212, 255, 0.5);
+    box-shadow: 0 6px 18px rgba(159, 212, 255, 0.55);
     display: none;
     align-items: center;
-    justify-content: center;
-    transition: var(--transition);
+    gap: 6px;
+    transition: transform .2s, box-shadow .2s;
 }
-#scroll-top-btn.show { display: flex; }
-#scroll-top-btn:hover { transform: translateY(-2px); }
+#fab-nav.show { display: inline-flex; }
+#fab-nav:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(159, 212, 255, 0.7); }
+#fab-nav .fab-arrow { font-size: 18px; line-height: 1; }
+/* Modo "subir": circular, solo la flecha */
+#fab-nav.mode-top { padding: 0; min-width: 48px; width: 48px; justify-content: center; }
+#fab-nav.mode-top .fab-label { display: none; }
 
-
-/* ===== Acordeón de ayuda (cuidados + tiempos) ===== */
+/* ===== help-accordion ===== */
 #help-accordion { max-width: 760px; margin: 0 auto 28px; }
 .help-box {
     background: var(--glass-bg);
@@ -802,7 +797,7 @@ body {
 .help-body .lifespans li:last-child { border-bottom: 0; }
 .help-body .lifespans strong { color: var(--text-dark); }
 
-/* ===== Card de personaje secreto ===== */
+/* ===== secret-card ===== */
 .secret-card {
     max-width: 420px;
     margin: 28px auto 0;
@@ -838,7 +833,7 @@ body {
 .secret-reveal-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(159,212,255,.6); }
 .secret-reveal-btn.revealed { background: #cbd8ea; color: var(--text-dark); box-shadow: none; }
 
-/* Link a herramienta externa (genes generator) dentro del acordeón */
+/* Link to genes generator */
 .help-body .tool-link {
     display: inline-block;
     margin-top: 6px;
@@ -853,5 +848,3 @@ body {
     transition: var(--transition);
 }
 .help-body .tool-link:hover { transform: translateY(-2px); box-shadow: 0 5px 12px rgba(180, 210, 255, 0.45); }
-
-}
