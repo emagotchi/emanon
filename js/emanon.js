@@ -66,7 +66,7 @@ function initPanelAnimations() {
 let animate = true;
 let scrollInterval;
 
-const mainTitle = "e m a n o n";
+const mainTitle = "emanon";
 const awayText = "   come back. . . don't get lost - the signal is still here ✦   ";
 
 function recursiveAnimateTitle(string, delay, currentIndex = 0) {
