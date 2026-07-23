@@ -156,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             backBtn.classList.add('hidden');
             currentKid = null;
             document.getElementById('app-title').textContent = texts[currentLang].title;
+            window.scrollTo({ top: 0, behavior: 'auto' });
         });
     }
 
@@ -184,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectionScreen.classList.add('hidden');
         guideScreen.classList.remove('hidden');
         backBtn.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'auto' });
 
         const kidName = kidData.name[currentLang] || kidData.name.en;
         document.getElementById('app-title').textContent = kidName;
@@ -300,6 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectionScreen.classList.add('hidden');
         guideScreen.classList.remove('hidden');
         backBtn.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'auto' });
 
         const base = tamagotchiData.base;
         document.getElementById('app-title').textContent = base.name;
