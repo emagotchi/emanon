@@ -79,23 +79,193 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Structured extra guide data (bilingual) for the info accordions
+    const guideExtras = {
+        es: {
+            tiersTitle: "Calidad del adulto (Perfecto / Bueno / Regular / Descuidado)",
+            tiersIntro: "Para el mejor adulto (Perfecto ★) necesitas cumplir 3 condiciones durante la etapa Young: llenar el hambre 5 veces (×5 o más iconos de comida), llenar la felicidad 5 veces (×5 o más iconos de sol) y 0 errores de cuidado. El hambre se puede llenar en cualquier momento; la felicidad sube con minijuegos y snacks.",
+            tiers: [
+                ["Perfecto ★", "0 errores • las 3 condiciones cumplidas"],
+                ["Bueno", "0-1 errores • buena calidad"],
+                ["Regular", "2-5 errores • calidad media"],
+                ["Descuidado", "6+ errores • calidad baja"]
+            ],
+            timerTitle: "Temporizador de cuidado y horario de sueño",
+            timerIntro: "Cada cuánto tu Tama pide atención y cuánto dura cada etapa (datos del juego). Un error de cuidado ocurre si no respondes dentro de 15 minutos después de que un medidor llega a 0.",
+            timerHead: ["Etapa", "Hambre", "Felicidad", "Evoluciona"],
+            timerRows: [
+                ["Bebé", "~15 min", "~25 min", "~1 h"],
+                ["Niño (Kid)", "45 min", "20 min", "24 h"],
+                ["Joven (Young)", "60 min", "30 min", "24 h"],
+                ["Adulto", "40-90 min", "30-90 min", "—"]
+            ],
+            sleepHead: ["Momento", "Horario", "Qué pasa"],
+            sleepRows: [
+                ["Mañana", "6:00 – 9:59", "Puedes elegir despertar a tu Tama"],
+                ["Tarde", "10:00 – 18:59", "El Tama despierta solo"],
+                ["Noche", "19:00 – 21:59", "Puedes elegir mandarlo a dormir"],
+                ["Madrugada", "22:00 – 5:59", "El Tama se duerme solo"]
+            ],
+            cellTitle: "Cómo leer las células de tu tamagotchi",
+            cellRows: [
+                ["Hambre", "Bola de arroz. +1 icono cada vez que llenas el hambre • necesitas ×5 para Perfecto."],
+                ["Felicidad", "Sol. +1 icono cada vez que llenas la felicidad • necesitas ×5 para Perfecto."],
+                ["Error de cuidado", "Remolino. Medidor vacío por más de 15 min = +1 • se acumula desde la etapa Kid."],
+                ["Enfermedad", "Personaje con pinchos. Toca el botón para curar • si lo ignoras = +1 error de cuidado."],
+                ["Vitamina", "Punto amarillo. Se obtiene del Cheerful Popcorn • previene la próxima enfermedad por descuido."]
+            ],
+            planetTitle: "Niveles de planeta (qué se desbloquea)",
+            planetIntro: "El nivel de planeta sube cada vez que tu Tama llega a una nueva forma adulta y es liberado al bioma. Cada nivel desbloquea nuevas funciones.",
+            planetHead: ["Nivel", "Cuándo", "Desbloquea"],
+            planetRows: [
+                ["Lv.0", "Por defecto", "—"],
+                ["Lv.1", "etapa Kid", "Tienda de comida y snacks • 2 cazadores • 3 minijuegos (fácil)"],
+                ["Lv.2", "etapa Young", "Juguetes de exterior"],
+                ["Lv.3", "1er adulto", "Criar (Breed) • nuevo huevo"],
+                ["Lv.4", "Nueva generación", "Campo 2 • +3 minijuegos fáciles (Vitaminas, Comidas, Atrapa Popó)"],
+                ["Lv.5", "Cambiar de campo", "Cocinar comidas (chef Shirotama)"],
+                ["Lv.6", "2do adulto", "Campo 3 • dificultad normal • viaje espacial (Sweet + Relax) • items de decoración • vender • snacks especiales (Vivid Juice, Pastel Juice, Love-Love Ice Cream, Random Jelly)"],
+                ["Lv.7", "3er adulto", "Viaje a Foodie Planet • Happy Pancakes • Cheerful Popcorn"],
+                ["Lv.8", "4to adulto", "Viaje a Art Planet • jugos rojo/azul/verde • Large Soft Serve • Sleepy Herbal Tea"],
+                ["Lv.9", "5to adulto", "Viaje a Ninja Planet • jugos rosa/celeste/morado • Dancing Cotton Candy • Sparkling Drink • dificultad difícil"],
+                ["Lv.10", "6to adulto", "Viaje a Eco + Music Planet • 4to cazador • créditos del staff del Lab"]
+            ],
+            jadeTitle: "Jade Forest — desbloqueos con otro timing",
+            jadeRows: [
+                ["Lv.1", "Kid", "Minijuego Cloudy Coin Catch (reemplaza Limpiar Polvo)"],
+                ["Lv.3", "1er adulto", "Items de decoración • viaje Sweet + Relax (antes de lo normal)"],
+                ["Lv.4", "Nueva gen", "Campo de Tierra 2 • viaje a Foodie Planet"],
+                ["Lv.5", "Cambiar", "Viaje a Art Planet"],
+                ["Lv.6", "2do adulto", "Campo de Agua 3 • viaje a Ice Planet • Random Boba (reemplaza Random Jelly)"],
+                ["Lv.7", "3er adulto", "Viaje a Eco + Music Planet"],
+                ["Lv.8", "4to adulto", "Be Dark Green Juice (reemplaza Be Green Juice)"]
+            ],
+            sourceNote: "Datos de niveles y temporizadores recopilados por la comunidad (Neomametchi · TamaParaResearch)."
+        },
+        en: {
+            tiersTitle: "Adult quality (Best / Good / Mid / Poor)",
+            tiersIntro: "For the best adult (Best ★) you must meet 3 conditions during the Young stage: fill Hunger 5 times (×5 or more rice ball icons), fill Happiness 5 times (×5 or more sun icons), and 0 care mistakes. Hunger can be filled anytime; Happiness fills via minigames and snacks.",
+            tiers: [
+                ["Best ★", "0 mistakes • all 3 conditions met"],
+                ["Good", "0-1 mistakes • good quality"],
+                ["Mid", "2-5 mistakes • mid tier"],
+                ["Poor", "6+ mistakes • low quality"]
+            ],
+            timerTitle: "Care timer & sleep schedule",
+            timerIntro: "How often your Tama asks for attention and how long each stage lasts (game data). A care mistake happens if you don't respond within 15 minutes after a meter hits 0.",
+            timerHead: ["Stage", "Hunger", "Happiness", "Evolves"],
+            timerRows: [
+                ["Baby", "~15 min", "~25 min", "~1 h"],
+                ["Kid", "45 min", "20 min", "24 h"],
+                ["Young", "60 min", "30 min", "24 h"],
+                ["Adult", "40-90 min", "30-90 min", "—"]
+            ],
+            sleepHead: ["Time", "Hours", "What happens"],
+            sleepRows: [
+                ["Morning", "6:00 – 9:59", "You can choose to wake your Tama"],
+                ["Afternoon", "10:00 – 18:59", "The Tama wakes up on its own"],
+                ["Evening", "19:00 – 21:59", "You can choose to put it to sleep"],
+                ["Night", "22:00 – 5:59", "The Tama goes to sleep on its own"]
+            ],
+            sleepNote: "Play with them as much as possible while they're awake!",
+            cellTitle: "How to read the Tama Cell",
+            cellRows: [
+                ["Hunger", "Rice ball. +1 icon each time you fill Hunger • need ×5 for Best."],
+                ["Happiness", "Sun. +1 icon each time you fill Happiness • need ×5 for Best."],
+                ["Care mistake", "Whirlwind. Meter empty for over 15 min = +1 • accumulates from the Kid stage."],
+                ["Sick", "Spiky character. Tap the button to cure it • if ignored = +1 care mistake."],
+                ["Vitamin", "Yellow dot. Obtained from Cheerful Popcorn • prevents the next sickness from neglect."]
+            ],
+            planetTitle: "Planet levels (what unlocks)",
+            planetIntro: "Planet Level increases each time your Tama reaches a new adult form and is released into the field. Each level unlocks new features.",
+            planetHead: ["Level", "Reach when", "Unlocks"],
+            planetRows: [
+                ["Lv.0", "Default", "—"],
+                ["Lv.1", "Kid", "Food & Snack shop • 2 Hunters • 3 Mini Games (Easy)"],
+                ["Lv.2", "Young", "Outside Toys"],
+                ["Lv.3", "1st Adult", "Breed • New Egg"],
+                ["Lv.4", "New Gen", "Field 2 • +3 Easy Mini Games (Vitamins, Meals, Poo Catch)"],
+                ["Lv.5", "Switch Fields", "Cook Meals (Shirotama chef)"],
+                ["Lv.6", "2nd Adult", "Field 3 • Normal difficulty • Space Travel (Sweet + Relax) • Deco Items • Selling • Special Snacks (Vivid Juice, Pastel Juice, Love-Love Ice Cream, Random Jelly)"],
+                ["Lv.7", "3rd Adult", "Foodie Planet travel • Happy Pancakes • Cheerful Popcorn"],
+                ["Lv.8", "4th Adult", "Art Planet travel • Red/Blue/Green Juice • Large Soft Serve • Sleepy Herbal Tea"],
+                ["Lv.9", "5th Adult", "Ninja Planet travel • Pink/Sky Blue/Purple Juice • Dancing Cotton Candy • Sparkling Drink • Hard difficulty"],
+                ["Lv.10", "6th Adult", "Eco + Music Planet travel • 4th Hunter • Lab Staff Credits"]
+            ],
+            jadeTitle: "Jade Forest — different unlock timing",
+            jadeRows: [
+                ["Lv.1", "Kid", "Cloudy Coin Catch mini game (replaces Cleaning Dust)"],
+                ["Lv.3", "1st Adult", "Deco Items • Sweet + Relax travel (earlier than normal)"],
+                ["Lv.4", "New Gen", "Land Field 2 • Foodie Planet travel"],
+                ["Lv.5", "Switch Fields", "Art Planet travel"],
+                ["Lv.6", "2nd Adult", "Water Field 3 • Ice Planet travel • Random Boba (replaces Random Jelly)"],
+                ["Lv.7", "3rd Adult", "Eco + Music Planet travel"],
+                ["Lv.8", "4th Adult", "Be Dark Green Juice (replaces Be Green Juice)"]
+            ],
+            sourceNote: "Level and timer data compiled by the community (Neomametchi · TamaParaResearch)."
+        }
+    };
+
     function renderHelpAccordion() {
         const host = document.getElementById('help-accordion');
         if (!host) return;
         const t = texts[currentLang];
+        const g = guideExtras[currentLang];
         const stagesHtml = t.stages.map(s => `<li><strong>${s[0]}:</strong> ${s[1]}</li>`).join('');
+        const tiersHtml = g.tiers.map(r => `<li><strong>${r[0]}:</strong> ${r[1]}</li>`).join('');
+        const cellHtml = g.cellRows.map(r => `<li><strong>${r[0]}:</strong> ${r[1]}</li>`).join('');
+        const table = (head, rows) =>
+            `<table class="info-table"><thead><tr>${head.map(h => `<th>${h}</th>`).join('')}</tr></thead>`
+            + `<tbody>${rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+
         host.innerHTML = `
             <details class="help-box">
                 <summary>${t.helpTitle}</summary>
                 <div class="help-body">
                     <h4>${t.careHeading}</h4>
                     <p>${t.careBody}</p>
+                    <h4>${g.tiersTitle}</h4>
+                    <p>${g.tiersIntro}</p>
+                    <ul class="lifespans">${tiersHtml}</ul>
                     <h4>${t.branchHeading}</h4>
                     <p>${t.branchBody}</p>
                     <h4>${t.lifeHeading}</h4>
                     <p>${t.lifeBody}</p>
                     <ul class="lifespans">${stagesHtml}</ul>
-                    <h4>${t.toolsHeading}</h4>
+                </div>
+            </details>
+
+            <details class="help-box">
+                <summary>${g.timerTitle}</summary>
+                <div class="help-body">
+                    <p>${g.timerIntro}</p>
+                    ${table(g.timerHead, g.timerRows)}
+                    ${table(g.sleepHead, g.sleepRows)}
+                    <p>${g.sleepNote}</p>
+                </div>
+            </details>
+
+            <details class="help-box">
+                <summary>${g.cellTitle}</summary>
+                <div class="help-body">
+                    <ul class="lifespans">${cellHtml}</ul>
+                </div>
+            </details>
+
+            <details class="help-box">
+                <summary>${g.planetTitle}</summary>
+                <div class="help-body">
+                    <p>${g.planetIntro}</p>
+                    ${table(g.planetHead, g.planetRows)}
+                    <h4>${g.jadeTitle}</h4>
+                    ${table(g.planetHead, g.jadeRows)}
+                    <p class="source-note">${g.sourceNote}</p>
+                </div>
+            </details>
+
+            <details class="help-box">
+                <summary>${t.toolsHeading}</summary>
+                <div class="help-body">
                     <p>${t.toolsBody}</p>
                     <a class="tool-link" href="https://tamaparagenerator.streamlit.app/" target="_blank" rel="noopener noreferrer">${t.toolsLink}</a>
                 </div>
