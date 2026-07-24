@@ -22,11 +22,11 @@ const tamagotchiData = {
             id: "land-kid",
             name: { es: "", en: "Land Kid" },
             image: "assets/characters/land field/land-kid.webp",
-            secret: { name: "Chodracotchi", image: "assets/characters/land field/chodracotchi.webp", silhouette: "assets/secrets/chodracotchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> tu Tama con dos shells de distinto color durante la etapa Young. No evoluciona desde una rama normal.", en: "Obtained by <strong>connecting</strong> your Tama with two different color shells during the Young stage. Does not evolve from a normal branch." } },
             evolutionText: {
                 es: "Se obtiene una <img src='assets/stats/land.png' class='inline-icon'> Célula de Tierra por cada 15 minutos que Babymarutchi pase en el Campo de Tierra. <br> Cuando tengas 4 Células de Tierra, evolucionará en Land Kid.",
                 en: "A <img src='assets/stats/land.png' class='inline-icon'> Land Cell is obtained for every 15 minutes Babymarutchi spends in the Land Field. <br> When it has 4 Land Cells it will evolve into Land Kid."
             },
+            secret: { name: "Chodracotchi", image: "assets/characters/land field/chodracotchi.webp", silhouette: "assets/secrets/chodracotchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> una shell Pink Land con dos shells de distinto color durante la etapa Young. No evoluciona desde una rama normal.", en: "Obtained by <strong>connecting</strong> a Pink Land shell with two different color shells during the Young stage. Does not evolve from a normal branch." } },
             evolutions: [
                 {
                     young: { name: "Sprout Young", image: "assets/characters/land field/sprout-young.webp" },
@@ -89,7 +89,7 @@ const tamagotchiData = {
                 es: "Se obtiene una <img src='assets/stats/water.png' class='inline-icon'> Célula de Agua por cada 15 minutos que Babymarutchi pase en el Campo de Agua. <br> Cuando tengas 4 Células de Agua, evolucionará en Water Kid.",
                 en: "A <img src='assets/stats/water.png' class='inline-icon'> Water Cell is obtained for every 15 minutes Babymarutchi spends in the Water Field. <br> When it has 4 Water Cells it will evolve into Water Kid."
             },
-            secret: { name: "Mermarintchi", image: "assets/characters/water field/mermarintchi.webp", silhouette: "assets/secrets/mermarintchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> tu Tama con dos shells de distinto color durante la etapa Young. No evoluciona desde una rama normal.", en: "Obtained by <strong>connecting</strong> your Tama with two different color shells during the Young stage. Does not evolve from a normal branch." } },
+            secret: { name: "Mermarintchi", image: "assets/characters/water field/mermarintchi.webp", silhouette: "assets/secrets/mermarintchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> una shell Blue Water con dos shells de distinto color durante la etapa Young. No evoluciona desde una rama normal.", en: "Obtained by <strong>connecting</strong> a Blue Water shell with two different color shells during the Young stage. Does not evolve from a normal branch." } },
             evolutions: [
                 {
                     young: { name: "Float Young", image: "assets/characters/water field/float-young.webp" },
@@ -152,7 +152,7 @@ const tamagotchiData = {
                 es: "Se obtiene una <img src='assets/stats/sky.png' class='inline-icon'> Célula de Cielo por cada 15 minutos que Babymarutchi pase en el Campo de Cielo. <br> Cuando tengas 4 Células de Cielo, evolucionará en Sky Kid.",
                 en: "A <img src='assets/stats/sky.png' class='inline-icon'> Sky Cell is obtained for every 15 minutes Babymarutchi spends in the Sky Field. <br> When it has 4 Sky Cells it will evolve into Sky Kid."
             },
-            secret: { name: "Yayacorntchi", image: "assets/characters/sky field/yayacorntchi.webp", silhouette: "assets/secrets/yayacorntchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> tu Tama con dos shells de distinto color durante la etapa Young. No evoluciona desde una rama normal.", en: "Obtained by <strong>connecting</strong> your Tama with two different color shells during the Young stage. Does not evolve from a normal branch." } },
+            secret: { name: "Yayacorntchi", image: "assets/characters/sky field/yayacorntchi.webp", silhouette: "assets/secrets/yayacorntchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> una shell Purple Sky con dos shells de distinto color durante la etapa Young. No evoluciona desde una rama normal.", en: "Obtained by <strong>connecting</strong> a Purple Sky shell with two different color shells during the Young stage. Does not evolve from a normal branch." } },
             evolutions: [
                 {
                     young: { name: "Rocky Young", image: "assets/characters/sky field/rocky-young.webp" },
@@ -215,7 +215,7 @@ const tamagotchiData = {
                 es: "Se obtiene una <img src='assets/stats/forest.png' class='inline-icon'> Célula de Bosque por cada 15 minutos que Babymarutchi pase en el Campo de Bosque. <br> Cuando tengas 4 Células de Bosque, evolucionará en Forest Kid.",
                 en: "A <img src='assets/stats/forest.png' class='inline-icon'> Forest Cell is obtained for every 15 minutes Babymarutchi spends in the Forest Field. <br> When it has 4 Forest Cells it will evolve into Forest Kid."
             },
-            secret: { name: "Tatsutchi", image: "assets/characters/forest field/tatsutchi.webp", silhouette: "assets/secrets/tatsutchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> un shell Jade Forest con dos shells de distinto color durante la etapa Young. No evoluciona desde Sprout Young.", en: "Obtained by <strong>connecting</strong> a Jade Forest shell with two different color shells during the Young stage. Cannot evolve from Sprout Young." } },
+            secret: { name: "Tatsutchi", image: "assets/characters/forest field/tatsutchi.webp", silhouette: "assets/secrets/tatsutchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> una shell Jade Forest con dos shells de distinto color durante la etapa Young. No evoluciona desde Sprout Young.", en: "Obtained by <strong>connecting</strong> a Jade Forest shell with two different color shells during the Young stage. Cannot evolve from Sprout Young." } },
             evolutions: [
                 {
                     young: { name: "Sprout Young", image: "assets/characters/forest field/sprout-young.webp" },
@@ -280,7 +280,7 @@ const tamagotchiData = {
                 es: "Se obtiene una <img src='assets/stats/ice-cell.png' class='inline-icon'> Célula de Hielo por cada 15 minutos que Babymarutchi pase en el Campo de Hielo. <br> Cuando tengas 4 Células de Hielo, evolucionará en Frozen Kid. <br> Disponible en las shells Orange Tropics y White Paradise.",
                 en: "An <img src='assets/stats/ice-cell.png' class='inline-icon'> Ice Cell is obtained for every 15 minutes Babymarutchi spends in the Glacier Field. <br> When it has 4 Ice Cells it will evolve into Frozen Kid. <br> Available on Orange Tropics and White Paradise."
             },
-            secret: { name: "Hobohorntchi", image: "assets/characters/glacier field/hobohorntchi.webp", silhouette: "assets/secrets/hobohorntchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> un shell White Glacier con dos shells de distinto color durante la etapa Young. No evoluciona desde Float Young.", en: "Obtained by <strong>connecting</strong> a White Glacier shell with two different color shells during the Young stage. Cannot evolve from Float Young." } },
+            secret: { name: "Hobohorntchi", image: "assets/characters/glacier field/hobohorntchi.webp", silhouette: "assets/secrets/hobohorntchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> una shell White Glacier con dos shells de distinto color durante la etapa Young. No evoluciona desde Float Young.", en: "Obtained by <strong>connecting</strong> a White Glacier shell with two different color shells during the Young stage. Cannot evolve from Float Young." } },
             evolutions: [
                 {
                     young: { name: "Float Young", image: "assets/characters/glacier field/float-young.webp" },
@@ -343,7 +343,7 @@ const tamagotchiData = {
                 es: "Se obtiene una <img src='assets/stats/tropical-cell.png' class='inline-icon'> Célula Tropical por cada 15 minutos que Babymarutchi pase en el Campo Tropical. <br> Cuando tengas 4 Células Tropicales, evolucionará en Tropical Kid. <br> Disponible en las shells Orange Tropics y White Paradise.",
                 en: "A <img src='assets/stats/tropical-cell.png' class='inline-icon'> Tropical Cell is obtained for every 15 minutes Babymarutchi spends in the Tropical Field. <br> When it has 4 Tropical Cells it will evolve into Tropical Kid. <br> Available on Orange Tropics and White Paradise."
             },
-            secret: { name: "Manapatchi", image: "assets/characters/tropical field/manapatchi.webp", silhouette: "assets/secrets/manapatchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> un shell Orange Tropics con dos shells de distinto color durante la etapa Young. No evoluciona desde Sprout Young.", en: "Obtained by <strong>connecting</strong> an Orange Tropics shell with two different color shells during the Young stage. Cannot evolve from Sprout Young." } },
+            secret: { name: "Manapatchi", image: "assets/characters/tropical field/manapatchi.webp", silhouette: "assets/secrets/manapatchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> una shell Orange Tropics con dos shells de distinto color durante la etapa Young. No evoluciona desde Sprout Young.", en: "Obtained by <strong>connecting</strong> an Orange Tropics shell with two different color shells during the Young stage. Cannot evolve from Sprout Young." } },
             evolutions: [
                 {
                     young: { name: "Sprout Young", image: "assets/characters/tropical field/sprout-young.webp" },
