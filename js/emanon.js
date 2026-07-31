@@ -74,7 +74,7 @@ const awayMarquee = "   come back. . . don't get lost - the signal is still here
 function startMarquee(text, delay) {
   clearInterval(scrollInterval);
   let s = text;
-  document.title = s; // muestra el texto completo antes de empezar a moverse
+  document.title = s;
   scrollInterval = setInterval(function () {
     s = s.substring(1) + s[0];
     document.title = s;
@@ -84,7 +84,7 @@ function startMarquee(text, delay) {
 function startActiveTitle() {
   clearInterval(scrollInterval);
   clearTimeout(marqueeStartTimer);
-  document.title = cleanTitle; // frame limpio para Google y para quien mira la pestaña
+  document.title = cleanTitle;
   marqueeStartTimer = setTimeout(function () {
     if (!document.hidden) startMarquee(activeMarquee, 220);
   }, 3000);
