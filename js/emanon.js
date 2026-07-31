@@ -66,8 +66,8 @@ function initPanelAnimations() {
 let scrollInterval;
 let marqueeStartTimer;
 
-const cleanTitle = "emanon ✦ guías Tamagotchi en español";
-const activeMarquee = "emanon ✦ guías Tamagotchi en español ✦ ";
+const cleanTitle = "emanon ✦ ";
+const activeMarquee = "emanon ✦ ";
 const awayText = "   come back. . . don't get lost - the signal is still here ✦   ";
 const awayMarquee = "   come back. . . don't get lost - the signal is still here ✦   ";
 
