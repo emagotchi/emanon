@@ -67,8 +67,6 @@ let scrollInterval;
 let marqueeStartTimer;
 
 const cleanTitle = "emanon ✦ ";
-const activeMarquee = "emanon ✦ ";
-const awayText = "   come back. . . don't get lost - the signal is still here ✦   ";
 const awayMarquee = "   come back. . . don't get lost - the signal is still here ✦   ";
 
 function startMarquee(text, delay) {
@@ -81,21 +79,16 @@ function startMarquee(text, delay) {
   }, delay);
 }
 
-function startActiveTitle() {
+function setCleanTitle() {
   clearInterval(scrollInterval);
-  clearTimeout(marqueeStartTimer);
   document.title = cleanTitle;
-  marqueeStartTimer = setTimeout(function () {
-    if (!document.hidden) startMarquee(activeMarquee, 220);
-  }, 3000);
 }
 
 function handleVisibilityChange() {
-  clearTimeout(marqueeStartTimer);
   if (document.hidden) {
     startMarquee(awayMarquee, 50);
   } else {
-    startActiveTitle();
+    setCleanTitle();
   }
 }
 
@@ -105,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initPanelAnimations();
 
   if (window === window.top) {
-    startActiveTitle();
+    setCleanTitle();
   }
 
   document.addEventListener("visibilitychange", handleVisibilityChange);
