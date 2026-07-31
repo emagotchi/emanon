@@ -63,55 +63,40 @@ function initPanelAnimations() {
 }
 
 /* ── Title Animations ── */
-let animate = true;
 let scrollInterval;
+let marqueeStartTimer;
 
 const mainTitle = "emanon";
+const cleanTitle = "emanon ✦ guías Tamagotchi en español";
+const activeMarquee = "emanon ✦ guías Tamagotchi en español ✦ ";
 const awayText = "   come back. . . don't get lost - the signal is still here ✦   ";
+const awayMarquee = "   come back. . . don't get lost - the signal is still here ✦   ";
 
-function recursiveAnimateTitle(string, delay, currentIndex = 0) {
-  if (!animate) return;
-  if (currentIndex >= string.length) return;
-
-  let title = document.querySelector("title");
-  title.innerHTML = string.substring(0, currentIndex + 1);
-
-  setTimeout(function () {
-    recursiveAnimateTitle(string, delay, currentIndex + 1);
+function startMarquee(text, delay) {
+  clearInterval(scrollInterval);
+  let s = text;
+  document.title = s; // muestra el texto completo antes de empezar a moverse
+  scrollInterval = setInterval(function () {
+    s = s.substring(1) + s[0];
+    document.title = s;
   }, delay);
 }
 
-function animateTitle(string, initialDelay, restartDelay) {
-  if (!animate) return;
-
-  document.querySelector("title").innerHTML = "";
-
-  setTimeout(function () {
-    recursiveAnimateTitle(string, initialDelay);
-  }, 100);
-
-  setTimeout(function () {
-    animateTitle(string, initialDelay, restartDelay);
-  }, initialDelay * string.length + restartDelay);
-}
-
-let scrollText = awayText;
-
-function startScrollingTitle() {
-  scrollInterval = setInterval(() => {
-    scrollText = scrollText.substring(1) + scrollText[0];
-    document.title = scrollText;
-  }, 50);
+function startActiveTitle() {
+  clearInterval(scrollInterval);
+  clearTimeout(marqueeStartTimer);
+  document.title = cleanTitle; // frame limpio para Google y para quien mira la pestaña
+  marqueeStartTimer = setTimeout(function () {
+    if (!document.hidden) startMarquee(activeMarquee, 220);
+  }, 3000);
 }
 
 function handleVisibilityChange() {
+  clearTimeout(marqueeStartTimer);
   if (document.hidden) {
-    animate = false;
-    startScrollingTitle();
+    startMarquee(awayMarquee, 50);
   } else {
-    clearInterval(scrollInterval);
-    animate = true;
-    animateTitle(mainTitle, 100, 1000);
+    startActiveTitle();
   }
 }
 
@@ -119,10 +104,11 @@ function handleVisibilityChange() {
 document.addEventListener('DOMContentLoaded', function() {
   initClock();
   initPanelAnimations();
-  
+
   if (window === window.top) {
-    animateTitle(mainTitle, 100, 1000);
+    startActiveTitle();
   }
 
   document.addEventListener("visibilitychange", handleVisibilityChange);
 });
+
