@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { img: 'img/carreteados/pantalla.jpg', caption: 'Pantalla con líneas o píxeles muertos — la falla más cara de reparar.' },
         { img: 'img/carreteados/corrosion.jpg', caption: 'Corrosión en el compartimento de pilas (manchas verdes o blancas).' },
         { img: 'img/carreteados/sin-tapa.jpg', caption: 'Sin tapa de batería ni tornillos.' },
-        { img: 'img/carreteados/rayado.jpg', caption: 'Plástico muy rayado, quebrado o amarillento por el tiempo.' }
+        { img: 'img/carreteados/rayado.jpg', caption: 'Plástico muy rayado, quebrado o amarillento por el tiempo.' },
         { img: 'img/carreteados/pintura.jpg', caption: 'Pintura/diseños borrados y maltratados.' }
     ];
     const carrPlaceholder = txt => 'data:image/svg+xml;utf8,' + encodeURIComponent(
