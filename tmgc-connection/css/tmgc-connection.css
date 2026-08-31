@@ -177,3 +177,24 @@ body {
 
 /* noscript static index */
 noscript .static-index { display: block; }
+
+/* ── Link "carreteado" y modal de ejemplos ── */
+.carr-link {
+    font: inherit;
+    color: var(--accent);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+}
+.carr-link:hover { color: var(--accent-2); }
+.carr-head { padding: 24px 22px 6px; }
+.carr-head h2 { font-family: var(--font-head); font-size: 1.25rem; color: var(--text-dark); margin-bottom: 8px; }
+.carr-head p { font-size: .9rem; color: var(--text-muted); }
+.carr-list { padding: 12px 22px 24px; display: flex; flex-direction: column; gap: 16px; }
+.carr-item { border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; background: #fff; }
+.carr-item img { width: 100%; height: 200px; object-fit: cover; background: #f7f4fc; display: block; }
+.carr-item p { font-size: .85rem; color: var(--text-dark); padding: 10px 14px; }
+
