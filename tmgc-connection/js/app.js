@@ -91,6 +91,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function closeModal() { modal.classList.remove('open'); modal.innerHTML = ''; }
 
+    // ── Ejemplos de "carreteado" (mal estado) ──
+    const carreteadoExamples = [
+        { img: 'img/carreteados/pantalla.jpg', caption: 'Pantalla con líneas o píxeles muertos — la falla más cara de reparar.' },
+        { img: 'img/carreteados/corrosion.jpg', caption: 'Corrosión en el compartimento de pilas (manchas verdes o blancas).' },
+        { img: 'img/carreteados/sin-tapa.jpg', caption: 'Sin tapa de batería ni tornillos.' },
+        { img: 'img/carreteados/rayado.jpg', caption: 'Plástico muy rayado, quebrado o amarillento por el tiempo.' }
+        { img: 'img/carreteados/pintura.jpg', caption: 'Pintura/diseños borrados y maltratados.' }
+    ];
+    const carrPlaceholder = txt => 'data:image/svg+xml;utf8,' + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><rect width="400" height="260" fill="#f2ecfa"/><text x="200" y="120" font-size="40" text-anchor="middle" fill="#c9bfe0">📷</text><text x="200" y="165" font-size="14" text-anchor="middle" fill="#9a8fb0">foto de ejemplo</text></svg>');
+
+    function openCarreteado() {
+        const items = carreteadoExamples.map(e => `
+            <div class="carr-item">
+                <img loading="lazy" src="${e.img}" alt="${e.caption}" onerror="this.onerror=null;this.src='${carrPlaceholder()}';">
+                <p>${e.caption}</p>
+            </div>`).join('');
+        modal.innerHTML = `
+            <div class="modal-overlay" data-close></div>
+            <div class="modal-card">
+                <button class="modal-close" data-close aria-label="Cerrar">&times;</button>
+                <div class="carr-head">
+                    <h2>¿Qué es un Tama "carreteado"?</h2>
+                    <p>Un Tamagotchi carreteado tiene desgaste o fallas que bajan su valor. Estos son ejemplos de lo que hay que revisar antes de pagar de más:</p>
+                </div>
+                <div class="carr-list">${items}</div>
+            </div>`;
+        modal.classList.add('open');
+        modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeModal));
+    }
+    const carrLink = document.getElementById('carreteado-link');
+    if (carrLink) carrLink.addEventListener('click', openCarreteado);
+    
     // language
     document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => {
         document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active'));
