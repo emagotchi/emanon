@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('modal');
     const PLACEHOLDER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="300" height="300" fill="%23f2ecfa"/><text x="150" y="175" font-size="120" text-anchor="middle" fill="%23b8a8d8">✦</text></svg>';
 
+    const sized = (url, w) => url + (url.includes('?') ? '&' : '?') + 'width=' + w;
     const regionColor = r => ({ 'Japan': '#ff8fc7', 'USA': '#7fb5ff', 'Europe': '#9be0a0', 'Asia/Oceania': '#ffcf6b' }[r] || '#c9bfe0');
 
     function versions() { return [...new Set(shellData.map(s => s.version))]; }
