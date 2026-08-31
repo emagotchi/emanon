@@ -195,6 +195,6 @@ noscript .static-index { display: block; }
 .carr-head p { font-size: .9rem; color: var(--text-muted); }
 .carr-list { padding: 12px 22px 24px; display: flex; flex-direction: column; gap: 16px; }
 .carr-item { border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; background: #fff; }
-.carr-item img { width: 100%; height: 200px; object-fit: cover; background: #f7f4fc; display: block; }
+.carr-item img { width: 100%; height: 260px; object-fit: cover; background: #f7f4fc; display: block; }
 .carr-item p { font-size: .85rem; color: var(--text-dark); padding: 10px 14px; }
 
