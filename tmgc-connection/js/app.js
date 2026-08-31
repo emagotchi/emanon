@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.innerHTML = list.map((s, i) => `
             <div class="card" data-idx="${shellData.indexOf(s)}">
                 <div class="thumb">
-                    <img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${sized(s.img, 250)}" alt="${s.name} (${s.version})"
+                    <img loading="lazy" decoding="async" src="${s.img}" alt="${s.name} (${s.version})"
                          onerror="this.onerror=null;this.src='${PLACEHOLDER}';">
                 </div>
                 <div class="cbody">
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="modal-overlay" data-close></div>
             <div class="modal-card">
                 <button class="modal-close" data-close aria-label="Cerrar">&times;</button>
-                <img class="modal-img" referrerpolicy="no-referrer" src="${sized(s.img, 600)}" alt="${s.name}" onerror="this.onerror=null;this.src='${PLACEHOLDER}';">
+                <img class="modal-img" src="${s.img}" alt="${s.name}" onerror="this.onerror=null;this.src='${PLACEHOLDER}';">
                 <div class="modal-info">
                     <div class="m-badges">
                         <span class="m-badge" style="background:${regionColor(s.region)}">${s.region}</span>
