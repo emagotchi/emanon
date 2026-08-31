@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const versionFilter = document.getElementById('version-filter');
     const regionFilter = document.getElementById('region-filter');
     const modal = document.getElementById('modal');
-    const PLACEHOLDER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="%23f2ecfa"/><text x="40" y="48" font-size="34" text-anchor="middle" fill="%23b8a8d8">✦</text></svg>';
+    const PLACEHOLDER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="300" height="300" fill="%23f2ecfa"/><text x="150" y="175" font-size="120" text-anchor="middle" fill="%23b8a8d8">✦</text></svg>';
 
     const regionColor = r => ({ 'Japan': '#ff8fc7', 'USA': '#7fb5ff', 'Europe': '#9be0a0', 'Asia/Oceania': '#ffcf6b' }[r] || '#c9bfe0');
 
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.innerHTML = list.map((s, i) => `
             <div class="card" data-idx="${shellData.indexOf(s)}">
                 <div class="thumb">
-                    <img loading="lazy" decoding="async" src="${s.img}" alt="${s.name} (${s.version})"
+                    <img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${sized(s.img, 250)}" alt="${s.name} (${s.version})"
                          onerror="this.onerror=null;this.src='${PLACEHOLDER}';">
                 </div>
                 <div class="cbody">
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="modal-overlay" data-close></div>
             <div class="modal-card">
                 <button class="modal-close" data-close aria-label="Cerrar">&times;</button>
-                <img class="modal-img" src="${s.img}" alt="${s.name}" onerror="this.onerror=null;this.src='${PLACEHOLDER}';">
+                <img class="modal-img" referrerpolicy="no-referrer" src="${sized(s.img, 600)}" alt="${s.name}" onerror="this.onerror=null;this.src='${PLACEHOLDER}';">
                 <div class="modal-info">
                     <div class="m-badges">
                         <span class="m-badge" style="background:${regionColor(s.region)}">${s.region}</span>
