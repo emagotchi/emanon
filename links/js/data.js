@@ -4,7 +4,7 @@ const VIDEOS = [
     id: "tuto-paradise",
     title: "Tutorial Items - Tama Paradise",
     date: "2026-09-24",
-    tiktok: "https://vt.tiktok.com/ZSbRc6EKk/",
+    tiktok: "https://www.tiktok.com/@_emagotchi/video/7689193876367625480",
     thumb: "",
     note: "",
     links: [
@@ -48,6 +48,34 @@ const VIDEOS = [
         url: "https://ko-fi.com/s/1843fe1f03",
         img: "",
         price: "US$7",
+        note: ""
+      },
+      {
+        name: "Instagram Marcel's Tama Spa & Repair",
+        url: "https://www.instagram.com/tamagotchi_spa",
+        img: "",
+        price: "",
+        note: ""
+      },
+      {
+        name: "Instagram Bbamorachi",
+        url: "https://www.instagram.com/bbamorachi",
+        img: "",
+        price: "",
+        note: ""
+      },
+      {
+        name: "Instagram Gatusita",
+        url: "https://www.instagram.com/tienda.cositascute",
+        img: "",
+        price: "",
+        note: "creadora de contenido personalizable en Chile"
+      },
+      {
+        name: "ko-fi Gatusita",
+        url: "https://ko-fi.com/gatusita/shop",
+        img: "",
+        price: "",
         note: ""
       }
     ]
