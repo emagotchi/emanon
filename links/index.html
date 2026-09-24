@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+Hi 🎐
+If you're reading this, it means you opened the source code of my little project.
+                            ╱|、
+                          (˚ˎ 。7  
+                           |、˜〵          
+                          じしˍ,)ノ
+						
+This is a personal project that compiles my social media links so I no longer have to rely on third-party platforms. It also includes a fan-made Tamagotchi guide, written in Spanish and created with lots of love♡ (and I hope there will be many more in the future).
+
+All the Tamagotchi resources were taken from Mr. Blinky's website, and for the main page I was partly inspired by Yokiie's website.
+
+You are welcome to:
+• learn from it
+• take inspiration
+• experiment with your own ideas
+
+But if you reuse parts of it, please credit this website ⸜(｡˃ ᵕ ˂ )⸝♡
+
+— Ema
+emanon.vip
+⠀⠀⠀⠀⠀⢀⣠⣤⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢠⣿⡟⠉⠉⠉⠛⠻⢷⣶⣄⣀⣀⣠⣤⣤⣀⣀⣀⣀⡀⠀⠀⢀⣠⣤⣶⡿⠿⠿⢿⣦⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠈⠻⡛⠉⠏⢩⠃⡏⠋⢹⠛⠻⠿⣿⠿⠋⠁⠀⠀⠀⠀⠀⢿⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⢠⡇⡆⠀⢸⢰⡄⢸⠀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⠘⣿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠉⠀⠈⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡿⠋⠀⠀⠀⠀⠀
+⠘⠿⣷⣦⡄⠀⢀⣾⡿⠉⠈⠉⢻⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣶⣶⣶⣤⣀⠀⠀⠀⠀⣠⣴⣶⠀
+⠀⠀⠀⠈⠁⠀⢸⣿⠀⠀⠀⠀⢠⣿⣿⣷⡄⠀⠀⠀⠀⠀⠀⢠⣾⡿⠁⠀⠀⠀⠘⣿⣿⣆⠀⢶⡿⠋⠁⠀⠀
+⠿⠿⣷⣶⡄⠀⢸⣿⣷⣦⣴⣾⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⣿⣿⡄⠀⠀⢀⣠⣼⣿⣿⣿⠀⠀⠀⠀⢀⡀⠀
+⠀⠀⠀⠀⠀⣀⠬⢿⣿⣿⣿⣿⣿⡿⢿⣿⣿⠂⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠘⠛⠛⠛⠛⠃
+⠀⠀⠀⠀⠀⠓⠲⣾⣏⠛⢿⣿⣿⣷⣾⠟⠁⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣧⣼⣿⣿⣟⠁⠓⣆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿⣶⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⣋⣩⣶⡿⠟⠉⠉⠁⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⣿⣿⠻⠻⢷⣦⣀⣤⣶⣶⣶⣶⣾⠿⠟⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡇⠀⠀⢩⠟⠉⠁⢠⣾⡿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣤⣾⠿⠿⣷⣤⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="emanon ✦ todos los links que menciono en mis videos de TikTok: productos, tiendas y referencias, ordenados por video.">
+  <meta name="author" content="emagotchi">
+  <link rel="canonical" href="https://emanon.vip/links/">
+
+  <meta property="og:title" content="emanon ✦ links de mis videos">
+  <meta property="og:description" content="todo lo que menciono en mis videos, en un solo lugar ✦">
+  <meta property="og:image" content="https://emanon.vip/assets/og/main.jpg">
+  <meta property="og:url" content="https://emanon.vip/links/">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="emanon">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="emanon ✦ links de mis videos">
+  <meta name="twitter:description" content="todo lo que menciono en mis videos, en un solo lugar ✦">
+  <meta name="twitter:image" content="https://emanon.vip/assets/og/main.jpg">
+
+  <title>emanon ✦ links</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../css/emanon.css">
+  <link rel="stylesheet" href="css/links.css">
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="panel">
+      <div class="panel-bar">
+        <span class="panel-title">links</span>
+        <div class="panel-controls"><span></span><span></span><span></span></div>
+      </div>
+      <div class="panel-body">
+        <div class="identity-info">
+          <a class="back-link" href="../">← emanon</a>
+          <span class="handle">video links</span>
+          <span class="handle-tag">// todo lo que menciono en mis videos</span>
+          <p class="bio">toca un video para ver sus links ✦</p>
+        </div>
+      </div>
+      <div class="status-bar">
+        <span class="dot"></span>
+        <span id="video-count">cargando…</span>
+        <span style="flex:1"></span>
+        <span id="clock"></span>
+      </div>
+    </div>
+
+    <!-- VIDEOS -->
+    <div class="panel">
+      <div class="panel-bar">
+        <span class="panel-title">videos</span>
+        <div class="panel-controls"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="search-wrap">
+        <input id="search" class="search" type="search" placeholder="buscar producto o video…" autocomplete="off">
+      </div>
+
+      <div id="videos" class="videos"></div>
+      <p id="empty" class="empty" hidden>no encontré nada con eso ( ˘･_･˘ )</p>
+    </div>
+
+    <p class="disclaimer">algunos links pueden ser de afiliado · los precios cambian, revisa antes de comprar</p>
+
+    <!-- FOOTER -->
+    <div class="site-footer">
+      <div class="footer-left"><span>handcrafted in the quiet internet</span></div>
+      <div class="footer-right">
+        <span>soft signals only</span>
+        <span class="separator">•</span>
+        <span>© 2026</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/links.js" defer></script>
+</body>
+
+</html>
