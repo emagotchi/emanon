@@ -15,6 +15,7 @@ This project started as a **personal hub for my social media**, so I no longer h
 ## ｆｅａｔｕｒｅｓ
 
 - personal social media hub
+- video links page (links mentioned in my TikToks)
 - tamagotchi pix favorite items guide
 - simple static website built with HTML/CSS/JS
 - hosted with GitHub Pages
@@ -61,12 +62,25 @@ emanon/
 │   ├── assets
 │      ├── characters/
 │      ├── meals/
+│      ├── secrets/
 │      └── stats/
-│   ├── css
-│      └── tmgc-paradise.css
-│   ├── js
-│      ├── data.js
-│      └── main.js
+│   ├── css/tmgc-paradise.css
+│   ├── js/app.js
+│   ├── js/data.js
+│   └── index.html
+│
+├── precios-tmgc/               _ tmgc prices in Chile
+│   ├── css/precios-tmgcs.css
+│   ├── img/carreteados
+│   ├── js/app.js
+│   ├── js/data.js
+│   └── index.html
+│
+├── links/               _ links mentioned in my videos
+│   ├── css/links.css
+│   ├── img/             _ video + product thumbnails
+│   ├── js/data.js
+│   ├── js/links.js
 │   └── index.html
 │
 └── index.html           _ main social media hub page
