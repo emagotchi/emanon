@@ -1,0 +1,1410 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Puntitos ✦ arte ASCII para comentarios</title>
+<meta name="description" content="Puntitos - Generador de ASCII. Convierte emojis, imágenes y temas en arte con puntos braille (⣿) liviano y sin fondo, listo para copiar en comentarios de Steam, MyAnimeList, Discord y foros. Gratis y sin registrarse.">
+<meta name="author" content="emagotchi">
+<link rel="canonical" href="https://emanon.vip/puntitos/">
+<meta property="og:title" content="Puntitos ✦ arte ASCII para comentarios">
+<meta property="og:description" content="Generador ASCII, convierte emojis e imágenes en arte braille para Steam, MyAnimeList, foros y comentarios✦">
+<meta property="og:image" content="https://emanon.vip/assets/og/main.jpg">
+<meta property="og:url" content="https://emanon.vip/puntitos/">
+<meta property="og:locale" content="es_CL">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="emanon">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Puntitos ✦ arte ASCII para comentarios">
+<meta name="twitter:description" content="Generador ASCII, convierte emojis e imágenes en arte braille para Steam, MyAnimeList, foros y comentarios✦">
+<meta name="twitter:image" content="https://emanon.vip/assets/og/main.jpg">
+<link rel="icon" type="image/png" href="https://emanon.vip/assets/favicon.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Puntitos","url":"https://emanon.vip/puntitos/","applicationCategory":"DesignApplication","operatingSystem":"Web","inLanguage":["es","en"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Generador de arte con puntos braille (dot art / ASCII art) para Steam, MyAnimeList y foros: desde emojis, temas o imágenes propias, más una galería de dibujos listos para copiar.","author":{"@type":"Person","name":"emagotchi","url":"https://emanon.vip/"}}
+</script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Figtree:wght@400;500;600&family=Pacifico&family=Noto+Sans+Symbols+2&display=swap">
+<style>
+
+:root {
+  --bg: #F4F2F8;
+  --surface: #FFFFFF;
+  --ink: #231F33;
+  --muted: #6E6886;
+  --line: #E2DEEC;
+  --accent: #B23C78;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #F7E1EC;
+  --ok: #2F7D5B;
+  --warn: #A4561B;
+  --font-display: "Fredoka", "Nunito", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --font-dots: "Noto Sans Symbols 2", "Segoe UI Symbol", "Apple Symbols", sans-serif;
+  --font-mono: "Cascadia Mono", Consolas, "DejaVu Sans Mono", Menlo, monospace;
+  --radius: 14px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14111C; --surface: #1D1928; --ink: #F0EBF7; --muted: #A59DBD; --line: #322A43;
+    --accent: #F49AC8; --accent-ink: #2B0D1E; --accent-soft: #3D2438; --ok: #85D6AD; --warn: #F2B784;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14111C; --surface: #1D1928; --ink: #F0EBF7; --muted: #A59DBD; --line: #322A43;
+  --accent: #F49AC8; --accent-ink: #2B0D1E; --accent-soft: #3D2438; --ok: #85D6AD; --warn: #F2B784;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 20px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; text-wrap: balance; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* header */
+.top { display: grid; gap: 14px; }
+.brand { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.brand h1 { font-size: 2rem; letter-spacing: .01em; }
+.brand .mark { font-family: var(--font-dots); color: var(--accent); font-size: 1.6rem; line-height: 1; }
+.brand p { margin: 0; color: var(--muted); }
+.search { display: flex; gap: 8px; flex-wrap: wrap; }
+.search input[type=search] {
+  flex: 1 1 260px; min-width: 0; padding: 12px 16px; border-radius: 999px; border: 1.5px solid var(--line);
+  background: var(--surface); font-size: 1.05rem;
+}
+.search input[type=search]:focus { border-color: var(--accent); outline: none; }
+.btn {
+  border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 10px 16px; cursor: pointer;
+  font-weight: 500; white-space: nowrap;
+}
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.hints { display: flex; gap: 6px; flex-wrap: wrap; font-size: .85rem; color: var(--muted); align-items: center; }
+#hintList { display: contents; }
+.hints button { border: 0; background: none; color: var(--accent); cursor: pointer; padding: 2px 4px; font-weight: 500; }
+.hints button:hover { text-decoration: underline; }
+
+.brandrow { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.toggles { display: flex; gap: 8px; flex-wrap: wrap; }
+.switch { display: inline-flex; gap: 2px; padding: 3px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); }
+.switch button {
+  border: 0; background: none; border-radius: 999px; padding: 5px 11px; min-height: 32px; cursor: pointer;
+  display: inline-flex; align-items: center; color: var(--muted); font-weight: 600; font-size: .85rem; letter-spacing: .03em;
+}
+.switch button:hover { color: var(--ink); }
+.switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.switch svg { width: 18px; height: 18px; display: block; }
+.seg button code { font-family: var(--font-mono); font-size: .78em; opacity: .75; }
+.stage pre.mono, .card pre.mono, .size pre.mono { font-family: var(--font-mono); line-height: 1.1; }
+.sizes { display: grid; gap: 6px; }
+.sizes-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.size {
+  border: 1.5px solid var(--line); background: var(--bg); border-radius: 10px; padding: 6px; cursor: pointer;
+  display: grid; gap: 4px; text-align: center; min-width: 0; color: var(--ink);
+}
+.size:hover { border-color: var(--muted); }
+.size[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.size pre { margin: 0; font-family: var(--font-dots); line-height: 1.15; overflow: hidden; height: 76px; display: grid; place-items: center; }
+.size span { font-size: .75rem; color: var(--muted); }
+.size span.over { color: var(--warn); }
+
+/* results strip */
+.results { display: grid; grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); gap: 10px; }
+.card {
+  border: 1.5px solid var(--line); background: var(--surface); border-radius: var(--radius); padding: 8px 8px 6px;
+  cursor: pointer; display: grid; gap: 4px; text-align: center; min-width: 0;
+}
+.card:hover { border-color: var(--muted); }
+.card[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.card pre { margin: 0; font-family: var(--font-dots); font-size: 7px; line-height: 1.15; overflow: hidden; height: 84px; display: grid; place-items: center; }
+.card span { font-size: .78rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card.upload { border-style: dashed; place-items: center; color: var(--muted); font-size: .85rem; }
+.card.upload b { font-family: var(--font-display); font-size: 1.6rem; color: var(--accent); font-weight: 500; }
+.card.upload.drag { border-color: var(--accent); background: var(--accent-soft); }
+.card.more { place-items: center; align-content: center; gap: 4px; color: var(--accent); font-size: .85rem; font-weight: 600; border-style: dashed; }
+.card.more b { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; }
+.empty { color: var(--muted); font-size: .9rem; padding: 4px 2px; grid-column: span 2; }
+
+/* workspace */
+.work { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .work { grid-template-columns: minmax(0, 1fr); } }
+.panel { background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 14px; min-width: 0; }
+.panel h2 { font-size: 1.05rem; }
+.side { display: grid; gap: 16px; }
+.field { display: grid; gap: 6px; }
+.field > label, .field > .lbl, .sizes > .lbl { font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+.field output { font-variant-numeric: tabular-nums; color: var(--ink); text-transform: none; letter-spacing: 0; font-weight: 500; }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+input[type=text] { width: 100%; padding: 9px 12px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--bg); }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button {
+  border: 1.5px solid var(--line); background: var(--bg); border-radius: 999px; padding: 5px 11px; cursor: pointer; font-size: .88rem;
+}
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.checks { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .9rem; }
+.checks label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.checks input { accent-color: var(--accent); }
+.hide { display: none !important; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.seg.small button { padding: 3px 9px; font-size: .8rem; }
+.target { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.target b { color: var(--accent); font-weight: 600; }
+.palette { display: flex; flex-wrap: wrap; gap: 4px; max-height: 168px; overflow-y: auto; padding: 2px; }
+.palette button {
+  border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 3px 7px; cursor: pointer;
+  font-family: var(--font-dots), var(--font-body); font-size: .95rem; line-height: 1.3; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.palette button:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+/* output */
+.out { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); }
+.outbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+.stage { border-radius: 12px; overflow: auto; max-height: 72vh; padding: 18px; border: 1.5px solid var(--line); }
+.stage pre { margin: 0; font-family: var(--font-dots); line-height: 1.2; white-space: pre; width: max-content; }
+.stage.skin-steam { background: #1B2838; color: #C6D4DF; border-color: #1B2838; }
+.stage.skin-mal { background: #FFFFFF; color: #323232; border-color: #D8D8D8; }
+.stage.skin-mal pre { font-family: Verdana, var(--font-dots); }
+.stage.skin-plain { background: var(--bg); color: var(--ink); }
+.meta { display: flex; gap: 8px; flex-wrap: wrap; font-size: .85rem; color: var(--muted); align-items: center; }
+.pill { border-radius: 999px; padding: 3px 10px; font-size: .8rem; font-weight: 600; font-variant-numeric: tabular-nums; border: 1.5px solid currentColor; }
+.pill.ok { color: var(--ok); }
+.pill.warn { color: var(--warn); }
+.note { font-size: .85rem; color: var(--muted); margin: 0; }
+.note code { font-family: var(--font-dots); background: var(--accent-soft); color: var(--ink); padding: 0 4px; border-radius: 4px; }
+.toast { font-size: .85rem; color: var(--ok); font-weight: 600; min-height: 1.2em; }
+@media (prefers-reduced-motion: no-preference) { .card, .btn, .seg button { transition: border-color .15s, background .15s, box-shadow .15s; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brandrow">
+      <div class="brand">
+        <span class="mark" aria-hidden="true">⢀⡴⠋⠙⢦⡀</span>
+        <h1>Puntitos</h1>
+        <p data-i18n="tagline">Generador ASCII, Arte en puntos braille, liviano y sin fondo, para Steam, MyAnimeList, foros y comentarios.</p>
+      </div>
+      <div class="toggles">
+        <div class="switch" id="themeSw" role="group" data-i18n-aria="themeAria" aria-label="Tema">
+          <button type="button" data-v="light" data-i18n-title="themeLight" title="Modo claro" data-i18n-aria="themeLight" aria-label="Modo claro">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+          </button>
+          <button type="button" data-v="dark" data-i18n-title="themeDark" title="Modo noche" data-i18n-aria="themeDark" aria-label="Modo noche">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8Z"/><path d="M17 3.5v3M15.5 5h3" stroke-width="1.6"/></svg>
+          </button>
+        </div>
+        <div class="switch" id="langSw" role="group" data-i18n-aria="langAria" aria-label="Idioma">
+          <button type="button" data-v="es" lang="es">ES</button>
+          <button type="button" data-v="en" lang="en">EN</button>
+        </div>
+      </div>
+    </div>
+    <form class="search" id="searchForm" role="search">
+      <input type="search" id="q" value="" data-i18n-ph="qPh" placeholder="Busca un tema: halloween, navidad, gato, luna… o pega un emoji 🐭" data-i18n-aria="qAria" aria-label="Tema a buscar" autocomplete="off">
+      <button class="btn primary" type="submit" data-i18n="search">Buscar</button>
+      <button class="btn" type="button" id="uploadBtn" data-i18n="upload">Subir imagen</button>
+      <input type="file" id="file" accept="image/*" hidden>
+    </form>
+    <div class="hints" id="hints"><span data-i18n="try">Prueba:</span><span id="hintList"></span></div>
+  </header>
+
+  <section class="results" id="results" data-i18n-aria="resultsAria" aria-label="Opciones generadas"></section>
+
+  <main class="work">
+    <div class="side">
+      <section class="panel" aria-labelledby="hDib">
+        <h2 id="hDib" data-i18n="hDraw">Dibujo</h2>
+        <div class="field">
+          <label for="width"><span data-i18n="width">Ancho</span> <output id="widthOut"></output></label>
+          <input type="range" id="width" min="8" max="80" value="28">
+          <div class="seg" id="widthPresets">
+            <button type="button" data-w="20" data-i18n="wMini">Mini</button>
+            <button type="button" data-w="28" data-i18n="wComment">Comentario</button>
+            <button type="button" data-w="40" data-i18n="wProfile">Perfil</button>
+            <button type="button" data-w="60" data-i18n="wBig">Grande</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl" data-i18n="style">Estilo</span>
+          <div class="seg" id="mode">
+            <button type="button" data-v="tinta" data-i18n="mTinta">Ilustración</button>
+            <button type="button" data-v="lineas" data-i18n="mLineas">Líneas</button>
+            <button type="button" data-v="mixto" data-i18n="mMixto">Líneas + sombras</button>
+            <button type="button" data-v="relleno" data-i18n="mRelleno">Relleno</button>
+            <button type="button" data-v="letras" data-i18n="mLetras">Letras</button>
+          </div>
+        </div>
+        <p class="note" data-for="tinta" data-i18n="noteTinta">Para dibujos con contorno (stickers, pines, fanart). Sigue las líneas del dibujo y las deja de un punto.</p>
+        <p class="note" data-for="letras" data-i18n="noteLetras">Cada letra representa el brillo de su zona (@ oscuro, . claro). Va bien con fotos y degradados.</p>
+        <div class="field" data-for="tinta">
+          <label for="ink"><span data-i18n="ink">Tinta</span> <output id="inkOut"></output></label>
+          <input type="range" id="ink" min="15" max="75" value="45">
+        </div>
+        <div class="checks" data-for="tinta">
+          <label><input type="checkbox" id="solid"> <span data-i18n="solid">Rellenar zonas negras</span></label>
+          <label><input type="checkbox" id="color" checked> <span data-i18n="color">Incluir líneas de color</span></label>
+        </div>
+        <div class="field" data-for="letras">
+          <span class="lbl" data-i18n="ramp">Caracteres</span>
+          <div class="seg" id="ramp">
+            <button type="button" data-v="clasico"><span data-i18n="rampClasico">Clásico</span> <code>@%#*+=-:.</code></button>
+            <button type="button" data-v="suave"><span data-i18n="rampSuave">Suave</span> <code>@#S%?*+;:,.</code></button>
+            <button type="button" data-v="detalle"><span data-i18n="rampDetalle">Detallado</span> <code>$@B%8&amp;WM…</code></button>
+          </div>
+        </div>
+        <div class="field" data-for="letras">
+          <label for="contrast"><span data-i18n="contrast">Contraste</span> <output id="contrastOut"></output></label>
+          <input type="range" id="contrast" min="0" max="100" value="60">
+        </div>
+        <div class="field" data-for="lineas mixto">
+          <label for="detail"><span data-i18n="detail">Detalle</span> <output id="detailOut"></output></label>
+          <input type="range" id="detail" min="0" max="100" value="55">
+        </div>
+        <div class="field" data-for="lineas mixto">
+          <label for="smooth"><span data-i18n="smooth">Suavizado</span> <output id="smoothOut"></output></label>
+          <input type="range" id="smooth" min="0" max="40" value="12">
+        </div>
+        <div class="field" data-for="mixto">
+          <label for="dark"><span data-i18n="dark">Zonas oscuras</span> <output id="darkOut"></output></label>
+          <input type="range" id="dark" min="0" max="60" value="22">
+        </div>
+        <div class="field" data-for="relleno">
+          <label for="thr"><span data-i18n="thr">Umbral</span> <output id="thrOut"></output></label>
+          <input type="range" id="thr" min="5" max="95" value="55">
+        </div>
+        <div class="field" data-for="relleno">
+          <span class="lbl" data-i18n="dither">Tramado</span>
+          <div class="seg" id="ditherKind">
+            <button type="button" data-v="atkinson" data-i18n="dAtk">Limpio (Atkinson)</button>
+            <button type="button" data-v="floyd" data-i18n="dFloyd">Suave (Floyd–Steinberg)</button>
+            <button type="button" data-v="no" data-i18n="dNo">Sin tramado</button>
+          </div>
+        </div>
+        <div class="field" data-for="tinta lineas mixto relleno">
+          <label for="clean"><span data-i18n="clean">Limpiar puntitos sueltos</span> <output id="cleanOut"></output></label>
+          <input type="range" id="clean" min="0" max="8" value="2">
+        </div>
+        <div class="field">
+          <label for="ratio"><span data-i18n="ratio">Alto</span> <output id="ratioOut"></output></label>
+          <input type="range" id="ratio" min="60" max="160" value="100">
+        </div>
+        <div class="checks">
+          <label data-for="tinta lineas mixto relleno"><input type="checkbox" id="thick"> <span data-i18n="thick">Línea gruesa</span></label>
+          <label data-for="tinta lineas mixto relleno"><input type="checkbox" id="autoLevels" checked> <span data-i18n="autoLevels">Contraste automático</span></label>
+          <label><input type="checkbox" id="invert"> <span data-i18n="invert">Invertir</span></label>
+          <label><input type="checkbox" id="trim" checked> <span data-i18n="trim">Recortar bordes</span></label>
+          <label data-for="letras"><input type="checkbox" id="codeWrap"> <span data-i18n="codeWrap">Envolver en [code]</span></label>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="hTxt">
+        <h2 id="hTxt" data-i18n="hText">Texto</h2>
+        <div class="field">
+          <label for="phrase" data-i18n="phrase">Frase</label>
+          <input type="text" id="phrase" value="happy halloween">
+        </div>
+        <div class="field">
+          <span class="lbl" data-i18n="fontL">Letra</span>
+          <div class="seg" id="font"></div>
+        </div>
+        <div class="field">
+          <span class="lbl" data-i18n="decoL">Adornos listos</span>
+          <div class="seg" id="deco"></div>
+        </div>
+        <div class="pair">
+          <div class="field">
+            <label for="decoStart" data-i18n="start">Inicio</label>
+            <input type="text" id="decoStart" value="⋆｡ﾟ✶°">
+          </div>
+          <div class="field">
+            <label for="decoEnd" data-i18n="end">Final</label>
+            <input type="text" id="decoEnd" value="°✶ﾟ｡⋆">
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl"><span data-i18n="symbols">Símbolos</span> <span class="target"><span data-i18n="addedIn">se agregan en:</span> <b id="targetName">Final</b></span></span>
+          <div class="seg small" id="palCat"></div>
+          <div class="palette" id="palette"></div>
+          <p class="note" data-i18n="palNote">Toca un campo (Frase, Inicio o Final) y luego un símbolo para agregarlo ahí. También puedes pegar lo que copies de cualquier página de símbolos.</p>
+        </div>
+        <div class="field">
+          <span class="lbl" data-i18n="posL">Posición</span>
+          <div class="seg" id="pos">
+            <button type="button" data-v="abajo" data-i18n="pAbajo">Abajo</button>
+            <button type="button" data-v="lado" data-i18n="pLado">Al lado</button>
+            <button type="button" data-v="pila" data-i18n="pPila">En pila</button>
+            <button type="button" data-v="arriba" data-i18n="pArriba">Arriba</button>
+            <button type="button" data-v="no" data-i18n="pNo">Sin texto</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl" data-i18n="bigL">Frase gigante en puntos</span>
+          <div class="seg" id="big">
+            <button type="button" data-v="no" data-i18n="bNo">No</button>
+            <button type="button" data-v="cursiva" data-i18n="bCursiva">Cursiva</button>
+            <button type="button" data-v="redonda" data-i18n="bRedonda">Redondita</button>
+          </div>
+        </div>
+        <div class="checks">
+          <label><input type="checkbox" id="sparkle"> <span data-i18n="sparkle">Estrellitas alrededor</span></label>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel out" aria-labelledby="hOut">
+      <div class="outbar">
+        <h2 id="hOut" data-i18n="hOut">Resultado</h2>
+        <div class="seg" id="skin" data-i18n-aria="skinAria" aria-label="Vista previa">
+          <button type="button" data-v="steam">Steam</button>
+          <button type="button" data-v="mal">MyAnimeList</button>
+          <button type="button" data-v="plain" data-i18n="skinPlain">Simple</button>
+        </div>
+      </div>
+      <div class="stage" id="stage"><pre id="output"></pre></div>
+      <div class="outbar">
+        <div class="meta" id="meta"></div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span class="toast" id="toast" role="status"></span>
+          <button class="btn primary" type="button" id="copy" data-i18n="copy">Copiar</button>
+        </div>
+      </div>
+      <div class="sizes" id="sizesBox">
+        <span class="lbl" data-i18n="sizesL">Compara tamaños: toca uno para usarlo</span>
+        <div class="sizes-row" id="sizes"></div>
+      </div>
+      <div class="field">
+        <label for="fontSize"><span data-i18n="fontSize">Tamaño de la vista previa</span> <output id="fontSizeOut"></output></label>
+        <input type="range" id="fontSize" min="6" max="22" value="12">
+      </div>
+      <p class="note" id="outNote"></p>
+    </section>
+  </main>
+</div>
+
+<script>
+// ===== CORE-START (sin DOM) =====
+const BL = '⠀';
+const DOTS = [[0,0,1],[1,0,2],[2,0,4],[0,1,8],[1,1,16],[2,1,32],[3,0,64],[3,1,128]];
+
+function gaussBlur(a, W, H, s) {
+  if (s < 0.3) return;
+  const r = Math.ceil(s * 2.5), k = [];
+  let sum = 0;
+  for (let i = -r; i <= r; i++) { const v = Math.exp(-i * i / (2 * s * s)); k.push(v); sum += v; }
+  for (let i = 0; i < k.length; i++) k[i] /= sum;
+  const t = new Float32Array(a.length);
+  for (let y = 0; y < H; y++) {
+    const o = y * W;
+    for (let x = 0; x < W; x++) {
+      let v = 0;
+      for (let i = -r; i <= r; i++) { let xx = x + i; xx = xx < 0 ? 0 : xx >= W ? W - 1 : xx; v += a[o + xx] * k[i + r]; }
+      t[o + x] = v;
+    }
+  }
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < W; x++) {
+      let v = 0;
+      for (let i = -r; i <= r; i++) { let yy = y + i; yy = yy < 0 ? 0 : yy >= H ? H - 1 : yy; v += t[yy * W + x] * k[i + r]; }
+      a[y * W + x] = v;
+    }
+  }
+}
+
+function canny(d, W, H, o) {
+  const n = W * H;
+  const C = [new Float32Array(n), new Float32Array(n), new Float32Array(n)];
+  for (let i = 0; i < n; i++) { C[0][i] = d[i * 4] / 255; C[1][i] = d[i * 4 + 1] / 255; C[2][i] = d[i * 4 + 2] / 255; }
+  if (o.alpha) C.push(Float32Array.from(o.alpha, v => v / 255));
+  const NC = C.length;
+  const sig = o.smooth * o.S / 2;
+  C.forEach(a => gaussBlur(a, W, H, sig));
+  const mag = new Float32Array(n), dir = new Uint8Array(n);
+  for (let y = 0; y < H; y++) {
+    const ym = (y > 0 ? y - 1 : 0) * W, y0 = y * W, yp = (y < H - 1 ? y + 1 : y) * W;
+    for (let x = 0; x < W; x++) {
+      const xm = x > 0 ? x - 1 : 0, xp = x < W - 1 ? x + 1 : x;
+      let best = -1, bx = 0, by = 0;
+      for (let c = 0; c < NC; c++) {
+        const a = C[c];
+        const gx = (a[ym + xp] + 2 * a[y0 + xp] + a[yp + xp]) - (a[ym + xm] + 2 * a[y0 + xm] + a[yp + xm]);
+        const gy = (a[yp + xm] + 2 * a[yp + x] + a[yp + xp]) - (a[ym + xm] + 2 * a[ym + x] + a[ym + xp]);
+        const m = gx * gx + gy * gy;
+        if (m > best) { best = m; bx = gx; by = gy; }
+      }
+      const i = y0 + x;
+      mag[i] = Math.sqrt(best);
+      let ang = Math.atan2(by, bx) * 180 / Math.PI; if (ang < 0) ang += 180;
+      dir[i] = ang < 22.5 || ang >= 157.5 ? 0 : ang < 67.5 ? 1 : ang < 112.5 ? 2 : 3;
+    }
+  }
+
+  const sample = [];
+  const step = Math.max(1, Math.floor(n / 40000));
+  for (let i = 0; i < n; i += step) if (mag[i] > 0.02) sample.push(mag[i]);
+  sample.sort((p, q) => p - q);
+  const ref = sample.length ? sample[Math.floor(sample.length * 0.98)] : 1;
+  const hi = o.hi * ref, lo = hi * 0.4;
+  const nms = new Float32Array(n);
+  for (let y = 1; y < H - 1; y++) {
+    for (let x = 1; x < W - 1; x++) {
+      const i = y * W + x, m = mag[i];
+      if (m < lo) continue;
+      let a, b;
+      switch (dir[i]) {
+        case 0: a = mag[i - 1]; b = mag[i + 1]; break;
+        case 1: a = mag[i - W - 1]; b = mag[i + W + 1]; break;
+        case 2: a = mag[i - W]; b = mag[i + W]; break;
+        default: a = mag[i - W + 1]; b = mag[i + W - 1];
+      }
+      if (m >= a && m >= b) nms[i] = m;
+    }
+  }
+  const e = new Uint8Array(n), stack = [];
+  for (let i = 0; i < n; i++) if (nms[i] >= hi) { e[i] = 1; stack.push(i); }
+  while (stack.length) {
+    const i = stack.pop(), x = i % W, y = (i / W) | 0;
+    for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+      const xx = x + dx, yy = y + dy;
+      if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue;
+      const j = yy * W + xx;
+      if (!e[j] && nms[j] >= lo) { e[j] = 1; stack.push(j); }
+    }
+  }
+  return e;
+}
+
+function removeSmall(on, pw, ph, minSize) {
+  if (minSize <= 0) return;
+  const seen = new Uint8Array(on.length);
+  for (let s = 0; s < on.length; s++) {
+    if (!on[s] || seen[s]) continue;
+    const comp = [s], q = [s]; seen[s] = 1;
+    while (q.length) {
+      const i = q.pop(), x = i % pw, y = (i / pw) | 0;
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        const xx = x + dx, yy = y + dy;
+        if (xx < 0 || yy < 0 || xx >= pw || yy >= ph) continue;
+        const j = yy * pw + xx;
+        if (on[j] && !seen[j]) { seen[j] = 1; q.push(j); comp.push(j); }
+      }
+    }
+    if (comp.length <= minSize) for (const i of comp) on[i] = 0;
+  }
+}
+
+// Erosión (er=1) o dilatación (er=0) con vecindad 3x3.
+function morph(a, pw, ph, er) {
+  const b = new Uint8Array(a.length);
+  for (let y = 0; y < ph; y++) for (let x = 0; x < pw; x++) {
+    let k = er ? 1 : 0;
+    for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+      const xx = x + dx, yy = y + dy, v = (xx < 0 || yy < 0 || xx >= pw || yy >= ph) ? 0 : a[yy * pw + xx];
+      if (er && !v) k = 0; else if (!er && v) k = 1;
+    }
+    b[y * pw + x] = k;
+  }
+  return b;
+}
+
+// Adelgazado Zhang-Suen: deja trazos gruesos en líneas de 1 punto.
+function thin(on, pw, ph) {
+  const at = (x, y) => (x < 0 || y < 0 || x >= pw || y >= ph) ? 0 : on[y * pw + x];
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (let pass = 0; pass < 2; pass++) {
+      const del = [];
+      for (let y = 0; y < ph; y++) for (let x = 0; x < pw; x++) {
+        if (!on[y * pw + x]) continue;
+        const p2 = at(x, y - 1), p3 = at(x + 1, y - 1), p4 = at(x + 1, y), p5 = at(x + 1, y + 1),
+              p6 = at(x, y + 1), p7 = at(x - 1, y + 1), p8 = at(x - 1, y), p9 = at(x - 1, y - 1);
+        const B = p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9;
+        if (B < 2 || B > 6) continue;
+        const seq = [p2, p3, p4, p5, p6, p7, p8, p9, p2];
+        let A = 0;
+        for (let i = 0; i < 8; i++) if (!seq[i] && seq[i + 1]) A++;
+        if (A !== 1) continue;
+        if (pass === 0 ? (p2 && p4 && p6) || (p4 && p6 && p8) : (p2 && p4 && p8) || (p2 && p6 && p8)) continue;
+        del.push(y * pw + x);
+      }
+      if (del.length) { changed = true; for (const i of del) on[i] = 0; }
+    }
+  }
+}
+
+// d: RGBA de tamaño (pw*S) x (ph*S). Devuelve la grilla de puntos pw x ph.
+function dotsFromPixels(d, W, H, o) {
+  const S = o.S, pw = W / S, ph = H / S;
+  const on = new Uint8Array(pw * ph), lum = new Float32Array(pw * ph);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const i = (y * W + x) * 4;
+    lum[((y / S) | 0) * pw + ((x / S) | 0)] += (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) / 255;
+  }
+  for (let i = 0; i < lum.length; i++) lum[i] /= S * S;
+  if (o.mode === 'tinta') {
+    const n = pw * ph, dark = new Float32Array(n), col = new Float32Array(n), cm = new Uint8Array(n);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      const i = (y * W + x) * 4, r = d[i] / 255, g = d[i + 1] / 255, b = d[i + 2] / 255;
+      const l = 0.299 * r + 0.587 * g + 0.114 * b, mx = Math.max(r, g, b), sat = mx ? (mx - Math.min(r, g, b)) / mx : 0;
+      const j = ((y / S) | 0) * pw + ((x / S) | 0);
+      if (l < o.ink) dark[j]++; else if (o.color && sat > 0.45 && l < 0.85) col[j]++;
+    }
+    for (let i = 0; i < n; i++) { on[i] = dark[i] / (S * S) >= 0.15 ? 1 : 0; cm[i] = col[i] / (S * S) >= 0.3 ? 1 : 0; }
+    if (o.color) { 
+      const fat = morph(morph(morph(cm, pw, ph, 1), pw, ph, 0), pw, ph, 0);
+      for (let i = 0; i < n; i++) if (cm[i] && !fat[i]) on[i] = 1;
+    }
+    removeSmall(on, pw, ph, o.clean);
+    const core = morph(morph(on, pw, ph, 1), pw, ph, 0);
+    thin(on, pw, ph);
+    if (o.solid) { for (let i = 0; i < n; i++) on[i] |= core[i]; }
+    else {
+      const inner = morph(core, pw, ph, 1);
+      for (let i = 0; i < n; i++) on[i] = inner[i] ? 0 : (on[i] | core[i]);
+    }
+  } else if (o.mode === 'relleno') {
+    if (o.dither) {
+      // Atkinson reparte solo 6/8 del error: deja más blanco limpio y menos ruido en dibujos chicos.
+      // Floyd–Steinberg reparte todo: degradados más suaves pero más puntitos sueltos.
+      const K = o.dither === 'floyd'
+        ? [[1, 0, 7 / 16], [-1, 1, 3 / 16], [0, 1, 5 / 16], [1, 1, 1 / 16]]
+        : [[1, 0, 1 / 8], [2, 0, 1 / 8], [-1, 1, 1 / 8], [0, 1, 1 / 8], [1, 1, 1 / 8], [0, 2, 1 / 8]];
+      const L = Float32Array.from(lum);
+      for (let y = 0; y < ph; y++) for (let x = 0; x < pw; x++) {
+        const i = y * pw + x, v = L[i] < o.thr ? 0 : 1, err = L[i] - v;
+        on[i] = v ? 0 : 1;
+        for (const [dx, dy, f] of K) {
+          const xx = x + dx, yy = y + dy;
+          if (xx >= 0 && xx < pw && yy < ph) L[yy * pw + xx] += err * f;
+        }
+      }
+    } else {
+      for (let i = 0; i < on.length; i++) on[i] = lum[i] < o.thr ? 1 : 0;
+    }
+  } else {
+    const e = canny(d, W, H, o);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (e[y * W + x]) on[((y / S) | 0) * pw + ((x / S) | 0)] = 1;
+    if (o.mode === 'mixto') for (let i = 0; i < on.length; i++) if (lum[i] < o.dark) on[i] = 1;
+  }
+  if (o.thin) thin(on, pw, ph);
+  if (o.mode !== 'tinta') removeSmall(on, pw, ph, o.clean);
+  if (o.thick) {
+    const c = Uint8Array.from(on);
+    for (let y = 0; y < ph; y++) for (let x = 0; x < pw; x++) if (c[y * pw + x]) {
+      if (x + 1 < pw) on[y * pw + x + 1] = 1;
+      if (y + 1 < ph) on[(y + 1) * pw + x] = 1;
+    }
+  }
+  if (o.invert) for (let i = 0; i < on.length; i++) on[i] ^= 1;
+  return { on, pw, ph };
+}
+
+// Contraste automático (idea de emojicombos): el gris más oscuro pasa a negro y el más claro a blanco.
+// Ignora el 0,5% de cada extremo para que un par de píxeles sueltos no lo anulen.
+function autoLevels(d, n, alpha) {
+  const hist = new Uint32Array(256);
+  let total = 0;
+  for (let i = 0; i < n; i++) {
+    if (alpha && alpha[i] < 128) continue;
+    hist[Math.round(0.299 * d[i * 4] + 0.587 * d[i * 4 + 1] + 0.114 * d[i * 4 + 2])]++; total++;
+  }
+  if (!total) return;
+  const cut = total * 0.005;
+  let lo = 0, hi = 255;
+  for (let acc = 0; lo < 255 && (acc += hist[lo]) <= cut; lo++);
+  for (let acc = 0; hi > 0 && (acc += hist[hi]) <= cut; hi--);
+  if (hi - lo < 24 || (lo <= 4 && hi >= 251)) return;
+  const k = 255 / (hi - lo);
+  for (let i = 0; i < n * 4; i++) {
+    if ((i & 3) === 3) continue;
+    d[i] = Math.max(0, Math.min(255, (d[i] - lo) * k));
+  }
+}
+
+function toCells(on, pw, ph) {
+  const rows = [];
+  for (let cy = 0; cy < ph / 4; cy++) {
+    const row = [];
+    for (let cx = 0; cx < pw / 2; cx++) {
+      let v = 0;
+      for (const [dy, dx, b] of DOTS) if (on[(cy * 4 + dy) * pw + cx * 2 + dx]) v |= b;
+      row.push(v);
+    }
+    rows.push(row);
+  }
+  return rows;
+}
+
+function trimCells(rows) {
+  let t = rows.length, b = -1, l = Infinity, r = -1;
+  rows.forEach((row, y) => row.forEach((v, x) => {
+    if (v) { t = Math.min(t, y); b = Math.max(b, y); l = Math.min(l, x); r = Math.max(r, x); }
+  }));
+  if (b < 0) return [[0]];
+  return rows.slice(t, b + 1).map(row => row.slice(l, r + 1));
+}
+
+function cellsToLines(rows) { return rows.map(row => row.map(v => String.fromCharCode(0x2800 + v))); }
+
+const RAMPS = {
+  clasico: '@%#*+=-:. ',
+  suave: '@#S%?*+;:,. ',
+  detalle: '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,"^`\'. ',
+};
+function charsFromPixels(d, W, H, o) {
+  const S = o.S, cw = W / S, ch = H / S, n = cw * ch, lum = new Float32Array(n);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const i = (y * W + x) * 4;
+    lum[((y / S) | 0) * cw + ((x / S) | 0)] += (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) / 255;
+  }
+  for (let i = 0; i < n; i++) lum[i] /= S * S;
+  const s = Array.from(lum).sort((a, b) => a - b);
+  const lo = s[Math.floor(n * 0.02)] * o.contrast, hi = 1 - (1 - s[Math.floor(n * 0.98)]) * o.contrast;
+  const ramp = RAMPS[o.ramp] || RAMPS.clasico, last = ramp.length - 1, rows = [];
+  for (let y = 0; y < ch; y++) {
+    const row = [];
+    for (let x = 0; x < cw; x++) {
+      let v = Math.min(1, Math.max(0, (lum[y * cw + x] - lo) / Math.max(0.05, hi - lo)));
+      if (o.invert) v = 1 - v;
+      row.push(ramp[Math.min(last, Math.floor(v * last + 0.5))]);
+    }
+    rows.push(row);
+  }
+  return rows;
+}
+function trimChars(rows) {
+  let t = rows.length, b = -1, l = Infinity, r = -1;
+  rows.forEach((row, y) => row.forEach((c, x) => { if (c !== ' ') { t = Math.min(t, y); b = Math.max(b, y); l = Math.min(l, x); r = Math.max(r, x); } }));
+  if (b < 0) return [[' ']];
+  return rows.slice(t, b + 1).map(row => row.slice(l, r + 1));
+}
+
+function rng(seed) {
+  return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+
+// Reemplaza algunas celdas vacías lejos del dibujo por estrellitas (como en los ejemplos de navidad).
+function sprinkle(grid, seed) {
+  const R = rng(seed), stars = ['⊹', '⋆', '˚', '✦', '.', '✧'];
+  const H = grid.length;
+  const filled = (y, x) => y >= 0 && y < H && x >= 0 && x < grid[y].length && grid[y][x] !== BL;
+  const snap = grid.map(r => r.slice());
+  for (let y = 0; y < H; y++) for (let x = 0; x < grid[y].length; x++) {
+    if (snap[y][x] !== BL) continue;
+    let near = false;
+    for (let dy = -1; dy <= 1 && !near; dy++) for (let dx = -2; dx <= 2; dx++) if (y + dy >= 0 && y + dy < H && snap[y + dy][x + dx] && snap[y + dy][x + dx] !== BL) { near = true; break; }
+    if (!near && R() < 0.05) grid[y][x] = stars[(R() * stars.length) | 0];
+  }
+  return grid;
+}
+
+function mapAlpha(s, base, exc) {
+  return [...s].map(ch => {
+    if (exc && exc[ch]) return exc[ch];
+    const c = ch.charCodeAt(0);
+    if (c >= 65 && c <= 90 && base.A) return String.fromCodePoint(base.A + c - 65);
+    if (c >= 97 && c <= 122 && base.a) return String.fromCodePoint(base.a + c - 97);
+    if (c >= 48 && c <= 57 && base.d) return String.fromCodePoint(base.d + c - 48);
+    return ch;
+  }).join('');
+}
+const SMALLCAPS = { a:'ᴀ',b:'ʙ',c:'ᴄ',d:'ᴅ',e:'ᴇ',f:'ꜰ',g:'ɢ',h:'ʜ',i:'ɪ',j:'ᴊ',k:'ᴋ',l:'ʟ',m:'ᴍ',n:'ɴ',o:'ᴏ',p:'ᴘ',q:'ǫ',r:'ʀ',s:'ꜱ',t:'ᴛ',u:'ᴜ',v:'ᴠ',w:'ᴡ',x:'x',y:'ʏ',z:'ᴢ' };
+const FONTS = {
+  normal:  { label: 'normal', en: 'normal', fn: s => s },
+  script:  { label: '𝒸𝓊𝓇𝓈𝒾𝓋𝒶', en: '𝓈𝒸𝓇𝒾𝓅𝓉', fn: s => mapAlpha(s, { A: 0x1D49C, a: 0x1D4B6 }, { B:'ℬ',E:'ℰ',F:'ℱ',H:'ℋ',I:'ℐ',L:'ℒ',M:'ℳ',R:'ℛ',e:'𝑒',g:'ℊ',o:'ℴ' }) },
+  // primera letra de cada palabra en cursiva caligráfica y el resto en itálica con serifa (𝓁𝑖𝑡𝑡𝑙𝑒 𝒶𝑛𝑔𝑒𝑙)
+  angel:   { label: '𝒶𝑛𝑔𝑒𝑙𝑖𝑡𝑜', en: '𝓁𝑖𝑡𝑡𝑙𝑒 𝒶𝑛𝑔𝑒𝑙', fn: s => s.replace(/\S+/gu, w => { const [f, ...r] = [...w]; return FONTS.script.fn(f) + mapAlpha(r.join(''), { A: 0x1D434, a: 0x1D44E }, { h: 'ℎ' }); }) },
+  sans:    { label: '𝗌𝖺𝗇𝗌', en: '𝗌𝖺𝗇𝗌', fn: s => mapAlpha(s, { A: 0x1D5A0, a: 0x1D5BA, d: 0x1D7E2 }) },
+  italic:  { label: '𝘪𝘵𝘢𝘭𝘪𝘤𝘢', en: '𝘪𝘵𝘢𝘭𝘪𝘤', fn: s => mapAlpha(s, { A: 0x1D608, a: 0x1D622 }) },
+  small:   { label: 'ᴠᴇʀꜱᴀʟɪᴛᴀꜱ', en: 'ꜱᴍᴀʟʟ ᴄᴀᴘꜱ', fn: s => [...s.toLowerCase()].map(c => SMALLCAPS[c] || c).join('') },
+  bold:    { label: '𝐧𝐞𝐠𝐫𝐢𝐭𝐚', en: '𝐛𝐨𝐥𝐝', fn: s => mapAlpha(s, { A: 0x1D400, a: 0x1D41A, d: 0x1D7CE }) },
+  double:  { label: '𝕕𝕠𝕓𝕝𝕖', en: '𝕕𝕠𝕦𝕓𝕝𝕖', fn: s => mapAlpha(s, { A: 0x1D538, a: 0x1D552, d: 0x1D7D8 }, { C:'ℂ',H:'ℍ',N:'ℕ',P:'ℙ',Q:'ℚ',R:'ℝ',Z:'ℤ' }) },
+  wide:    { label: 'ａｎｃｈａ', en: 'ｗｉｄｅ', fn: s => [...s].map(c => c === ' ' ? '　' : (c > ' ' && c <= '~') ? String.fromCharCode(c.charCodeAt(0) + 0xFEE0) : c).join('') },
+};
+// [inicio, final]: muchos combinan un símbolo al principio y otro distinto al final.
+const DECO_PRESETS = [
+  ['', ''], ['⋆｡ﾟ✶°', '°✶ﾟ｡⋆'], ['⊹₊˚', '˚₊⊹'], ['♡', '♡'], ['✧･ﾟ: *✧･ﾟ:*', '*:･ﾟ✧*:･ﾟ✧'], ['‹𝟑', '‹𝟑'],
+  ['˚ʚ♡ɞ˚', '˚ʚ♡ɞ˚'], ['⋆˙⟡', '⟡˙⋆'], ['★彡', '彡★'], ['‧₊˚✩', '✩˚₊‧'], ['୨୧', '୨୧'], ['˗ˏˋ', 'ˎˊ˗'],
+  ['꒰', '꒱'], ['𓆩♡𓆪', '𓆩♡𓆪'], ['☆ﾟ.*･｡ﾟ', 'ﾟ｡･*.ﾟ☆'], ['✿', '✿'], ['⋆ ˚｡⋆୨୧˚', '˚୨୧⋆｡˚ ⋆'],
+  ['🎀', '🎀'], ['☾⋆', '⋆☽'], ['ฅ^•ﻌ•^ฅ', '♡'], ['(˶˃ ᵕ ˂˶)', '.ᐟ.ᐟ'], ['🕸', '🦇'], ['❄', '☃'],
+];
+const PALETTE = {
+  'Estrellas': ['⋆', '✦', '✧', '★', '☆', '✩', '✪', '✫', '✬', '✭', '✮', '✯', '✰', '⊹', '˚', '₊', '⁺', '✶', '✷', '✸', '✹', '⟡', '✺', '°', '｡', 'ﾟ', '･', '☾', '☽', '☁︎', '⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆', '⋆⁺₊⋆ ☾⋆⁺₊⋆', '‧₊˚✩彡'],
+  'Corazones': ['♡', '♥', '❤', '❥', '❣', 'ღ', 'ʚ♡ɞ', 'ε♡з', '‹𝟑', '❦', '❧', '𓆩♡𓆪', '♡⃛', '⸜(｡˃ ᵕ ˂ )⸝♡', '꒰ ♡ ꒱'],
+  'Flores y lazos': ['✿', '❀', '❁', '✾', '❃', '❋', 'ꕤ', 'ꕥ', '𖧷', '⚘', '୨୧', '⁀➷', '꒰', '꒱', 'ʚ', 'ɞ', '🌸', '🎀', '🌷', '🍓'],
+  'Puntitos': ['·', '•', '∘', '○', '◦', '⋅', '‧', '˖', '⸝⸝', '⁎', '﹡', '⁂', '※', '∗', '⊛', '✼', '☼', '⛤', 'ﾟ｡', '.ᐟ', '.ᐟ.ᐟ'],
+  'Separadores': ['━━━━━ ✦ ━━━━━', '┈┈┈┈┈┈┈┈', '・゜゜・。。・゜゜', '˚₊‧꒰ა ☆ ໒꒱ ‧₊˚', '﹌﹌﹌﹌', '︶꒦꒷︶꒦꒷︶', '═══ ∘◦❁◦∘ ═══', '⋆｡°✩ ⋆｡°✩', '꒷꒦︶꒷꒦︶'],
+  'Caritas': ['(˶˃ ᵕ ˂˶)', '(｡•̀ᴗ-)✧', 'ฅ^•ﻌ•^ฅ', '( ˘ ³˘)♥', '(っ˘ω˘ς )', 'ʕ•ᴥ•ʔ', '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧', '٩(◕‿◕)۶', '(◕ᴗ◕✿)', '₍ᐢ. .ᐢ₎', '(╥﹏╥)', '≽^•⩊•^≼', '૮ ˶ᵔ ᵕ ᵔ˶ ა', '(∩˃o˂∩)♡', '( ´ ▽ ` )ﾉ', '(─‿‿─)♡'],
+  'Temas': ['🕸', '☠', '⚰', '🦇', '🎃', '👻', '❄', '☃', '🎄', '✝', '🎂', '🎈', '🌙', '☀', '🍂', '🎮', '♪', '♫', '☕'],
+};
+
+const cpLen = s => [...s].length;
+
+function compose(grid, text, pos, big, BL = '⠀') {
+  const artW = Math.max(1, ...grid.map(r => r.length));
+  const center = (line, w) => BL.repeat(Math.max(0, Math.floor((w - cpLen(line)) / 2))) + line;
+  let lines = grid.map(r => r.join(''));
+  const bigLines = big ? big.map(r => r.join('')) : [];
+  const fullW = Math.max(artW, ...bigLines.map(cpLen));
+  if (bigLines.length) {
+    const pad = (l, w) => BL.repeat(Math.max(0, Math.floor((fullW - w) / 2))) + l;
+    lines = lines.map(l => pad(l, artW)).concat([BL], bigLines.map(l => pad(l, cpLen(l))));
+  }
+  if (!text.length || pos === 'no') return lines.join('\n');
+  if (pos === 'lado') {
+    const start = Math.max(0, Math.floor((lines.length - text.length) / 2));
+    const w = Math.max(...lines.map(cpLen));
+    return lines.map((l, i) => {
+      const t = text[i - start];
+      return t === undefined ? l : l + BL.repeat(w - cpLen(l) + 2) + t;
+    }).concat(text.slice(lines.length - start).map(t => BL.repeat(w + 2) + t)).join('\n');
+  }
+  const w = Math.max(...lines.map(cpLen));
+  const block = text.map(t => center(t, w));
+  return (pos === 'arriba' ? block.concat(lines) : lines.concat(block)).join('\n');
+}
+// ===== CORE-END =====
+
+const THEMES = [
+  { k: ['halloween', 'calabaza', 'pumpkin', 'bruja', 'witch', 'terror', 'spooky', 'miedo', 'octubre'], e: ['🎃', '🦇', '👻', '🕷️', '💀', '🕸️', '🧙', '🍬'], p: 'happy halloween' },
+  { k: ['murcielago', 'bat', 'vampiro', 'vampire', 'dracula'], e: ['🦇', '🧛', '🌙'], p: 'happy halloween' },
+  { k: ['fantasma', 'ghost', 'boo'], e: ['👻', '💀', '🕯️'], p: 'boo!' },
+  { k: ['navidad', 'christmas', 'xmas', 'santa', 'arbol', 'nieve', 'snow', 'diciembre', 'reno'], e: ['🎄', '⛄', '🎅', '🎁', '❄️', '⭐', '🦌', '🔔'], p: 'merry christmas' },
+  { k: ['ano nuevo', 'new year', 'newyear', 'fiesta', 'party', 'celebrar', 'fuegos'], e: ['🎆', '🥂', '🎉', '✨', '🍾', '🎇'], p: 'happy new year' },
+  { k: ['amor', 'love', 'corazon', 'heart', 'san valentin', 'valentine', 'te quiero', 'novia', 'novio'], e: ['💖', '💌', '🌹', '💘', '🧸', '💕'], p: 'i love you' },
+  { k: ['cumpleanos', 'birthday', 'cumple', 'bday', 'torta', 'pastel', 'cake'], e: ['🎂', '🎈', '🎁', '🧁', '🎉'], p: 'happy birthday' },
+  { k: ['gato', 'cat', 'gatito', 'kitty', 'michi', 'neko', 'miau', 'meow'], e: ['🐱', '🐈', '😿', '😺', '🐾'], p: 'meow' },
+  { k: ['perro', 'dog', 'perrito', 'puppy', 'doggo'], e: ['🐶', '🐕', '🦴', '🐾'], p: 'woof' },
+  { k: ['conejo', 'bunny', 'rabbit', 'pascua', 'easter'], e: ['🐰', '🐇', '🥚', '🐣', '🥕'], p: 'happy easter' },
+  { k: ['luna', 'moon', 'noche', 'night', 'dormir', 'sleep', 'buenas noches'], e: ['🌙', '⭐', '🌟', '☁️', '🌛'], p: 'good night' },
+  { k: ['sol', 'sun', 'verano', 'summer', 'playa', 'beach'], e: ['☀️', '🌴', '🍉', '🏖️', '🍦', '🌊'], p: 'hello summer' },
+  { k: ['flor', 'flower', 'primavera', 'spring', 'sakura', 'rosa'], e: ['🌸', '🌷', '🌻', '🌹', '🦋', '🌼'], p: 'hello spring' },
+  { k: ['otono', 'autumn', 'fall', 'hoja', 'leaf'], e: ['🍁', '🍂', '🍄', '🌰', '☕'], p: 'hello autumn' },
+  { k: ['invierno', 'winter', 'frio', 'cold'], e: ['❄️', '⛄', '🧣', '☕'], p: 'stay warm' },
+  { k: ['anime', 'manga', 'japon', 'japan', 'otaku', 'kawaii', 'myanimelist', 'mal'], e: ['🌸', '⛩️', '🍙', '🍜', '🎏', '🗻'], p: 'have a nice day' },
+  { k: ['juego', 'game', 'gaming', 'gamer', 'steam', 'gg', 'videojuego'], e: ['🎮', '👾', '🕹️', '🏆', '⚔️', '🛡️'], p: 'gg wp' },
+  { k: ['cafe', 'coffee', 'te', 'tea'], e: ['☕', '🍵', '🧋', '🥐'], p: 'coffee time' },
+  { k: ['musica', 'music', 'cancion', 'song'], e: ['🎧', '🎵', '🎸', '🎹', '🎤'], p: 'stay tuned' },
+  { k: ['triste', 'sad', 'llorar', 'cry', 'lluvia', 'rain'], e: ['😿', '🌧️', '💧', '☂️', '🥀'], p: 'it is okay' },
+  { k: ['feliz', 'happy', 'buen dia', 'nice day', 'hola', 'hello', 'saludo'], e: ['😊', '🌈', '⭐', '🌻', '☀️'], p: 'have a nice day' },
+  { k: ['espacio', 'space', 'planeta', 'planet', 'alien', 'estrella', 'star', 'cohete'], e: ['🚀', '🪐', '👽', '🌙', '⭐', '☄️'], p: 'to the moon' },
+  { k: ['comida', 'food', 'pizza', 'sushi', 'hambre'], e: ['🍕', '🍣', '🍔', '🍩', '🍜'], p: 'bon appetit' },
+  { k: ['mar', 'sea', 'ocean', 'pez', 'fish', 'ballena', 'whale'], e: ['🐳', '🐟', '🐙', '🐚', '🌊'], p: 'ocean vibes' },
+  { k: ['oso', 'bear', 'panda', 'zorro', 'fox', 'animal', 'rana', 'frog'], e: ['🐻', '🐼', '🦊', '🐸', '🐧', '🐹'], p: 'hi there' },
+  { k: ['gracias', 'thanks', 'thank you', 'ty'], e: ['💐', '💖', '🙏', '🌟'], p: 'thank you' },
+  { k: ['sanrio', 'cinnamoroll', 'pompompurin', 'keroppi', 'pochacco', 'kuromi', 'chococat', 'hello kitty'], e: ['🎀', '🐶', '🐸', '🍮', '🐰', '💖'], p: 'かわいい' },
+  { k: ['kaomoji', "kawaii emoji", "emoji", "emoji combos", "cute", "copy paste"], e:["🌸", "🐰", "🥹", "💦", "💢", "✨", "💫", "💮"], p:'' }
+];
+// Tema con que abre la página según la fecha; el resto del año, gatitos.
+function themeForToday(d = new Date()) {
+  const m = d.getMonth() + 1, day = d.getDate();
+  const [es, en] = (m === 12 && day >= 26) || (m === 1 && day <= 6) ? ['año nuevo', 'new year']
+    : m === 12 ? ['navidad', 'christmas']
+    : m === 2 ? ['amor', 'love']
+    : m === 4 ? ['conejo', 'bunny']
+    : m === 10 ? ['halloween', 'halloween']
+    : ['gato', 'cat'];
+  return st.lang === 'en' ? en : es;
+}
+// ---------- idiomas (todo se traduce menos el nombre "Puntitos") ----------
+const I18N = {
+  es: {
+    tagline: 'Arte en puntos braille, liviano y sin fondo, para Steam, MyAnimeList y foros.',
+    themeAria: 'Tema', themeLight: 'Modo claro', themeDark: 'Modo noche', langAria: 'Idioma',
+    qPh: 'Busca un tema: halloween, navidad, gato, luna… o pega un emoji 🐭', qAria: 'Tema a buscar',
+    search: 'Buscar', upload: 'Subir imagen', try: 'Prueba:', resultsAria: 'Opciones generadas',
+    hDraw: 'Dibujo', width: 'Ancho', wMini: 'Mini', wComment: 'Comentario', wProfile: 'Perfil', wBig: 'Grande',
+    style: 'Estilo', mTinta: 'Ilustración', mLineas: 'Líneas', mMixto: 'Líneas + sombras', mRelleno: 'Relleno', mLetras: 'Letras',
+    noteTinta: 'Para dibujos con contorno (stickers, pines, fanart). Sigue las líneas del dibujo y las deja de un punto.',
+    noteLetras: 'Cada letra representa el brillo de su zona (@ oscuro, . claro). Va bien con fotos y degradados.',
+    ink: 'Tinta', solid: 'Rellenar zonas negras', color: 'Incluir líneas de color',
+    ramp: 'Caracteres', rampClasico: 'Clásico', rampSuave: 'Suave', rampDetalle: 'Detallado', contrast: 'Contraste',
+    detail: 'Detalle', smooth: 'Suavizado', dark: 'Zonas oscuras', thr: 'Umbral', clean: 'Limpiar puntitos sueltos', ratio: 'Alto',
+    thick: 'Línea gruesa', dither: 'Tramado', invert: 'Invertir', trim: 'Recortar bordes', codeWrap: 'Envolver en [code]',
+    dAtk: 'Limpio (Atkinson)', dFloyd: 'Suave (Floyd–Steinberg)', dNo: 'Sin tramado', autoLevels: 'Contraste automático',
+    sizesL: 'Compara tamaños: toca uno para usarlo', sizeLbl: (w, n) => `${w} de ancho · ${n} car.`,
+    hText: 'Texto', phrase: 'Frase', fontL: 'Letra', decoL: 'Adornos listos', start: 'Inicio', end: 'Final',
+    symbols: 'Símbolos', addedIn: 'se agregan en:',
+    palNote: 'Toca un campo (Frase, Inicio o Final) y luego un símbolo para agregarlo ahí. También puedes pegar lo que copies de cualquier página de símbolos.',
+    posL: 'Posición', pAbajo: 'Abajo', pLado: 'Al lado', pPila: 'En pila', pArriba: 'Arriba', pNo: 'Sin texto',
+    bigL: 'Frase gigante en puntos', bNo: 'No', bCursiva: 'Cursiva', bRedonda: 'Redondita', sparkle: 'Estrellitas alrededor',
+    hOut: 'Resultado', skinAria: 'Vista previa', skinPlain: 'Simple', copy: 'Copiar', fontSize: 'Tamaño de la vista previa',
+    outNote: 'Los espacios vacíos usan el carácter braille en blanco <code>⠀</code>, así Steam y los foros no se comen los espacios y el dibujo no se desarma. Cada plataforma usa su propia fuente, así que el texto decorado puede quedar un poco corrido respecto al dibujo.',
+    outNoteLetras: 'El estilo Letras necesita una letra de ancho fijo (todas las letras igual de anchas). En el texto normal de Steam o de un foro se ve corrido; pégalo dentro de <code>[code]…[/code]</code> donde el sitio lo permita, o usa un estilo de puntos.',
+    nChars: n => `${n} caracteres`, nLines: n => `${n} líneas`, pct: v => `${v}%`, px: v => `${v}px`,
+    fits: 'Cabe en un comentario de Steam', tooBig: 'Pasa de 1000: achícalo para comentarios de Steam',
+    galFixed: 'De la galería, se copia tal cual', galPlain: 'De la galería: el ancho y el estilo no aplican',
+    pick: 'Elige una opción de arriba o sube una imagen.', drop: 'Suelta, pega o elige una imagen',
+    galMore: n => `Ver ${n} dibujos más`, galLess: 'Ver menos',
+    empty: 'No tengo ese tema todavía. Pega un emoji, sube una imagen.', word: 'La palabra',
+    copied: 'Copiado', selected: 'Seleccionado: presiona Ctrl+C', add: 'Agregar', none: 'Ninguno',
+    yourImg: 'Tu imagen', sample: 'Ejemplo: gatito',
+    hints: ['galería', 'halloween', 'navidad', 'gato', 'conejo', 'luna', 'amor', 'año nuevo', '🐭'],
+  },
+  en: {
+    tagline: 'Light, background-free braille dot art for Steam, MyAnimeList and forums.',
+    themeAria: 'Theme', themeLight: 'Light mode', themeDark: 'Dark mode', langAria: 'Language',
+    qPh: 'Search a theme: halloween, christmas, cat, moon… or paste an emoji 🐭', qAria: 'Theme to search',
+    search: 'Search', upload: 'Upload image', try: 'Try:', resultsAria: 'Generated options',
+    hDraw: 'Drawing', width: 'Width', wMini: 'Mini', wComment: 'Comment', wProfile: 'Profile', wBig: 'Large',
+    style: 'Style', mTinta: 'Illustration', mLineas: 'Lines', mMixto: 'Lines + shadows', mRelleno: 'Fill', mLetras: 'Letters',
+    noteTinta: 'For outlined drawings (stickers, pins, fanart). It follows the drawing\'s lines and keeps them one dot thick.',
+    noteLetras: 'Each character stands for the brightness of its area (@ dark, . light). Works well with photos and gradients.',
+    ink: 'Ink', solid: 'Fill black areas', color: 'Include colored lines',
+    ramp: 'Characters', rampClasico: 'Classic', rampSuave: 'Soft', rampDetalle: 'Detailed', contrast: 'Contrast',
+    detail: 'Detail', smooth: 'Smoothing', dark: 'Dark areas', thr: 'Threshold', clean: 'Clean stray dots', ratio: 'Height',
+    thick: 'Thick line', dither: 'Dithering', invert: 'Invert', trim: 'Trim edges', codeWrap: 'Wrap in [code]',
+    dAtk: 'Clean (Atkinson)', dFloyd: 'Smooth (Floyd–Steinberg)', dNo: 'No dithering', autoLevels: 'Auto contrast',
+    sizesL: 'Compare sizes: tap one to use it', sizeLbl: (w, n) => `${w} wide · ${n} chars`,
+    hText: 'Text', phrase: 'Phrase', fontL: 'Font', decoL: 'Ready-made decorations', start: 'Start', end: 'End',
+    symbols: 'Symbols', addedIn: 'added to:',
+    palNote: 'Tap a field (Phrase, Start or End), then a symbol to add it there. You can also paste anything you copy from a symbols site.',
+    posL: 'Position', pAbajo: 'Below', pLado: 'Beside', pPila: 'Stacked', pArriba: 'Above', pNo: 'No text',
+    bigL: 'Giant dotted phrase', bNo: 'No', bCursiva: 'Cursive', bRedonda: 'Rounded', sparkle: 'Little stars around',
+    hOut: 'Result', skinAria: 'Preview', skinPlain: 'Plain', copy: 'Copy', fontSize: 'Preview size',
+    outNote: 'Empty spaces use the blank braille character <code>⠀</code>, so Steam and forums don\'t eat the spaces and the drawing stays intact. Each platform uses its own font, so decorated text may shift a little relative to the drawing.',
+    outNoteLetras: 'The Letters style needs a fixed-width font (every character equally wide). In regular Steam or forum text it looks shifted; paste it inside <code>[code]…[/code]</code> where the site allows it, or use a dot style.',
+    nChars: n => `${n} characters`, nLines: n => `${n} lines`, pct: v => `${v}%`, px: v => `${v}px`,
+    fits: 'Fits in a Steam comment', tooBig: 'Over 1000: shrink it for Steam comments',
+    galFixed: 'From the gallery, copied as is', galPlain: 'From the gallery: width and style don\'t apply',
+    pick: 'Pick an option above or upload an image.', drop: 'Drop, paste or choose an image',
+    galMore: n => `See ${n} more drawings`, galLess: 'See less',
+    empty: 'I don\'t have that theme yet. Paste an emoji or upload an image.', word: 'Your word',
+    copied: 'Copied', selected: 'Selected: press Ctrl+C', add: 'Add', none: 'None',
+    yourImg: 'Your image', sample: 'Example: kitty',
+    hints: ['gallery', 'halloween', 'christmas', 'cat', 'bunny', 'moon', 'love', 'new year', '🐭'],
+  },
+};
+const PAL_EN = { 'Estrellas': 'Stars', 'Corazones': 'Hearts', 'Flores y lazos': 'Flowers & bows', 'Puntitos': 'Dots', 'Separadores': 'Dividers', 'Caritas': 'Faces', 'Temas': 'Themes' };
+const GALLERY_EN = {
+  'año nuevo japones': 'japanese new year',
+  'Hello Kitty Lentes': 'Hello Kitty Glasses',
+  'Cinnamoroll llanto': 'Cinnamoroll cry',
+  'Pochacco Foto': 'Pochacco Photo',
+  'Gatitos en calabaza': 'Cat in Pumpkins',
+  'Gatito Halloween': 'Halloween Cat',
+  'Fantasma': 'Ghost',
+  'Planeta': 'Planet',
+  'Gatito Abrazo': 'Kitty Hug',
+  'Gatito durmiendo': 'Sleeping Kitty',
+  'gatito': 'kitty',
+  'Gato Hola': 'Hi Cat',
+  'Gatitos Lindos': 'Cute Cats',
+  'Gatito luna': 'Moon Kitty',
+  'Gatito en la Luna': 'Moon Kitty',
+  'Gatito flor': 'Flower cat',
+  'Gatito kaomoji': 'Kaomoji cat',
+  'Gatitos': 'Cats',
+  'Gato Paz': 'Cat Peace Sign',
+  'Gato Angel': 'Angel Kitty',
+  'Gatito Mariposa': 'Butterfly Kitty',
+  'Gatito': 'Kitty',
+  'Gato corazón': 'Kitten Heart',
+  'Conejito acostado': 'Lying bunny',
+  'Corazones de año nuevo': 'New year hearts',
+  'Arbolito de navidad': 'Little christmas tree',
+  'Chica anime': 'Anime girl',
+  'Gato estirado': 'Stretching cat',
+  'Conejita': 'Bunny girl',
+  'Conejito': 'Bunny',
+  'Gatos durmiendo': 'Sleeping cats',
+  'Perrito nube': 'Cloud puppy',
+  'Rosa': 'Rose',
+  'conejo kaomoji': 'Kaomoji bunny',
+  'Gatito mini': 'Mini kitty',
+  'Alitas': 'Wings',
+  'Angelita': 'Sweet Angel',
+  'Pompompurin “have a nice day”': 'Pompompurin “have a nice day”',
+  'Gato durmiendo': 'Sleeping Cat',
+  'Corazón “lovely day”': 'Heart “lovely day”',
+  'Carita de gato': 'Cat face',
+  'Luna con gato': 'Moon with cat',
+  'Happy new year': 'Happy new year',
+  'Conejo con globo': 'Bunny with balloon',
+  'Osito navideño': 'Christmas teddy',
+};
+const t = k => I18N[st.lang][k] ?? I18N.es[k] ?? k;
+const galLabel = l => st.lang === 'en' ? (GALLERY_EN[l] || l) : l;
+
+// Dibujos hechos a mano (de ejemplos.txt). tags = primera palabra clave de cada tema en THEMES.
+const GALLERY = [
+{"label":"año nuevo japones","tags":["ano nuevo","kaomoji"],"plain":true,"art":"　　　..　∧∞∧\n　　　　(*･ヮ･*)　　あけましておめでとうございます\n　　　⠀（＿＿＿）　　　　今年もよろしく\n　　　（　　　　⠀）\n　　|￣◇￣￣￣◇￣|\n　　￣⠀◇￣￣￣◇￣\n　　　⠀◇　⠀●⠀　◇\n　　⠀　⠀|＿＿＿_|⠀"},
+{"label":"fishing","tags":["kaomoji"],"plain":true,"art":"　|　　／l、　??\n　|　（ﾟ_ ｡ ７ 　ﾂﾝﾂﾝ\n　し⊂、 ~ヽ\n　　　　しf_, )～"},
+{"label":"Ganbatte","tags":["kaomoji"],"plain":true,"art":"　┌────────┐\n　│　＼(^o^)／..│\n　└∩──────∩┘\n　　 ヽ(`･ω･´)ﾉ"},
+{"label":"usagi","tags":["conejo","kaomoji"],"plain":true,"art":"|∩　∩\n|(・x・)\n|⊂ノ"},
+{"label":"tonton","tags":["gato","kaomoji"],"plain":true,"art":"　ﾍ⌒　ヽﾌ\n（　・ω・）　㌧㌧\n/ ~つと）"},
+{"label":"well done","tags":["gato","kaomoji"],"plain":true,"art":"　∧＿∧\n　(*ﾟ ｰ ﾟ*)／ヽ\n　 ノ　つつ ● ）\n⊂、 ノ　 　＼ノ\n　　し' あっぱれ"},
+{"label":"kaomoji ugh","tags":["gato","kaomoji"],"plain":true,"art":"　　　ぅぉぇっぷ\n　 〃⌒ ヽフ\n　/　 　rノ\n　Ο Ο＿）;:ﾟ｡ｏ;:,."},
+{"label":"Keroppi Banner","tags":["sanrio"],"plain":true,"art":"⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢⌢\n⠀⠀⠀⢀⡤⠤⠤⠤⣄⠀⠀⠀⠀⠀⣠⣤⣄⣀⠀⠀⠀⠀⠀₊˚⊹⠀\n⠀⢀⡴⠉⠀⠀⠀⢀⡀⠙⣆⢀⠔⢁⣀⠀⠀⠉⠳⣄⠀⠀⠀\n⠀⣾⠀⠀⠀⠀⠀⣿⣿⡇⠘⡏⠀⣿⣿⡇⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⢿⡀⠀⠀⠀⠀⠉⠉⠀⢠⡇⠀⠈⠉⠀⠀⠀⠀⢰⡇⠀⠀\n⠀⢨⢷⣄⠀⠀⠀⠀⢀⣴⠏⠹⣦⡀⠀⠀⠀⠀⣠⣟⠀⠀⠀⠀\n⢠⠃⠀⠈⠛⠓⠒⠚⠋⠀⠀⠀⠀⠙⠓⠒⠚⠋⠀⠈⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢸⠀⢰⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣷⠀⢸⡇\n⠸⡀⠈⠛⠋⠀⣤⣀⠀⠀⠀⠀⠀⠀⢀⣠⡄⠙⠋⠀⡼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠹⢦⡀⠀⠀⠀⠙⠻⢶⣄⣠⣴⠾⠛⠁⠀⢀⣠⡞⠀⠀⠀\n⠀⠀⠀⠈⠙⠿⠶⠶⠶⠶⠶⠶⠶⠶⠶⠖⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀₊˚⊹"},
+{"label":"Keroppi Peace","tags":["sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠶⠾⠚⠛⠶⠶⣤⡀⠀⠀⠀⠀⣠⣴⠶⠛⠛⠛⠲⠶⣤⡀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡾⠋⠀⠀⠀⠀⠀⠀⠀⠈⠻⣦⠀⢠⡾⠋⠀⠀⠀⠀⠀⠀⠀⠈⢻⣦⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣧⣿⠁⠀⢀⣴⡆⠀⠀⠀⠀⠀⠀⢹⡆⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣦⠀⣿⡏⠀⣴⡿⠋⠀⠀⠀⠀⠀⠀⠀⠘⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⠟⠀⣿⣿⠀⠙⠻⣶⣄⠀⠀⠀⠀⠀⠀⢠⡟⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡟⢻⣆⠀⠀⠈⠉⠀⠀⠀⠀⠀⢀⣾⠏⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣷⣄⠀⠀⠀⠀⠀⠀⢀⣠⣾⠏⠀⠀⠻⢷⣤⣀⣀⠀⢀⣀⣠⣴⡿⠿⣆⠀\n⠀⠀⠀⠀⠀⠀⣀⣀⠀⢠⡿⠀⠀⣙⠻⢶⠶⠶⠶⠾⠛⠋⠁⠀⠀⠀⠀⠀⠉⠉⠛⠛⠛⡫⠩⠡⡀⠀⢻⡆\n⠀⠀⠀⠀⢠⣾⠟⠻⣿⣾⡇⠀⠇⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡌⠀⠀⠀⠀⡆⠈⣧\n⠀⠀⣀⣀⣸⣧⠀⠀⠙⣿⡇⠀⢇⡀⠀⠀⡈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢇⠀⠀⠀⡠⠁⢠⡟\n⢠⣾⠛⠉⠛⠿⠂⠀⠀⠙⠛⠛⠿⣶⣍⡁⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠈⠈⠁⠀⢀⣾⠃\n⠸⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣆⠈⠛⢿⣦⣄⠀⠀⠀⠀⠀⣠⣼⡿⠛⠁⠀⠀⢀⢄⣰⡿⠁⠀\n⠀⠘⠻⢶⣤⣄⠀⠀⢀⣶⠿⠛⠛⠀⠀⠘⣿⣤⣄⣀⣈⠙⠿⢶⣤⠷⠟⣋⣀⣠⣤⣤⣤⠶⠾⠛⠷⣄⠀⠀\n⠀⠀⠀⠀⢻⣷⡀⠀⢸⣿⣀⠀⣠⣶⠀⢨⣿⣿⡏⠉⢹⣯⣿⣤⣶⣿⢹⠉⣿⣿⣿⡀⠀⠀⠀⢀⣰⡏⠀⠀\n⠀⠀⠀⠀⠈⢿⣷⡀⠀⠙⠛⠛⠛⠁⢠⣿⢻⣿⡇⠀⡆⣿⠟⠙⠻⠟⣼⠀⣿⣿⣿⠻⣦⣀⣀⣸⠏⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠙⠿⣶⣤⣤⣤⣴⣶⠿⠻⣿⣿⡇⠀⣷⣶⣿⠀⣿⣾⣿⠀⣿⣿⣿⣾⠇⠉⠉⠁⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠹⣿⡝⠳⢿⣿⣿⣀⣿⣿⣿⣴⠿⢛⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣦⣀⠈⢉⣹⣿⡉⠁⣀⣴⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠋⠁⠉⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Kuromi Heart","tags":["gato","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠐⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢘⠀⢾⣿⣷⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠂⠈⣿⣿⣷⣆⡀⠀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠖⢄⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣶⣆⠀⠂\n⠀⠀⠀⠀⠀⠀⠀⠄⠠⣿⡿⠉⠛⠃⢰⠈⢱⣄⠀⠄⠀⠀⠀⠀⠀⠀⠀⠠⠀⢀⣀⣀⣀⣤⣴⣶⣿⣿⡿⠟⠀⠄\n⠀⠀⠀⠀⠀⠀⠀⢰⡈⢙⠁⠀⠀⠀⠐⣄⣀⣽⣀⣠⣤⣀⣀⣀⡀⠐⠀⡠⠒⢈⡤⣹⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠠⠀⢃⠀⠙⣆⣰⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣾⡁⠠⠜⠀⠈⠉⢹⣿⣿⡿⠁⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠱⢤⣾⣿⣿⣿⣿⣿⣿⢟⣫⢟⡻⣿⣿⣿⣿⣿⣿⣿⣦⡄⠀⠀⢘⡟⢿⠃⠀⠁⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠄⢠⣾⣿⣿⣿⣿⣿⣿⡶⡿⡜⢮⣵⢾⣿⣿⣿⣿⣿⣿⣿⣧⡔⠉⠉⣠⡎⢀⠂⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⡿⠟⠋⠙⠿⣿⣷⣿⣮⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡴⠾⠏⢀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠏⢠⡦⡀⠀⠀⠈⠛⠛⠉⠉⠉⠉⠻⢿⣿⣿⣿⣿⣿⣿⡇⠀⠂⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⠀⢸⣶⡿⠀⠀⠀⠀⠀⠀⠀⣀⣠⡔⠀⢹⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢁⠈⢿⣆⠀⠉⠁⠀⠀⢠⢄⠀⠀⠀⣷⣿⠇⠀⠀⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠐⠈⣀⡤⢤⣙⠷⣤⣀⡀⠀⠀⠂⠀⠀⠀⠈⠉⠀⠀⣠⣿⣿⣿⡿⠁⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⡀⢀⡾⠑⡞⢋⢟⣵⣌⣹⣿⣿⢶⣶⣶⣦⣤⣤⣴⣶⡾⠿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⢀⠀⠀⢀⣀⣸⢂⡵⠦⡍⠎⠀⠀⠈⠉⠘⢻⠁⠀⠈⠊⢻⡻⢷⣀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢀⠂⢠⠞⡍⢊⠤⠟⠁⠀⢹⡱⢄⣠⣶⣔⢤⠜⡤⠀⠠⢣⠀⡩⠹⡧⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⣯⡟⣒⠸⡣⣀⢀⣀⢼⢧⣺⣿⣿⣿⣏⠢⡀⠈⠀⡎⠁⠂⠧⠐⡄⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠈⠀⠸⢼⣣⢖⢤⡁⢄⠨⣡⢰⢾⣿⣿⣿⣏⠐⠊⠢⠄⡒⠢⠀⠔⢀⠐⢄⠀⢂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠉⠚⠳⠽⠮⠷⠛⠋⠙⠻⢿⣿⠿⢀⣀⣀⣁⣈⠣⠄⠒⠒⠳⠠⠃⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Kuromi Sad","tags":["gato","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⣤⣤⣤⣄⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣤⣤⡴⠞⠋⠉⠀⠀⠀⠀⠀⠀⠈⠉⠙⠳⢦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠞⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣦⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠛⣦⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⢀⠀⠀⠀⠀⠀⣠⣤⣤⣀⠀⠀⠀⠀⠀⠀⢠⡀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⠀⠀⠀⠀\n⠀⠀⠀⢀⡾⠋⠀⠀⠀⢀⣠⠟⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠁⠡⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⠀⠀⠀\n⠀⠀⣠⡟⠁⣀⣤⠴⠾⡟⠁⠀⠀⠀⠀⢿⠉⢹⣿⣿⡋⠙⣿⠀⠀⠀⠀⠓⠂⠀⢷⠀⠀⠀⠀⠀⠀⠀⠀⠘⣇⠀⠀⠀\n⡴⠚⠻⡶⠛⠉⠀⠀⢸⡇⠀⣠⠾⠷⣤⣈⠻⢿⣿⣿⣷⠖⠃⢀⣠⠤⠤⣄⡀⠀⠈⢧⣀⠀⠀⠀⠀⠀⠀⠀⠹⣆⠀⠀\n⠱⢤⠴⠃⠀⠀⠀⠀⠸⣧⢰⠿⣆⠀⠀⠈⠛⠶⢯⠿⠿⢞⠋⠁⠀⠀⠀⠀⠙⢷⡄⠀⠈⠙⠓⢦⣤⣀⡀⠀⠀⢹⣆⡀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣿⠀⢻⣿⣿⡧⠀⠀⠀⠀⠀⠙⢳⣦⣤⣀⣀⣀⠀⠀⠙⡆⠀⠀⢀⡾⠁⠈⠉⠙⠻⡇⠀⣸\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣦⡀⠛⠟⠃⠀⠀⣀⡀⠀⠀⠈⢿⣿⣿⣿⠋⠀⠀⠀⡗⠀⣠⡾⠁⠀⠀⠀⠀⠀⠉⠉⠉\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣦⣄⡀⠀⢀⡛⠛⠁⠀⠀⠀⠉⠉⠁⠀⠀⣠⣾⣥⠾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣞⢙⣿⣏⣁⣉⠛⠓⠾⠧⢤⣤⣤⣤⣤⣤⠤⠴⠶⠛⠛⠉⠈⠳⣦⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠀⠀⠀⠉⡇⠀⠀⣀⣠⠴⢦⣄⠀⠀⠀⠀⣿⠉⠉⠉⠉⠉⠱⠤⠇⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⢧⠖⠋⠁⠀⠀⠀⠈⠛⠦⣄⣀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⠚⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢯⣨⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Kuromi Wink","tags":["gato","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠁⠈⣷\n⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠔⠛⡗⠊⠁\n⠀⠀⠀⠀⠀⠀⠀⢸⡁⠀⣸⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠴⠚⠁⠀⠀⢠⡇⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⡇⠀⠉⠑⠲⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠤⠒⠉⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠉⠒⠢⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣧⡤⠒⠚⠉⠉⠉⠉⠉⠉⠉⠙⠒⠦⣄⠀⠀⠀⠀⠀⠀⠀⡏⠀⠀⠀\n⠀⠀⢀⣠⣤⣄⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⣀⣤⣤⣤⣄⡀⠀⠀⠈⠑⢦⡀⠀⠀⠀⠀⡇⠀⠀⠀\n⠀⠀⢸⣿⣿⣿⡇⠀⠀⠀⠀⢃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠙⢦⡀⢀⣰⠇⠀⠀⠀\n⣴⣾⣿⣿⣿⣿⡇⠀⠀⠀⠀⢸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣟⠁⣿⣿⣿⣀⣿⠃⠀⠀⠀⠀⠀⠀⠹⡉⠁⠀⠀⠀⠀\n⢿⣿⣿⣿⣿⡿⠇⠀⢀⣤⣄⣀⠉⠉⠑⡶⠦⠀⠀⠀⠀⠀⠀⢀⣀⣀⡀⠉⠛⢿⢿⠿⠏⢁⡴⠛⠦⣀⠀⠀⠀⠀⢳⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠛⠛⠛⠛⠿⣷⣶⣧⡀⠀⠀⠀⠀⢀⠔⠉⠀⠀⠀⠉⠓⠢⠤⠤⠚⠁⠀⠀⠀⣰⠓⢆⠀⠀⢸⡀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡟⠻⢷⣄⠀⢰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣾⣿⡇⠈⢣⠀⢸⠃⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀⠉⠁⡇⠀⠀⣷⠶⠶⣤⡀⠀⠀⠀⢀⡤⢄⠀⠻⣿⣿⠏⠀⢸⠀⡼⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⢣⠀⠀⠀⣀⣀⡀⠁⠀⢀⡀⠀⠓⣉⠀⠀⠠⣾⣿⣇⡜⡴⠁⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠢⣀⠀⠈⢇⠀⢺⣿⣿⡟⠀⠀⠸⣍⢩⠟⠁⠀⠀⠀⠀⣠⣾⠟⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠑⣦⣌⣳⣄⡀⠀⠀⠀⠀⠀⠈⠁⠀⠀⢀⣀⡴⡞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠛⢲⣋⣀⣀⣀⡀⠈⠉⠉⠑⠒⣒⠚⠉⠉⠉⡤⢄⣀⠈⢳⠤⢤⡀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠒⠋⠀⠀⠀⠀⠹⣄⣀⢀⡤⠚⠉⠓⠦⣄⣀⣇⡀⠀⠉⠙⠦⠴⠃⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡅⢈⡏⠀⠀⠀⠀⠀⠸⣅⣠⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣈⣉⠀⠀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Kuromi","tags":["gato","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⢠⠋⠉⠉⠒⠲⢤⣀⣠⡀⠀\n⠀⠀⠀⠀⠀⠀⣀⣀⣀⢀⡠⠖⠋⠉⠀⠀⠀⠀⠉⠉⠢⣄⠀⠀⠀⢀⠼⠤⠇⠀\n⠀⠀⠀⣀⠔⠊⠁⠀⢨⠏⠀⠀⠀⣠⣶⣶⣦⠀⠀⠀⠀⠀⠱⣄⡴⠃⠀⠀⠀⠀\n⢸⣉⠿⣁⠀⠀⠀⢀⡇⠀⠀⠀⠀⢿⣽⣿⣼⡠⠤⢄⣀⠀⠀⢱⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠑⢦⡀⢸⠀⠀⠀⡠⠒⠒⠚⠛⠉⠀⢠⣀⡌⠳⡀⡌⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠉⠉⣆⠀⢰⠁⣀⣀⠀⠀⣀⠀⠈⡽⣧⢀⡷⠁⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⡤⢄⠀⠈⠢⣸⣄⢽⣞⡂⠀⠈⠁⣀⡜⠁⣩⡷⠿⠆⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢯⣁⡸⠀⠀⠀⡬⣽⣿⡀⠙⣆⡸⠛⠠⢧⠀⡿⠯⠆⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⣀⡀⠀⠀⡤⠤⣵⠁⢸⣻⡤⠏⠀⠀⠀⠀⢹⠀⠀⠀⡊⠱⣀⠀⠀⠀\n⠀⠀⢀⠜⠀⢘⠀⠀⠱⠲⢜⣢⣤⣧⠀⠀⠀⠀⠀⢴⠇⠀⠀⠀⠧⠠⠜⠀⠀⠀\n⠀⠀⠘⠤⠤⠚⠀⠀⠀⠀⠀⠀⢸⠁⠁⠀⣀⠎⠀⠻⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠣⣀⣀⡴⠤⠄⠴⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Tuxedo","tags":["sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⡴⣾⣉⡉⠓⢦⡀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⠤⠼⠬⣭⣝⣚⠯⣗⣦⡙⣄⣀⡀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠚⠉⠀⠀⠀⠀⠀⠀⠀⠉⠛⠶⣝⢿⣿⣹⣅⠀⠀\n⠀⢀⣠⠴⠛⢦⠀⢀⡼⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⡵⠋⠉⠀⠀\n⢺⡉⠀⢀⣠⠼⢃⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⠀⠀⠀⠀\n⠀⢳⡖⠋⠀⠀⡼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡇⠀⠀⠀\n⠀⠀⣻⡤⣤⣠⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀\n⠀⠀⣿⠉⠀⢹⡇⠀⠀⠀⠀⠀⠸⢇⣀⠤⠤⣀⠀⣶⠀⠀⠀⠀⣠⠶⠗⠶⣄⠀\n⠀⠀⠘⣆⠀⠈⠁⠀⠀⠀⣠⡼⠶⠯⣀⡀⠀⣈⣳⣵⠛⡉⠉⠳⠃⠀⠀⠀⠈⡇\n⠀⠀⠀⠹⣆⠀⠀⠀⣰⠟⠁⠀⢰⠙⠒⢤⠬⠶⡆⡇⠆⠇⠀⠀⠀⠀⣠⠶⠶⣧\n⠀⠀⠀⠀⠙⡶⠀⣘⠃⠀⠀⠀⠈⠓⠚⠉⠳⡤⠇⠹⣌⠊⠖⡄⠀⠀⡇⠀⠀⣸\n⠀⠀⠀⠀⠀⣧⢠⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⣲⣦⣤⣠⣽⡖⠋⠁\n⠀⠀⠀⠀⠀⢹⣸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⠉⠉⠁⠈⢻⣄⠀⠀\n⠀⠀⠀⠀⠀⠈⢿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⠀⠀⠀⢈⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠻⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡄⠀⠀⠀⠀⢀⡾⠁⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠈⣳⢤⣄⡀⢀⣀⣀⣤⠤⠶⠒⠒⠛⠂⠤⠴⠞⠋⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠰⣧⢤⣠⡤⠬⠽⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Cinnamoroll Skeleton","tags":["perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⢀⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠠⠐⠂⠉⠁⠀⠀⢠⣿⣿⢭⣝⣓⣒⠂⠤⠤⣀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠒⣈⠕⠉⠀⠀⠀⠀⠀⠀⠀⠀⣼⠋⠀⠀⠀⠀⠈⠉⠑⠒⠤⣉⠁⠒⠒⠤⣀⠒⠄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠔⠁⢀⡔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣳⠟⠒⠤⣈⠢⢄⠑⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠚⠀⠀⢠⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⢰⡗⠢⡈⠑⢦⡑⠢⡁⠢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⢀⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⣌⠻⢂⡇⠀⠀⠈⠳⢌⡑⠤⣀⣂⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀\n⠀⢀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠁⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⣜⠀⠀⠀⠀⠀⠀⠀⡰⢧⡀⠀⠀⠀⠀⠀⠙⠻⣶⣤⣀⡀⠀⠀⠉⠳⢦⣄⠉⠉⠉⠉⡉⠉⠉⠑⠒⠠⣉⠢⡀⠀\n⢠⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡇⠀⠀⠀⣿⡬⡇⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⢖⡞⡓⢾⠽⣟⡿⠀⠀⠀⠀⠰⣼⣿⣿⣷⣦⡀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠑⠒⢤⠀⠈⢢⠈⣆\n⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣧⡀⠀⠐⢿⡽⠃⠀⠀⠀⠀⠀⠀⢀⡇⠀⠀⠀⠀⠀⠀⠹⢃⢼⣷⣸⡀⠀⠀⠀⣠⣝⣾⡇⠈⠉⢷⣝⢣⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣧⠀⠀⠇⢸\n⣿⣇⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣾⣿⣿⡷⠤⣄⡀⠀⠀⠀⠀⠀⢸⣇⣠⡼⣇⣀⡀⣲⠀⠀⠀⠘⠋⠉⣉⣭⣤⣤⣴⡸⣵⢾⣿⠁⠀⠀⠀⠙⢶⣌⡻⣕⠲⣄⣤⣀⣄⡠⢤⡤⣾⡏⠀⠀⡜⢸\n⠹⣿⣿⣦⣄⣀⢀⡀⢀⠀⣀⣀⢠⣄⣶⣻⣿⣿⣿⣿⣿⣿⣳⣤⣍⡆⠀⠀⠀⠀⠀⠉⠁⠀⣿⢿⣿⢀⣀⣠⣤⣴⣦⣾⣵⣿⣿⣿⣿⣽⣿⡿⠃⠀⢸⠁⠢⢀⠀⠉⠉⠙⠷⢮⣼⣩⣏⣷⣭⠿⠋⠀⠀⠀⢀⡞\n⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⠿⠛⠁⠈⢻⣿⣿⣿⣿⣽⣶⣷⣶⣴⣤⣤⣖⣿⣿⣿⣾⣿⣿⣿⣿⣿⡿⣿⣿⣿⣿⠿⠟⠉⠀⢀⠔⠃⠀⠀⠀⠈⠂⠠⢀⠀⠀⠀⠁⠈⠀⠀⠀⠀⠀⠀⡠⠞⠀\n⠀⠀⠀⠉⠙⠛⠻⠿⠿⠿⠿⠿⠛⠛⠉⠉⠀⠀⠀⠀⠀⠀⠈⠛⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠛⡿⠿⢿⣿⡿⠿⡏⢉⠁⠀⠀⠀⠀⠒⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠤⠄⠒⠈⠁⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠛⡽⠛⠛⠛⠛⠛⢻⠆⠈⠋⣁⣠⣤⣿⣷⠬⢙⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠊⠀⡼⠁⠀⠀⠀⠀⠀⢸⠀⠘⠿⠿⠻⣿⣛⡿⣦⣄⡈⠻⣦⠁⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⢠⡇⠀⠀⠀⠀⠀⠀⢸⠀⢀⣠⣶⣾⣿⣿⡟⠙⠙⠿⣶⣉⡷⡈⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⠶⠾⢿⠀⠀⠀⠀⠀⠀⠀⣼⣶⡿⠿⡿⠟⠚⢺⣿⠀⠀⢠⠛⡌⠀⠳⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣄⠀⠀⠀⠀⠀⠀⢱⠀⠰⣾⣿⣶⠄⠀⠉⠛⣶⡄⠆⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⣞⣻⢆⣀⠀⠀⣀⣸⡴⣦⣻⣏⣹⣦⣴⣾⣿⣿⢃⠃⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣼⣫⣞⡽⣷⣿⣿⣿⡟⠛⠛⠛⠻⠿⣧⣨⡟⠌⡘⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣟⡿⣿⣿⡿⠿⠿⣿⣷⣀⣀⣀⣀⡀⠙⠛⠁⢠⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠛⠓⠋⠀⠀⠀⠀⠈⠉⠛⠛⠋⠉⠀⠀⠐⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Cinnamoroll Globos","tags":["perro","feliz","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡴⠖⠚⠓⠶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠋⠀⠀⠀⠀⠀⠀⠙⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠇⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣇⠀⠀⠀⠀⠀⠀⠀⣠⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠳⣤⣀⣀⣀⣤⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⠻⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⣀⣤⠶⠚⠛⠷⢦⣀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⣴⠋⠀⠀⠀⠀⠀⠀⠙⣧⠀⠀⠀⠀⠀⠀⢀⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢰⠇⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⣠⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⢸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢿⡀⠀⠀⠀⠀⠀⠀⢠⡞⠁⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠻⣦⣄⣀⣀⣠⡴⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⣀⣀⡀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣻⣟⠧⠀⠀⠉⠙⢿⣝⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣠⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⠶⡟⠳⠮⠀⠀⠀⠀⠀⠀⠙⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⣴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠃⠀⠘⣧⡀⠀⣶⠆⠀⢠⣤⠰⣶⣿⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⣼⠁⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣰⣿⣧⡴⣦⣈⣹⣷⣄⣀⣀⣈⣉⣤⣾⣯⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⣀⣀⣠⣇⣀⠀⠀⢀⣀⣀⣠⡶⠛⠉⠉⠀⠉⠁⠀⠀⠈⠁⠀⠈⠉⠉⠉⠉⠁⠈⠛⠈⠉⠛⠶⣤⡀⠀⠀⠀⠀⣀⣀⣤⠤⠤⣤⣀⠀⠀\n⢀⡶⠛⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠓⠛⠋⠉⠁⠀⠀⠀⠀⠀⠀⠙⢷⡀\n⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡄⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡇\n⢸⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⡟⠀⠀⢸⣷⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣾⡇⠀⠈⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠇\n⠀⠻⣦⣄⠀⠀⠀⠀⠀⠀⢀⣠⡤⠞⠛⢹⡇⠀⠀⠈⠛⠃⠀⠀⠀⢦⣤⠤⣤⠄⠀⠀⠙⠛⠃⠀⠀⣸⠟⠶⣤⣄⣀⡀⠀⠀⠀⢀⣠⣤⠞⠃⠀\n⠀⠀⠀⠈⠙⠛⠓⠚⠛⠛⠉⠁⣠⡴⠶⠶⣿⠶⢦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⢀⣰⠟⠀⠀⠀⠀⠉⠉⠙⠛⠋⠉⠁⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠏⠀⡀⠀⢻⡄⠀⠙⠷⠶⢶⡞⢻⣶⣦⣴⠶⣦⣶⠋⠉⢻⡖⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡄⠀⠻⢶⡾⠛⠂⠀⠀⠀⠈⠷⠾⠛⠛⠻⠶⠿⢻⣆⣠⡾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠦⣤⡾⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⣻⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⣤⡿⠶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠓⠶⠶⣶⠆⣲⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"My Melody Please","tags":["conejo","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⢛⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣏⠀⢹⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡏⢀⣼⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⢀⣠⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣆⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡶⠛⠁⠀⠀⠀⠀⣀⣀⡀⠀⠀⠀⠀⠀\n⠀⠀⢸⣅⠀⠙⢷⡀⠀⠀⠀⠀⠀⠀⠀⠘⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡾⠋⠉⣿⠀⠀⠀⠀⠀\n⠀⠀⠀⠉⠛⠳⢮⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣟⣤⠴⠟⠋⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣰⠞⠛⠲⢴⣶⠛⠛⠛⠛⠛⢛⣶⡶⠖⠛⠛⣦⡀⠀⠈⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⢀⣠⡶⠞⠛⠉⢹⡄⠀⠀⠀⠙⢷⡀⠀⢀⣴⠟⠁⠀⠀⠀⠀⡟⠙⠛⠷⢶⣄⡀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢀⣠⡾⠛⠁⠀⠀⠀⠀⢰⠟⠀⠀⠀⣀⡀⣿⠒⢾⣅⣀⣠⠀⠈⠀⢼⡃⠀⠀⠀⠀⠈⠛⢷⣄⡀⠀⠀⠀⠀\n⠀⠀⠀⣰⠟⠋⠀⠀⠀⠀⠀⠀⠀⡟⠀⠁⠀⠈⠧⠉⢻⠀⢸⠏⠰⠃⠀⠀⠀⠈⣧⠀⠀⠀⠀⠀⠀⠀⠈⠻⣦⡀⠀⠀\n⠀⢀⡾⠃⠀⠀⠀⠀⠀⠀⠀⠀⢠⡇⠀⠀⢀⠀⠀⣠⡾⠛⠛⢷⣦⣄⡀⠀⠀⠀⣻⡄⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⡄⠀\n⢀⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⣰⠟⣧⡴⠒⠛⣲⡿⠋⠀⠀⠀⠀⠙⢮⣍⡓⢦⣠⡟⠻⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡄\n⢸⡇⠀⠀⠀⠀⠀⠀⠀⣠⡾⠋⠀⠈⠙⣛⡽⠷⠚⠋⠉⠉⠉⠉⠉⠓⠲⠯⣍⡉⠀⠀⠈⠷⣄⠀⠀⠀⠀⠀⠀⠀⠈⣇\n⠘⣧⣀⡀⢀⣀⣤⡴⠟⢻⡄⠀⠀⣰⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢦⡀⠀⠀⣽⠻⣦⣄⣀⠀⠀⠀⣰⡇\n⠀⠈⠉⠉⠉⠉⠁⠀⠀⠘⣷⡀⢰⡇⠀⠐⢦⣄⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠀⠈⣧⠀⣴⡟⠀⠀⠉⠙⠛⠛⠛⠉⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣮⣳⣀⠉⠉⠉⠀⠀⠀⠯⠬⢇⠀⠀⠉⠉⠉⠁⣰⣫⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠛⣶⢦⣤⣤⡞⠙⡞⠙⢷⣤⣤⣴⡶⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠺⣧⣴⠞⠛⠀⢀⣧⡀⠘⠛⢶⣬⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣤⣤⠴⠛⠈⠻⠦⣤⡼⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Conejito lindo","tags":["conejo"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣦⣤⣄⡀⠀⠀⠀⠀⢀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠟⠙⠀⠀⠀⠈⢻⡆⠀⣴⠞⠋⠉⠉⠙⠳⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡛⠂⠀⠀⠀⠀⠀⠈⣿⣾⠋⠀⠀⠀⠀⠀⠀⠈⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⠀⠀⠀⠀⠀⠀⠀⣽⢇⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⠄⠀⠀⠀⠀⠀⠀⠐⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⢺⡇⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⡟⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡆⠀⠀⢀⣀⣀⡀⢸⣇⠀⠀⠀⠀⠀⠀⠀⢀⣾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣘⡟⠰⠛⠛⠉⠙⠉⠈⠃⠀⠀⠀⠀⠀⠀⢰⣾⡟⠚⢶⣄⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⡾⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡁⠀⢀⡬⢹⡇⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷⠀⠚⢷⣼⡷⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢙⣷⠀⠀⠘⢿⣷⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣇⠀⠀⠀⢹⣧⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⢣⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡏⣡⠀⠀⠀⠻⣧⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡾⡿⠖⠀⠀⠀⠀⠀⠀⠀⠀⢀⣶⣿⣤⠀⠀⠀⠀⠀⠀⠀⣼⡇⠃⠀⠀⠀⠀⢹⣇⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣧⡀⠀⠀⠰⣦⣸⣶⠄⠀⠀⠸⡿⠿⠇⠀⠀⠀⠀⠀⠀⢢⡿⠅⠀⠀⠀⠀⠀⠀⣿⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣦⣒⠸⠛⠻⠖⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠟⠁⠀⠀⠀⠀⣄⠀⠀⣾⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢙⣷⢶⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡶⠟⠁⠀⠀⠀⠀⠀⣼⢏⣠⣾⠟⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠃⠀⠀⠉⠛⠛⠻⠶⠶⠶⠶⠞⠋⠁⠀⠀⠀⠀⠀⠀⣰⡾⠛⠛⠉⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⠀⠀⠀⠀⠀⢲⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⣠⡾⠏⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣧⡀⠀⠀⣡⣿⠛⠻⠶⣾⠀⠀⠀⠀⠀⠀⠈⢾⡟⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠛⠛⠋⠁⠀⠀⠀⢿⣦⠀⠀⠀⠀⠀⠀⣠⡾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣶⣤⣀⣦⣴⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Cinnamoroll little heart","tags":["perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢎⠱⠊⡱⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠤⠒⠒⠒⠒⠤⢄⣑⠁⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⢀⡤⠒⠝⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠲⢄⡀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⢰⣢⠐⡄⠀⠉⠑⠒⠒⠒⣄\n⠀⠀⠀⣀⠴⠋⠀⠀⠀⡎⠀⠘⠿⠀⠀⢠⣀⢄⡢⠉⣔⣲⢸⠀⠀⠀⠀⠀⠀⢘\n⡠⠒⠉⠀⠀⠀⠀⠀⡰⢅⠫⠭⠝⠀⠀⠀⠀⠀⠀⢀⣀⣤⡋⠙⠢⢄⣀⣀⡠⠊\n⢇⠀⠀⠀⠀⠀⢀⠜⠁⠀⠉⡕⠒⠒⠒⠒⠒⠛⠉⠹⡄⣀⠘⡄⠀⠀⠀⠀⠀⠀\n⠀⠑⠂⠤⠔⠒⠁⠀⠀⡎⠱⡃⠀⠀⡄⠀⠄⠀⠀⠠⠟⠉⡷⠁⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⠤⠤⠴⣄⡸⠤⣄⠴⠤⠴⠄⠼⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Pochacco Bow","tags":["perro","sanrio"],"plain":true,"art":"⠀⣴⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢸⣏⡿⡇⠀⠀⢀⡀⢀⡤⣠⡀⠀⠀⠀⠀⠀⠀⠀\n⠀⢻⣳⣇⢀⡤⠾⠙⠈⠀⠙⠦⣄⡀⠀⠀⠀⠀⠀\n⠀⠀⢙⡿⠉⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⣦⡀⠀⠀\n⠀⠀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣷⣽⣷⡄\n⠀⠀⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡏⠳⢷⣿\n⠀⠀⠻⠀⠀⣠⡀⠀⠀⠀⠀⢀⣄⠀⠘⠃⠀⠀⠀\n⠀⢠⡇⠀⠀⠛⠃⠀⠰⠶⠀⠚⠛⠀⠀⢷⠀⠀⠀\n⠀⠀⠳⢤⣀⡀⣤⣄⡀⠀⣀⣤⣄⣀⡴⠋⠀⠀⠀\n⠀⠀⠀⠀⠈⢹⣿⢏⣿⣿⢿⡽⡟⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠈⠛⠛⠉⠈⠙⠛⠃⠀⠀⠀⠀⠀⠀"},
+{"label":"Cinnamoroll Heart","tags":["amor","perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣄⣠⣄⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⠏⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀\n⠀⠀⠀⠀⣀⡤⣤⠶⠛⠉⠉⠀⠀⠉⠉⠛⠲⣤⣤⣄⠀⠀⠀⠀⠀\n⠀⠀⠀⡼⠃⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠈⢧⠀⠀⠀⠀\n⠀⠀⡼⢁⡆⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡄⠀⢰⡈⢧⠀⠀⠀\n⢀⡞⠁⣸⠁⠀⢠⠬⠓⠀⣀⠀⠀⢀⠀⠛⠥⣄⠀⠀⡇⠈⢳⡀⠀\n⡞⠀⠀⠹⣆⢰⣒⠆⠀⠀⠓⠊⠙⠚⠁⠀⠸⠭⠇⣰⠇⠀⠀⢻⠀\n⣇⠀⠀⠀⠈⣹⠶⠦⠤⠤⣤⣤⣤⡤⠤⠤⠴⠶⣏⠁⠀⠀⠀⣸⠁\n⠈⠓⠲⠖⠚⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⠲⠶⠚⠁⠀"},
+{"label":"Pochacco Heart","tags":["amor","perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⡏⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢴⣦⠻⠆⢰⠿⠆⠀⣾⣿⣿⠁⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⣠⠶⠛⠀⠀⠀⠀⠛⠳⢦⣿⡞⠁⠀⠀⠀\n⠀⠀⠀⣀⣤⣲⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣆⠀⠀⠀⠀\n⠀⣠⢾⣵⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣹⡀⠀⠀⠀\n⠸⠿⠿⠋⠁⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣶⣦⣄\n⠀⠀⠀⠀⠀⢿⠀⠀⢠⣄⠀⠀⠀⠀⢀⣀⡀⢿⣿⣿⡿⢋⡿\n⠀⠀⠀⠀⠀⡏⠁⠀⠈⠋⠀⠰⣶⠄⠀⠀⠉⠈⠻⣿⠛⠋⠁\n⠀⠀⠀⠀⠀⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠃⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠈⠙⠓⠒⠲⠶⠶⠶⠒⠒⠛⠋⠁⠀⠀⠀⠀"},
+{"label":"Cinnamoroll Music","tags":["perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⡄⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠻⣷⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⡀⠀⠀⢸⡿⣿⠇⠰⠟⠀⠀\n⠀⠀⠀⠀⣀⡤⣤⠶⠛⠉⠉⠀⠀⠉⠉⠛⠲⣤⣤⣄⠀⠀⠀⠀⠀\n⠀⠀⠀⡼⠃⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠈⢧⠀⠀⠀⠀\n⠀⠀⡼⢁⡆⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡄⠀⢰⡈⢧⠀⠀⠀\n⢀⡞⠁⣸⠁⠀⢠⠬⠓⠀⣀⠀⠀⢀⠀⠛⠥⣄⠀⠀⡇⠈⢳⡀⠀\n⡞⠀⠀⠹⣆⠀⠀⠆⠀⠀⠓⠊⠙⠚⠁⠀⠀⠀⠀⣰⠇⠀⠀⢻⠀\n⣇⠀⠀⠀⠈⣹⠶⠦⠤⠤⣤⣤⣤⡤⠤⠤⠴⠶⣏⠁⠀⠀⠀⣸⠁\n⠈⠓⠲⠖⠚⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⠲⠶⠚⠁⠀"},
+{"label":"Cinnamoroll Cute","tags":["perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⡤⠤⠤⠤⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠞⠋⠁⠀⠀⠀⠀⠀⠀⠀⠉⠛⢦⣤⠶⠦⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⢀⣴⠞⢋⡽⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠃⠀⠀⠙⢶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⣰⠟⠁⠀⠘⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡀⠀⠀⠉⠓⠦⣤⣤⣤⣤⣤⣤⣄⣀⠀⠀⠀\n⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣷⡄⠀⠀⢻⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣆⠀\n⠀⠀⣠⠞⠁⠀⠀⣀⣠⣏⡀⠀⢠⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⠿⡃⠀⠀⠀⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡆\n⢀⡞⠁⠀⣠⠶⠛⠉⠉⠉⠙⢦⡸⣿⡿⠀⠀⠀⡄⢀⣀⣀⡶⠀⠀⠀⢀⡄⣀⠀⣢⠟⢦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠃\n⡞⠀⠀⠸⠁⠀⠀⠀⠀⠀⠀⠀⢳⢀⣠⠀⠀⠀⠉⠉⠀⠀⣀⠀⠀⠀⢀⣠⡴⠞⠁⠀⠀⠈⠓⠦⣄⣀⠀⠀⠀⠀⣀⣤⠞⠁⠀\n⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠀⠁⠀⢀⣀⣀⡴⠋⢻⡉⠙⠾⡟⢿⣅⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠙⠛⠉⠉⠀⠀⠀⠀\n⠘⣦⡀⠀⠀⠀⠀⠀⠀⣀⣤⠞⢉⣹⣯⣍⣿⠉⠟⠀⠀⣸⠳⣄⡀⠀⠀⠙⢧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠈⠙⠒⠒⠒⠒⠚⠋⠁⠀⡴⠋⢀⡀⢠⡇⠀⠀⠀⠀⠃⠀⠀⠀⠀⠀⢀⡾⠋⢻⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⢸⡀⠸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⢠⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣇⠀⠀⠉⠋⠻⣄⠀⠀⠀⠀⠀⣀⣠⣴⠞⠋⠳⠶⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⠦⢤⠤⠶⠋⠙⠳⣆⣀⣈⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Hello Kitty Peace","tags":["gato","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⡀⣰⡿⠛⠛⠿⢶⣦⣀⠀⢀⣀⣀⣀⣀⣠⡾⠋⠀⠀⠹⣷⣄⣤⣶⡶⠿⠿⣷⡄⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢰⣿⠁⠀⠀⠀⠀⠈⠙⠛⠛⠋⠉⠉⢹⡟⠁⠀⠀⣀⣀⠘⣿⠉⠀⠀⠀⠀⠘⣿⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⠀⠀⣾⡋⣽⠿⠛⠿⢶⣤⣤⣤⣤⣿⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢸⣿⡴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣄⡀⠀⢈⣻⡏⠀⠀⠀⠀⣿⣀⠀⠈⠙⣷⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⣰⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠛⠛⠙⢷⣄⣀⣀⣼⣏⣿⠀⠀⢀⣿⠀⠀⠀⠀\n⠀⠀⠀⠀⢸⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⣿⡉⠉⠁⢀⣠⣿⡇⠀⠀⠀⠀\n⠀⠀⠀⠀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠗⠾⠟⠋⢹⣷⠀⠀⠀⠀\n⢀⣤⣤⣤⣿⣤⣄⠀⠀⠀⠴⠚⠲⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣶⡆⠀⠀⠀⠀⢀⣈⣿⣀⣀⡀⠀\n⠀⠀⠀⠈⣿⣠⣾⠟⠛⢷⡄⠀⠀⠀⠀⠀⠀⠀⡤⠶⢦⡀⠀⠀⠀⠀⠹⠯⠃⠀⠀⠀⠈⠉⢩⡿⠉⠉⠉⠁\n⠀⠀⣤⡶⠿⣿⣇⠀⠀⠸⣷⠀⠀⠀⠀⠀⠀⠀⠓⠶⠞⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢤⣼⣯⣀⣀⠀⠀\n⠀⢰⣯⠀⠀⠈⠻⠀⠀⠀⣿⣶⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡿⠁⠉⠉⠁⠀\n⠀⠀⠙⣷⣄⠀⠀⠀⠀⠀⢀⣀⣀⠙⢿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢈⣿⡿⢷⣄⡀⠀⠀⠀\n⠀⠀⠀⠈⠙⣷⠀⠀⠀⣴⠟⠉⠉⠀⠀⣿⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⣾⠟⠉⠀⠀⠈⠉⠀⠀⠀\n⠀⠀⠀⠀⠰⣿⠀⠀⠀⠙⢧⣤⡶⠟⢀⣿⠛⢟⡟⡯⠽⢶⡶⠾⢿⣻⣏⣹⡏⣁⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠹⣷⣄⠀⠀⠀⠀⠀⣠⣾⠏⠀⠀⠙⠛⠛⠋⠀⠀⢀⣽⠟⠛⠖⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠙⠻⠷⠶⠿⠟⠋⠹⣷⣤⣀⡀⠄⣡⣀⣠⣴⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣍⣉⣻⣏⣉⣡⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Cinnamoroll holding heart","tags":["amor","perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⣠⠔⣲⠤⠤⠤⠤⠤⠤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢠⠞⣥⠋⠀⠀⠀⠀⠀⠀⠀⠀⠈⠑⠢⠤⣄⡀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢠⠛⣸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣆⠀⠀⠀⠀⠀\n⠀⠀⣀⡴⠋⣰⠁⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⡄⠀⠀⠀⠀\n⢠⠋⠁⠀⢰⠉⢸⢠⡇⠀⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷⠀⠀⠀⠀\n⢸⠀⠀⠀⣼⠀⠀⠉⠀⠀⠀⠀⠀⠀⣆⣿⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⣧⠀⠀⠀\n⠀⠓⠤⠴⠤⢛⠜⠒⠒⢄⢀⠤⠤⣄⠉⡄⠀⢀⠀⡇⠀⠀⠀⠀⠀⠀⠓⣄⠀\n⠀⠀⠀⠀⠀⢈⠀⠀⠀⠀⠁⠀⠀⠀⣶⣀⣀⣠⡦⠺⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢆\n⠀⠀⠀⠀⠀⠘⣆⠀⠀⠀⠀⠀⠀⠀⠿⠀⠀⢺⣐⠀⡗⢆⡀⠀⠀⠀⠀⠀⠀⠀⢸\n⠀⠀⠀⠀⠀⠸⡘⢦⡀⠀⠀⢀⣀⡖⠷⠶⠒⣺⣀⠖⠁⠀⠑⠲⣆⣀⣀⡠⠊\n⠀⠀⠀⠀⠀⠀⠙⠶⠷⠶⠖⢻⠁⠀⠀⠀⣰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢆⣀⣀⠚⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Cinnamoroll Amor","tags":["amor","perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣦⡶⠶⠶⠶⢶⣤⣂⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢀⣠⣶⢿⣿⠿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠈⠙⠳⣽⡿⢴⣆⡀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢀⣾⠏⠀⠘⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠃⠀⠙⣮⡄⠀⠀⠀⠀\n⠀⠀⠀⢀⣿⠃⢀⠀⣠⣤⣄⣠⣤⡀⠀⠀⠀⠀⠀⣠⣴⣦⣤⣶⣦⡀⡀⠘⣏⡄⠀⠀⠀\n⠀⠀⢠⣾⠏⢠⡟⢸⣿⣿⣿⣿⡿⣿⠀⠀⠀⠀⠀⣿⢺⣿⣿⣿⣿⡇⢹⡄⠙⣿⢄⠀⠀\n⠀⣰⡿⠃⠀⣼⠀⠀⠙⢾⣿⣟⡿⠋⣀⠀⠀⠀⢀⠘⠿⣝⣛⡿⠋⠀⠀⣷⠀⠘⢿⣂⠀\n⣰⡿⠁⠀⠀⠹⣆⠀⠀⠀⠙⠋⠀⠘⠷⠖⠛⠲⠾⠃⠀⠈⠛⠁⠀⠀⣰⠏⠀⠀⠈⢿⢇\n⣿⡇⠀⠀⠀⠀⠙⠷⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⠾⠋⠀⠀⠀⠀⢸⣿\n⠘⣿⣄⠀⠀⠀⢀⣠⣾⠏⠛⠛⠻⠟⠻⠿⠿⠿⠛⠿⠟⠛⠛⠙⢿⣦⡀⢀⣀⣰⣧⡉⠀\n⠀⠈⠛⠛⠿⠟⠛⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠛⠛⠛⠀⠀"},
+{"label":"Little twin stars","tags":["sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠤⠶⠶⠶⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣴⣺⡭⠵⠚⠋⠉⠉⣹⣸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣾⡽⠟⠉⠁⠀⠀⠀⠀⣤⣾⠿⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⢞⡽⠛⠁⠀⠀⢠⢤⡀⠀⣠⣞⡵⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⣫⡴⠋⠀⠀⠀⠰⣖⠋⠈⠉⡿⣹⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣠⢾⡿⠋⠀⠀⠀⠀⠀⠀⢸⣆⣤⣄⣧⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢀⡴⣵⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⢉⣞⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢀⣾⡞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡾⡽⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢠⢾⠞⠀⠀⠀⢀⣀⣠⠖⣶⣀⣠⣤⣼⣵⣳⣦⠤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⢠⢯⠏⠀⠀⠀⠀⢸⣥⡿⠚⠉⠁⠀⠀⠀⠀⠈⠉⠑⠺⢭⡒⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⢀⢟⠏⠀⠀⠀⢀⣴⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⡹⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⡞⡿⠀⠀⠀⢠⡞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣎⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⣸⢻⠁⠀⠀⢀⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣆⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢀⣧⡏⠀⠀⠀⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢸⢹⠁⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⣿⣮⡠⢿⡀⠀⠘⣆⠀⠀⠀⠀⠀⠀⢀⣤⣀⣠⣦⣀⣠⣄⠀⠀⠀⠀⠀⠀⠀⣸⣸⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⡇⣿⠀⠀⡽⠃⠀⠹⣆⢀⣀⣀⡴⠒⣻⡉⠉⠁⠀⠉⠉⠉⠓⠒⢦⣀⡀⠀⢰⣯⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⡇⡟⠛⠳⠇⠀⠀⠀⠈⢻⣀⡉⠀⠈⠻⠛⠀⠀⠀⠀⠀⠀⠀⣿⡗⢸⣥⣴⣿⡟⠀⠀⣀⣠⠤⢴⣒⣒⣒⣲⣦⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⣧⡇⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⢲⣤⣤⣀⠀⠈⠳⠤⠴⠂⠀⢀⣴⣿⣿⣿⣿⣷⣶⣾⡽⠖⠋⠉⠉⠉⠉⠉⠉⠓⠺⣝⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠁⠀⠈⠻⠭⠿⠟⠛⢿⣿⣿⣿⣿⡟⡟⢹⡿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣝⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢻⣧⠀⠀⠀⠀⠀⠀⠀⠀⣠⠿⡄⠀⠀⢻⡀⠀⠀⢸⠀⠘⣯⣿⡟⣽⠖⣃⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢦⡱⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢸⣾⡄⠀⠀⠀⠀⠀⢀⡜⠁⠀⢧⠀⠀⠀⢳⡀⠀⣸⠀⠀⣿⣿⣧⣿⣾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⡝⣦⡤⢤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠈⣯⣇⠀⠀⠀⠀⠀⡏⣀⡴⠦⢾⣇⠀⠀⠀⢳⣄⡟⠀⠀⣿⣷⣯⡷⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣻⣶⠹⣷⣶⡹⣄⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⢹⣿⡀⠀⠀⠀⠀⣷⠋⠀⠀⡼⢹⣤⣤⡤⠶⣿⡤⠤⣤⣿⠁⠀⣠⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣄⣀⣼⠦⠴⠟⠒⠖⢿⣬⡇⠀⡼⠳⡼⣇⠀⠀⠀⠀⠀⠀⠀\n⠀⠈⢳⢿⡀⠀⠀⠀⢳⡀⢀⡼⠓⠒⠻⣶⣼⠿⠉⠿⠿⠿⣿⣀⣼⡋⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⣤⠾⠋⠁⠀⠰⠿⠀⢀⡶⠊⠀⠉⢻⡇⢀⡇⣿⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠈⢯⢧⠀⠀⠀⠀⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠙⢼⣇⠀⠀⠀⠀⠀⠀⣀⣤⡼⠋⠀⠀⠀⠀⠀⠀⠀⣠⠞⠀⠀⠀⢠⡞⠀⠈⣧⣧⠁⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠘⢿⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣦⣄⣠⣄⠀⠀⣾⠰⣶⡦⠀⠀⠤⠤⢏⣠⠞⠁⢠⣀⢀⡴⠋⠀⢠⣴⣣⠏⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠈⢯⣳⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡯⡗⠹⣬⡟⠻⠧⣤⣈⣀⣠⡤⠶⠾⠭⠛⠀⠀⠀⠹⠿⠤⣤⣀⣸⠟⡟⢧⡀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠳⣹⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡀⠀⠀⠀⠀⠀⠀⢸⡯⠥⣄⡞⠁⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣨⠏⠀⢸⣶⢻⣦⢀⣀⣀⣀⡀\n⠀⠀⠀⠀⠀⠀⠀⠙⣞⢦⡀⠀⠀⠀⠀⠀⠘⢿⠛⠻⠷⣄⠀⠀⠀⠀⠀⡾⠁⠀⠙⠶⠦⣄⣀⣀⣀⣀⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⢻⠀⠀⢸⣇⣿⣻⠭⠽⠿⢿⢱\n⠀⠀⠀⠀⠀⠀⠀⠀⠈⠣⡙⢤⡀⠀⠀⠀⠀⣿⣧⣄⡟⠃⠀⠀⠀⠀⠀⠷⣤⣼⡗⠀⠀⠀⠀⠀⠀⠀⢻⡄⠀⠀⠀⠀⠀⠀⠀⠀⢠⠏⠀⢸⡦⠤⠾⠃⠀⠀⠀⠀⣠⣞⡞\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠢⡑⢆⡀⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣤⣀⣴⡇⠀⠀⢠⠀⢳⡄⠀⠀⠀⠀⠀⠀⠀⡼⠀⠀⢸⡇⠀⠀⠀⠀⠀⣀⡴⣫⡏⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⢽⡲⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠲⠖⠋⠛⠒⠛⢦⡀⠀⠀⠀⢀⣼⠧⢤⡤⠞⠁⠀⠀⢀⣤⢺⡿⠛⠁⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠺⢝⡶⢤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⣀⣠⠴⠞⠁⠀⠀⠀⢀⣀⠴⣞⡿⠚⠉⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠑⠪⢵⣖⠦⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⡤⠤⣖⣮⡽⠓⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠀⢉⣓⠒⠯⠽⠿⣗⢒⠖⠂⠦⠤⠄⠤⠴⢖⣒⠲⠾⠿⠯⢟⢒⠛⣛⣉⡀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"My Melody & Cinnamoroll","tags":["perro","conejo","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡞⠋⠁⠈⠙⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡟⠀⠀⠀⠀⠀⠀⠙⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡇⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⠀⠀⠀⢀⣴⠶⠛⠛⠛⢷⣄⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠋⣷⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆⠀⢀⣾⠟⠁⠀⠀⠀⠀⠀⢹⡇⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣇⠀⠀⠀⠀⡀⠀⠀⠀⣧⣰⠟⠁⠀⠀⠀⠀⠀⠀⠀⠈⣿⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣆⠀⣰⠟⠛⠿⣆⠀⣿⠏⠀⠀⠀⠀⠀⠀⢰⠇⠀⠀⣿⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⡤⢤⣽⣶⣏⢀⠀⠀⣿⣼⣏⠀⠀⠀⠀⠀⠀⣴⡟⠀⠀⠀⣿⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣿⠁⠀⠀⣸⠉⠙⣿⠁⠀⠙⣧⠻⣦⣀⠀⣀⣤⠾⠋⠀⠀⠀⢠⡿⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠶⠖⠛⠉⠉⠉⠉⠛⠲⠶⣶⡶⠶⣤⣀⠀⠀⠙⢷⡄⠈⠉⢻⡞⠻⠶⠤⠾⠋⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀⠀⠸⢷⣄⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⠾⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⠀⠀⠈⠛⠷⣤⣸⣧⣀⣴⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣆⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢠⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢧⡀⠀⠀⠀⣼⠃⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡄\n⠀⠀⠀⠀⠀⠀⠀⣰⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⢰⡇⠀⠀⣠⡴⠖⠛⠉⠉⠉⠉⠉⠉⠛⠒⠶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⣿\n⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀⠀⠀⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣷⡀⠀⢻⡄⢸⡄⢀⡾⠫⣨⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⣄⠀⠀⠀⠀⠀⠀⣿\n⠀⠀⣀⣴⠞⠋⠀⠀⠀⠀⠀⢸⠇⠀⠀⢠⣾⣷⡀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠹⢾⠇⣀⠐⣧⣬⣇⢸⠁⢰⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⣶⡀⠈⣷⡀⠀⠀⠀⢀⡿\n⢀⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⣾⠀⠀⠀⠸⢿⡿⠇⠀⠀⠀⣦⣤⠤⠼⠇⠀⠀⠀⠿⡁⣰⡏⠙⠿⣿⣇⠀⠛⠋⠀⠀⢰⣿⣷⠄⠀⠀⠀⠸⣿⣿⠇⠀⢸⡇⠀⠀⢀⣾⠃\n⢸⡅⠀⠀⠀⠀⠀⠀⠀⢀⣼⡃⠀⠖⠛⠙⠦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⢀⣠⡾⠋⠀⠀⠀⠈⠻⣷⣾⠛⢳⣀⠀⠿⠭⠴⠂⠀⠀⠀⠉⠁⠀⢀⡼⠁⢀⣠⡿⠃⠀\n⠈⢷⣄⠀⠀⠀⠀⢀⣤⠾⠋⠳⢦⣄⡀⠀⠀⠀⠀⣴⠖⠒⢦⣤⣤⣴⡟⠉⢻⣏⠁⠀⠀⠀⠀⠀⠀⣟⠉⣻⡄⠘⠙⣷⣤⣄⣀⣀⣀⣀⢀⣀⣤⣴⣿⣥⠶⠛⠉⠀⠀⠀\n⠀⠀⠉⠛⠒⠲⠚⠋⠁⣀⣠⣤⣤⡈⣹⠟⠉⠉⢉⣧⠀⠀⢲⣿⣀⣿⡋⠀⣸⡏⠀⠀⠀⣀⣀⠀⠀⢹⡟⠉⣇⠀⣻⣿⣿⣁⣹⣏⠉⠉⠉⠉⠁⠙⢷⡄⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⡾⠋⠀⠀⠀⣹⠋⠀⠀⢀⣈⠙⠦⠴⠟⠉⠀⠈⠉⠙⢻⣯⣿⡀⠀⠀⠉⠉⠉⠀⠙⣻⡏⢹⡏⠀⠀⠈⠉⠉⠳⢶⣤⠤⠴⢾⡏⠁⠀⢄⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⢰⡆⢠⡇⠀⠀⣴⠛⠉⠻⣦⠀⠀⠀⡄⠀⠀⠀⡘⠁⠈⢻⠀⠀⠀⠀⠀⢠⡾⠋⠙⢛⡷⠤⠤⢤⣤⡤⠴⠞⠁⠀⠀⠈⣿⠲⢤⡀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢻⣄⠀⠙⢻⡆⠀⠐⠃⠀⠀⠀⢸⡆⠀⠀⢹⠀⠀⢀⡇⠀⢀⡾⠀⠀⠀⠀⠀⢸⡇⠀⠀⣿⠀⠀⠀⠀⠙⠆⠀⠀⠀⠀⠀⠀⣸⠀⠈⣧⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠓⠒⠚⠳⣄⣀⣀⠀⠀⠀⣸⣷⡀⢀⣸⣄⣀⣼⠧⠴⠟⠁⠀⠀⠀⠀⠀⠀⢻⣄⠀⠹⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣏⣀⡴⠃⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠳⠶⠟⠋⠀⠉⠉⠉⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠳⠶⠿⣦⣀⣀⣴⠿⠶⠶⠒⠛⠉⠁⠀⠀⠀⠁⠀⠀⠀⠀"},
+{"label":"Pochacco Peace","tags":["perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⠀⠀⠀⠀⠀⣴⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⡟⠀⠀⠀⠿⠷⠆⠙⠆⢀⠴⠿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣣⣴⠾⠛⠃⠀⠀⠀⠀⠀⠀⠀⠛⠷⣦⣄⠀⠀⠀⢀⣀⣤⣤⣤⣤⣄⣀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢻⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣿⡾⠿⣿⣿⣿⣿⣿⣿⣿⡿⠃\n⠀⠀⠀⠀⠀⠀⠀⢠⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⠀⠈⠉⠉⠉⠉⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⣾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢀⣀⠀⣿⡀⠀⠀⠀⣠⡀⠀⠀⠀⠀⠀⠀⠀⠀⣤⡀⠀⠀⠀⠿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⣴⠋⠉⢳⣤⠀⠀⠀⠀⠿⠇⠀⠀⢀⣤⣄⠀⠀⠈⠛⠁⠀⠀⠀⢸⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢀⡶⠿⠿⡆⠀⠈⢷⣤⣄⣀⠀⠀⠀⠀⠀⠈⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠸⣇⡀⠀⠀⠀⠀⠀⠀⠈⠙⢷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠈⠛⢶⡄⠀⢰⠟⠉⢁⠀⠈⣿⣶⣶⡶⣶⣶⡶⠶⣶⡶⣾⡿⢻⡿⠓⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠘⣧⠀⠘⠷⠴⠞⠁⣰⡿⡐⢦⠻⢦⣤⡤⡔⢧⠱⡹⢯⣿⣁⠴⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠙⠷⣦⣤⣤⣴⡾⠟⣧⡙⢦⡙⢆⠲⣡⠙⣆⢣⣵⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢧⡁⠚⠮⢷⠴⠟⠒⣩⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠒⠒⠋⠓⠒⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Hello Kitty Meme","tags":["gato","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡾⠛⠛⠳⢦⣄⡀⢀⣀⣀⣀⣠⣤⣤⣄⣀⣀⡀⠀⢀⣤⣶⣦⣤⣶⠛⠛⢷⡄⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡟⠀⠀⠀⠀⠀⠈⠛⢯⣍⠁⠀⠀⠀⠀⠀⠀⠉⠉⣻⣿⡿⣯⣟⡿⣿⣦⠀⠀⠹⣆⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⢧⠀⠀⠀⠀⠀⠀⠀⢸⣿⣟⡿⣧⣟⣿⣻⣿⣤⣀⡀⢻⡄⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⣴⢾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣯⢿⣽⣿⣿⣿⣟⡿⣿⢿⣿⣿⣷⡀⠀⠀\n⠀⠀⠀⠀⠀⣠⡞⠁⢸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣽⢯⣿⣿⣿⢷⣯⢿⣽⣻⣿⣿⣿⡇⠀⠀\n⠀⠀⠀⠀⣰⠏⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣟⣾⣻⣿⣿⣾⣯⣷⣿⣿⣿⣿⡇⠀⠀\n⠀⠀⠀⢰⡏⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠛⠁⠈⠉⠛⢿⣿⣽⣷⡿⠁⠀⠀\n⠀⠀⠀⡿⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⢀⣴⠞⠛⠉⠛⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⣿⡀⠀⠀⠀\n⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡟⠁⠀⠀⠀⠀⠸⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀\n⠘⠒⢿⠷⠶⠤⣤⣀⣀⡀⠀⠀⠀⠀⠀⠋⠀⠀⠀⠀⠀⠀⠀⢻⡄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⡤⢾⡗⠒⠒⠂\n⠀⠀⢸⡆⠀⠀⠀⠈⠩⣏⡛⠲⠆⠀⠀⠀⠀⠀⠀⢀⣦⣄⠀⠈⣷⣿⡄⠀⠀⠀⠀⠀⠀⣿⠀⢀⣠⡶⠀⠁⠀⣼⠇⠀⠀⠀\n⠀⠀⠈⣧⠀⠀⠀⠀⠀⠙⢿⣄⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⡆⠀⠘⠛⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⠃⠀⠚⢛⡟⠛⠒⠀⠀\n⠀⠀⠀⢹⣆⣀⣤⡤⠶⠞⠛⠻⣷⣄⠀⠀⠀⠀⢸⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣿⡟⠀⢀⣀⣼⡁⠀⠀⠀⠀\n⠀⢠⡴⠞⠻⣍⠀⠀⠀⠀⠀⠀⣹⣿⣧⡀⠀⠀⠀⢿⣿⡿⠃⠀⠀⠀⠀⠀⢠⣴⡶⣤⠀⠀⠀⠀⠀⠀⢠⣾⠿⠿⠷⣦⡀⠀\n⠀⠀⠀⠀⠀⠹⣷⠀⠀⠀⣀⡾⠁⠈⢿⣿⣆⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠸⣿⡿⠿⠀⠀⠀⠀⢀⣰⡿⠀⠀⠀⠀⠈⢿⠀\n⠀⠀⠀⠀⠀⠀⠘⢳⣤⡾⠋⠀⠀⠀⠈⠻⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⣴⣾⣿⣿⠇⠀⠀⠀⠀⠀⠈⡇\n⠀⠀⠀⠀⠀⠀⢀⡾⠋⠛⠶⣄⡀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⢀⡇\n⠀⠀⠀⠀⠀⠰⠟⠁⠀⠀⠀⠈⠉⣳⡶⢦⣤⣼⣿⣿⣿⣿⣿⣿⣿⣏⣾⣿⣿⣿⣿⣿⢻⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⣸⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠋⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣳⣿⣿⣿⣿⣿⣿⢣⡟⣼⣛⣿⡀⠀⠀⠀⠀⠀⠀⣰⠃⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠟⠁⠀⠀⠀⢸⣟⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣟⡼⣓⢾⡱⢮⡽⣷⣄⣀⡀⣀⣤⠞⠁⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣯⣤⣄⣀⣀⠀⢸⣟⡞⡼⣭⣛⠿⣹⢻⠽⣭⢳⡹⢶⣙⢮⡳⣝⣣⢞⣽⠏⠉⠉⠉⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢠⡟⠀⠀⠀⠉⠉⠛⠻⣿⣜⡳⢧⣝⣫⢗⣫⡝⣮⢳⡝⣣⢏⡾⣱⢧⣋⢾⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣝⡳⣎⡳⣎⢧⡻⡜⣧⡛⣵⢫⢞⡵⢮⣝⣾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢻⡄⠀⠀⠀⠀⠀⢀⣤⣶⠿⣎⡵⣫⢵⢫⣞⣱⢻⡴⣛⡼⣹⢞⡼⣳⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣄⡀⠀⣀⣤⡿⣏⣗⢻⣬⢳⡝⣮⢳⢎⣧⢳⡝⡮⣵⢣⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠹⣿⡵⢫⣜⡳⣎⠷⣹⠖⣯⢺⣬⢳⣾⣵⣿⣿⣿⠟⠋⣽⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⢣⡏⣷⡎⡟⣥⢻⡜⣷⣿⣿⣿⢹⡏⠁⠀⣴⣾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣮⣝⣶⣭⢳⡝⣎⣷⣧⣷⢾⡏⠀⠙⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣍⠉⠙⠛⠙⠉⠉⠁⢀⡾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠲⠶⠶⠖⠖⠚⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Cinnamoroll Sleeping","tags":["perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠶⠛⠋⠉⠉⠉⠙⠛⠛⠶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡶⢿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢷⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠢⣄⡀⢀⠀⠀⠀⠀⢻⡄⠀⠀⠀⠀⣀⣀⣀⡀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⡾⠀⠀⠀⠀⠀⣿⠀⢠⡶⠟⠋⠉⣩⣿⣷⣆⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠀⢀⡾⠁⠀⠀⠀⠀⠀⣿⠶⣿⠁⠀⠀⠸⣏⠀⠈⠙⢳⡄\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠸⠋⠀⣠⡿⠁⠀⠀⠀⠀⠀⠀⣿⠄⢻⣆⠀⠀⠀⠀⠀⠀⠀⢸⡟\n⠀⠀⠀⠀⠀⠀⢀⣤⠾⠛⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠙⠳⠶⢦⣤⣤⣤⣶⣾⠁\n⠀⠀⠀⠀⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡄⢸⡇⠀⠀⠀⠀⠀⠀⠀⣸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀\n⠀⠀⣠⡾⠋⠁⠀⠀⠀⢀⣿⡀⠀⠀⠀⣀⠀⠀⢀⣴⡏⠀⠈⠳⣄⡀⠀⠀⠀⣀⣴⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡏⠀\n⠀⣼⠋⠀⠀⢀⣠⠶⠛⠋⠉⠙⠛⢶⣴⡏⠀⠀⠉⠀⠁⠀⠀⣀⣼⠿⠛⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⣀⠀⠀⠀⢤⣼⠇⠀\n⢰⡏⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠹⣧⠀⠀⠀⣠⡶⢻⡿⠋⠁⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⢰⡟⠀⠀⠀⠀⠙⢷⡀\n⠈⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡿⠶⢶⠾⠿⢤⠼⠷⣤⣤⣤⡴⠶⠛⠳⠶⠶⠶⠶⠶⠶⠚⠷⢦⣤⣤⣤⠶⠟⠁\n⠀⠈⠳⣦⣀⣀⠀⠀⠀⠀⢀⣀⣀⣤⠿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠉⠉⠙⠛⠛⠛⠋⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Hello Kitty Kiss","tags":["amor","gato","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠖⠋⠙⢦⠀⢀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡀⠀⠀⠀⠛⠉⠀⠈⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⠀⠀⠀⠀⠀⠀⢀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠳⣄⠀⢀⣠⠖⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢀⣠⣴⣶⡿⢿⣷⣤⠀⠀⠀⠀⠈⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠟⠋⠉⠀⠀⠀⠈⢿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⡾⠟⠻⣷⠀⠀⣀⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠈⢿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠋⠀⠀⢀⣿⣤⡾⠛⠉⠈⠙⢿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⡟⠁⣠⣶⣆⣸⡟⠋⠀⠀⠀⠀⠀⠀⠙⢷⡄⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡆⠀⠀⠀⢀⣴⡾⠛⢹⡿⠀⢰⣿⠿⠛⠛⣷⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣄⡀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢤⣿⡇⠀⢀⣴⠟⠁⠀⠀⣿⡇⢠⡿⠁⠀⠀⢀⣿⠟⠻⢷⣦⠀⠀⠀⠀⠀⠸⣟⠻⣦⡀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣷⣴⡿⠁⠀⠀⠀⠀⠙⠷⢾⡇⠀⠀⢠⣾⣯⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⣿⠀⠈⢻⣆⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡟⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⣤⣶⣟⢃⡿⠀⠀⣰⡿⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠹⣧⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡿⠀⠙⠋⠁⠀⣰⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣧⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢰⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⠀⠀⢀⣴⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡆\n⠀⠀⠀⠀⠀⠀⠀⠀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⠿⠿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿\n⠀⠀⣴⣶⣄⠀⠀⢠⣿⠀⠀⠀⢀⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿\n⠀⠀⣿⣿⣿⠀⣰⠾⣿⠀⠀⠀⠹⠿⠿⠶⠃⠀⠀⠀⠀⠀⠐⠶⠶⠶⠶⠶⣶⣤⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿\n⠀⠀⠈⠉⠁⠀⠻⣤⣿⡄⠀⠀⠀⠀⢀⣴⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡿\n⠀⠀⠀⠀⠀⠀⠀⠀⢻⣷⠀⠀⠀⠀⠘⠓⠾⣷⡾⠃⠀⠀⠛⠷⢶⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⠇\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣄⡀⠀⠀⠀⠙⠛⠷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⡟⠀\n⠀⠀⠀⠀⠀⠀⠀⣀⣴⡿⠛⢿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠏⠀⠀\n⠀⠀⠀⢀⣠⣴⡾⠟⠉⠀⠀⠀⠙⠻⣶⣤⡀⠀⠀⠀⠀⠀⠀⠈⠻⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⡿⠃⠀⠀⠀\n⣤⣶⣾⣿⣏⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢷⣦⣄⣀⡀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⡾⠟⠉⠀⠀⠀⠀⠀\n⢻⣇⠀⣹⢹⣷⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⢁⡼⢛⣿⡿⠶⣶⣶⣶⣦⣤⣶⣶⣶⠶⠿⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⢻⣶⢇⣾⠇⠈⠙⢷⣄⠀⠀⠀⠀⠀⠀⢸⣿⠛⠁⣼⠋⠑⢄⣈⠙⣷⡤⠠⠠⣀⠿⣷⣶⡶⠾⢶⡄⠀⠀⠀⠀⠀⠀⠀\n⠀⠈⣿⡾⠃⠀⠀⠀⠀⢻⣇⠀⠀⠀⠀⠀⢸⡏⠀⠀⣿⠀⢀⣤⣾⠷⢿⣿⠀⡜⠁⠀⢸⡏⠀⠀⣸⣿⣄⡀⠀⠀⠀⠀⠀\n⠀⠀⢹⣷⠀⠀⠀⠀⠀⣸⡿⠀⠀⠀⠀⠀⢸⡇⠀⠒⠾⣿⡟⠉⠀⠀⠀⢻⣦⡐⢄⣀⡈⠻⣶⣾⣿⣥⣿⣿⡆⠀⠀⠀⠀\n⠀⠀⠘⣿⣧⣤⡶⠶⠾⠛⠁⠀⠀⠀⠀⠀⠸⣿⠀⠀⠀⢘⣿⡄⠀⠀⠀⠀⠹⣷⡤⢤⣀⣠⣴⡿⠋⣻⣧⣾⠃⠀⠀⠀⠀"},
+{"label":"Hello Kitty Lentes","tags":["gato","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡤⠶⠶⠶⠦⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠋⠁⠀⠀⠀⠀⠀⠀⠉⠻⣖⠒⠛⠛⠛⠛⠲⢦⣄⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣤⣤⣤⣤⣠⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡆⠀⠀⠀⠀⠀⠀⠹⣆⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⠴⠶⡶⠶⠶⠒⠒⠶⠾⠛⠉⠉⠁⠀⠀⠀⠀⠀⢠⡿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⣷⠀⠀⠀⠀⠀⠀⠀⢹⡇⠀⠀\n⠀⠀⠀⢀⣴⠞⠋⠁⠀⠀⢀⣴⠿⢷⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣿⣀⠀⠀⠀⠀⠀⠀⠘⣿⠀⠀\n⠀⠀⢠⡟⠁⠀⠀⠀⢠⡾⠛⠛⠀⠀⠉⠙⣻⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣆⡀⠀⠀⠀⠀⠀⠀⠘⠃⣠⡾⠛⠉⠀⠈⠙⠻⣦⠀⠀⠀⠀⠀⢿⠀⠀\n⠀⢠⡿⠀⠀⠀⠀⠀⢺⡷⠶⠤⠾⠶⢾⡓⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣆⠀⠀⠀⠀⠀⠠⠀⣼⠏⠂⠀⠀⢀⠔⢄⠀⠘⣧⣤⣤⣄⡀⣼⠀⠀\n⠀⢸⡇⠀⠀⠀⠀⠀⠘⣷⠀⠀⠆⡀⢀⣵⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⢦⣤⣅⣀⣀⣾⡏⠀⠀⠀⠀⠸⢤⠈⢠⠀⣿⠀⠀⠉⠙⠻⣦⡀\n⠀⢸⡇⠀⠀⢸⡷⣤⣤⡿⢷⣶⠬⠵⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⢹⣧⠀⢀⡀⠀⠀⠀⠀⢸⣴⠏⠀⠀⠀⠀⠀⠈⢿\n⠀⢸⡇⠀⢠⣼⡇⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⢧⣄⣁⣀⣀⣠⡴⠟⠁⠀⠀⠀⡀⠀⠀⠀⣸\n⠀⠈⣿⠀⠘⠻⣷⡄⠀⣤⠼⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⡟⠉⠁⠀⠀⠀⠀⠀⠀⡄⠀⠀⠀⢀⡟\n⠀⠀⢹⣷⡆⠀⠈⢷⡞⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⢀⣾⠃\n⠀⠀⠀⢹⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡀⠀⠀⠸⠁⠈⠁⠀⠀⠀⠀⣠⡾⠁⠀\n⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣸⣷⡴⠶⠶⠶⠶⠶⠶⣦⣠⣾⡏⢻⣆⠀\n⠀⠀⢀⣾⣇⠀⠀⢀⣀⣀⣤⣤⡤⠤⢤⣤⣤⣄⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡴⠟⠋⢁⣀⣠⡤⠴⠾⠛⠛⠷⣦⣍⡉⠀⢸⡟⠀\n⠀⢠⣿⣡⣿⠶⠟⠋⣉⣀⣠⣤⣤⣤⣤⣀⣀⣀⣀⡉⠙⠛⠶⢤⣄⡀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠟⠁⣀⣤⠶⠛⠉⠀⠀⠀⠀⠀⠀⠀⢸⣿⢁⣼⠟⠀⠀\n⢀⣟⣻⡿⢃⣤⡖⠛⠉⠉⠀⠀⠀⠀⠀⠈⠉⠉⠉⠛⠳⢦⣄⠀⠉⠛⠲⠶⠦⣤⡤⢶⠞⠋⣀⣴⠞⠉⠀⢠⣴⣿⣗⠀⠀⠀⠀⠀⢀⡿⢃⡾⠁⠀⠀⠀\n⢸⡏⠉⠁⠘⣿⣧⠀⠀⠀⠀⠀⠀⠀⢀⣶⣦⣀⠀⠀⠀⠀⠈⠻⣆⠀⣦⣀⠀⢀⣠⣤⠄⣾⠋⠀⠀⠀⠀⣿⣿⡿⠋⠀⠀⢀⣠⣴⢛⣵⠟⠁⠀⠀⠀⠀\n⠀⠻⢷⣦⡀⠙⢿⣧⡀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣷⡀⠀⠀⠀⢀⣿⢀⡟⠉⠉⠉⠙⣷⠈⠻⣦⡀⠀⠀⠀⢈⣁⣀⣤⡴⠾⢋⣩⡾⠛⠁⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠙⢷⣄⠙⢿⣦⡀⠀⠀⠀⠀⠀⠙⠛⠛⠀⠀⠀⣠⡾⣡⡿⠃⠀⠀⠀⠀⠘⠷⣤⣈⣛⣛⣛⣛⣛⣉⣥⡤⠶⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠙⠳⢦⣌⣙⠓⠲⠦⠤⠤⢤⣤⡤⣶⣶⣿⣭⠾⠋⠀⠀⠀⠀⠀⠀⣀⣀⣀⣉⣽⣿⣿⡟⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠒⠲⠶⠶⠶⠶⢶⡟⣻⡟⠓⠒⠶⢶⡶⠶⣶⣿⣿⣛⣿⠏⠉⣷⡟⢹⡷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡏⠙⣷⣀⠀⠀⠘⠷⠞⣋⣿⠀⣉⣯⣴⠾⠋⣙⣿⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠻⣿⣉⠙⠻⠶⠶⠿⠿⠋⠋⣉⣡⣴⣖⣺⡷⠿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⠿⣿⣤⣠⣴⣷⣤⣴⡟⠛⠛⠟⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣄⢀⡀⢸⣿⣇⣀⣲⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠛⠒⠚⠋⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Cinnamoroll llanto","tags":["perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣴⠾⠛⠋⠉⠁⠀⠀⠈⠉⠉⠛⠳⢦⣄⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢀⣶⠿⢉⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⢿⡉⠹⣷⡀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢀⡾⠋⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠈⢻⣆⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢀⣾⠁⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⢻⡄⠀⠀⠀⠀\n⠀⠀⠀⢀⡾⠃⢰⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣧⠈⢿⣄⠀⠀⠀\n⠀⠀⣠⡟⠁⠀⣿⠁⠀⠘⣟⠛⠛⣿⠛⠀⠀⠀⠀⠀⠀⠀⠀⠘⣟⠛⢋⡟⠇⠀⠀⣿⡄⠀⠻⣦⡀⠀\n⠀⣸⠏⠀⠀⠀⢿⡄⠂⠀⣿⠀⠀⢹⠃⠀⣿⣠⡴⠦⣤⣻⠆⢠⡇⠀⣸⠃⠀⠀⠀⣿⠀⠀⠀⠘⣷⠀\n⢀⣿⠀⠀⠀⠀⠈⢿⣤⡀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠇⠀⢸⠇⠀⣠⡾⠃⠀⠀⠀⠀⢹⡇\n⠈⣿⠀⠀⠀⠀⠀⠀⠈⢿⣷⣷⣆⣹⣄⣀⣀⣀⣀⣀⣀⣀⣇⣀⣸⣇⣶⣿⡿⠉⠀⠀⠀⠀⠀⠀⢸⡇\n⠀⠹⣦⡀⠀⠀⠀⢀⣠⡾⠃⠀⠉⠉⠉⠉⠉⠉⠉⠉⠙⠉⠉⠉⠉⠉⠀⠈⠻⣦⣀⠀⠀⠀⢀⣠⡟⠀\n⠀⠀⠈⠙⠛⠛⠛⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠛⠛⠛⠉⠀⠀"},
+{"label":"Pochacco","tags":["perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⡾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣿⡿⠟⢀⣀⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡼⠟⠛⠛⠓⠙⠚⢡⣀⣀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⢫⣍⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡆⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢀⡶⠛⣶⡼⠃⠀⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣇⡀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⣾⠀⣀⣿⠀⠀⠘⠋⠀⣀⠀⠀⠀⠀⠀⠀⣠⡿⠙⣽⣷⣦⡀⠀\n⠀⠀⠀⠀⠀⣿⣿⣿⣿⣧⡀⠀⠀⠈⠛⠃⠀⢾⠇⠀⠰⠾⠁⠀⠈⠻⢿⣿⡀\n⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⡳⡤⢀⡀⠀⠀⠀⠀⠀⣶⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣶⣬⣽⣿⣶⣶⣶⣟⠙⠳⣦⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⣰⣿⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⣠⠟⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⢰⡏⠉⠉⠉⠉⠉⠛⠛⠻⠿⣽⣿⣿⣿⡛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⡀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢠⡟⠉⠀⠀⠀⢰⡶⣤⣄⣀⣀⣀⣀⣀⠀⠀⠈⠉⠳⣆⠀⠀⠀⠀⠀⠀⠀⠀\n⠛⠛⠒⠒⠒⠒⠛⠛⠀⠈⠉⠉⠉⠙⠓⠒⠲⠶⠖⠒⠓⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Pompompurin","tags":["oso","sanrio"],"plain":true,"art":"⢠⠋⠒⠙⡄⠀⣀⢴⠛⡦⣀⠀⠀⢠⠢⠔⡄\n⠀⠑⣀⣊⠤⠯⣥⣄⣀⣠⣬⠵⣀⡈⠢⠔⠁\n⣰⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠓⠦⣄\n⣏⠀⢠⠟⠀⠛⠀⢠⣤⠀⠶⠀⠘⣇⠀⠀⣹\n⠙⠒⣾⠀⠀⠀⠘⠚⠓⠚⠀⠀⠀⠙⡲⠚⠁\n⠀⢀⡾⠀⣀⠔⠒⢞⣫⡷⠖⠢⡀⠀⢧⠀⠀\n⠀⣼⠥⡀⢀⡀⣀⡜⠀⢣⣀⣀⠀⡴⠚⢦⠀\n⢸⠁⠀⠙⡀⠀⠀⠙⠒⠋⠀⠀⠨⠀⠀⢸⠀\n⠀⠳⣄⣠⠴⠤⠤⠤⠤⠤⠤⠤⠦⣤⡤⠋⠀"},
+{"label":"My Melody","tags":["gato","conejo","sanrio"],"plain":true,"art":"⠀\n⠀⠀⠀⠀⣾⣿⣿⣷⣄\n⠀⠀⠀⢸⣿⣿⣿⣿⣿⣧⣴⣶⣶⣶⣄\n⠀⠀⠀⣀⣿⣿⡿⠻⣿⣿⣿⣿⣿⣿⣿⡄\n⠀⠀⠀⢇⠠⣏⡖⠒⣿⣿⣿⣿⣿⣿⣿⣧⡀\n⠀⠀⢀⣷⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷\n⠀⠀⢸⣿⣿⡿⢋⠁⠀⠀⠀⠀⠉⡙⢿⣿⣿⡇\n⠀⠀⠘⣿⣿⠀⣿⠇⠀⢀⠀⠀⠘⣿⠀⣿⡿⠁\n⠀⠀⠀⠈⠙⠷⠤⣀⣀⣐⣂⣀⣠⠤⠾⠋⠁\n⠀⠀"},
+{"label":"Pochacco Foto","tags":["perro","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⡆\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⠇\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣄⣶⡄⠀⣠⡄⠀⠀⠀⢸⣿⣿⠏⠀\n⠀⣀⣠⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠻⠎⠋⠘⠉⠠⢄⣀⣀⣿⣿⠋⠀⠀\n⢾⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⣠⠖⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⡁⠀⠀⠀\n⠈⠛⠛⠛⠛⠛⠛⠛⠿⣷⡼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡄⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⡼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠈⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⣠⠶⢤⠀⠀⠀⠀⠀⠀⠰⠀⡇⠀\n⠀⠀⠀⠀⠀⠀⠀⢰⢋⣉⣉⠉⣉⡭⠿⢭⡉⠉⠉⢳⠀⠀⠀⢀⡤⠇⠀⢧⡀\n⠀⠀⠀⠀⠀⠀⠀⢸⡘⠳⠚⢸⠉⣔⠲⢲⠘⡆⠀⢸⣶⡆⠀⠛⠒⠦⠀⠀⡇\n⠀⠀⠀⠀⠀⠀⠀⠈⣇⣀⣀⡼⣀⠣⠤⠞⢡⠇⣀⡼⠤⣄⣀⠀⠠⢀⠀⣰⠋\n⠀⠀⠀⠀⠀⠀⢠⠏⠀⠀⠀⠹⣍⣓⣖⣚⣡⣸⠁⠀⠀⠀⠈⣿⠲⡷⠊⠁⠀\n⠀⠀⠀⠀⠀⠀⠸⡄⠀⠀⠀⢠⠇⠀⠀⠀⠀⢹⡀⠀⠀⠀⢠⢏⣾⢹⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠈⠓⠒⠒⠉⠀⠀⠀⠀⠀⠀⠙⠦⣀⡴⢋⣬⣡⠞⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠈⠐⠀⠀⠀"},
+{"label":"Hello Kitty","tags":["gato","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⢀⡤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠘⢄⠙⣠⠇⠀⠀⣠⠠⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠳⠁⠀⠀⢰⠁⠀⠀⠈⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢀⣀⣀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠘⣆⢀⣀⠤⠖⠒⢢⠀⠀⠀⠀⠀\n⠀⠀⠀⢠⡮⠁⠉⠁⠒⠤⢀⡼⠖⠀⠐⣗⠢⡀⢸⣏⡁⠀⠀⢀⡠⠥⠒⠲⠤⢄\n⠀⠀⠀⣼⠀⠀⠀⠀⠀⠀⡞⠀⠀⠀⣀⣈⣍⣈⡿⡘⠁⣹⡚⠁⠀⠀⠀⠀⠀⣼\n⠀⠀⠀⠸⡀⠀⠀⠀⠀⠀⣇⣠⡶⣍⣀⣠⠴⠛⠻⢇⣜⡁⠺⠽⠀⠀⠀⢠⡞⠁\n⠀⠀⠀⢰⠇⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⢷⡀⠀⠀⢀⡏⠀⠀\n⠀⠀⠀⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⡉⢳⡄⣸⠁⠀⠀\n⠀⠀⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠒⠿⢻⡖⠒⠂\n⠈⠉⠸⡍⠈⠀⠀⠘⣶⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠈⢦⣶⡄⠀⠀⠠⢸⠅⣀⠀\n⠀⠀⠔⢷⠈⠀⠀⠀⠘⠛⠁⠀⠀⠀⣤⢤⠀⠀⠀⠀⠸⠿⠁⠀⢀⣠⠟⠀⠀⠀\n⠀⠀⠀⣀⠷⢎⠁⠀⢀⡀⠀⠀⠀⠀⠙⠉⠀⠀⠀⠀⠀⠀⠀⣀⠴⠋⠈⠒⠀⠀\n⠀⠀⠀⠁⠀⠀⠉⡖⠀⠈⠑⡦⠤⠄⠄⠀⠤⠤⠤⡖⠉⠉⠹⡁⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠙⠒⠛⠊⠁⠀⠀⠀⠀⠀⠀⠀⠙⠒⠲⠞⠁⠀⠀⠀⠀⠀⠀"},
+{"label":"Gatitos en calabaza","tags":["halloween","gato"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣴⣦⣤⣶⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⡀⢠⣶⣆⡴⠷⡀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⣠⣶⣄⣶⣦⠀⣀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠏⠀⠉⠺⠷⠯⡄⠀⠙⢦⡀⠀⠀⠀⠀⠀⠀⠈⠛⠿⠛⠁⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣾⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠾⠀⠀⠀⠀⢀⡀⠀⠀⠀⡴⢀⠀⠉⢳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣟⠛⣿⣿⣿⠿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣏⠀⠀⠀⠀⠀⠘⠃⠀⠀⠀⠀⠁⠀⠀⣰⠷⣤⡀⠀⠀⠀⠀⠀⠀⠀⣠⡴⢿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣾⣿⣿⣿⣿⣿⣷⣀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⣴⠛⠀⠈⠳⠶⣤⣤⣀⣀⣀⣀⣠⣤⣤⠴⠖⠋⠁⠆⠀⠹⣦⠀⠀⠀⠀⢀⡾⠁⠀⠔⠈⠛⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠋⠀⠈⢷⡄⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⣼⠃⠀⠀⠖⠀⣴⠀⠀⠀⠈⠁⠀⢰⡆⠀⠀⠀⠀⠀⢻⠆⠀⠸⣇⠀⠀⠀⡾⠁⠀⢼⠃⠀⠀⠀⠀⠀⣴⠀⠀⠀⠀⠀⠀⢠⠆⠀⠦⠀⠀⢹⡆⠀⠀⠀⠀⠀\n⢀⡶⠶⣄⠀⢸⡇⠀⠀⠀⠀⢀⠏⠀⠀⠀⠀⠀⠀⣤⠁⠀⠀⠀⣦⠄⠈⣶⠀⡀⣷⠀⠀⠰⡏⡀⢀⡎⠀⢰⡆⠀⠀⠀⢡⡀⠀⠀⠀⠀⠀⠈⣽⠀⠀⠀⠀⠀⣿⠀⢀⣴⣶⣦\n⠸⡅⠀⠹⣆⠸⡇⠀⠀⠀⠀⠘⢢⠀⠀⠀⠀⠀⠀⠉⠀⢷⣤⠟⠀⠀⠠⡟⠀⠅⣟⠀⠀⠀⡧⠟⠀⡧⠀⠀⠐⢷⣴⠇⠈⠁⠀⠀⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⣿⠀⣾⣿⣿⡿\n⠀⠹⢆⣀⠈⠳⢿⡄⠘⢃⣀⠀⢿⠀⠀⠀⠀⠀⠀⠀⢴⠂⠀⠀⠀⠀⠸⠃⠃⣸⠏⠀⠀⠀⢿⡀⠃⠼⠀⠀⠀⠀⠀⣰⠆⠀⠀⠀⠀⠀⠀⢸⠆⠀⣀⠛⠀⣼⣷⣾⣿⣿⡿⠃\n⠀⠀⠀⠉⠛⠲⠾⠿⣬⠂⠙⠀⠀⠆⠠⡄⠠⠄⠀⠀⠨⠗⠀⠀⠀⠀⠀⣠⡴⠋⠀⠀⠀⠀⠈⠳⣤⣀⠀⠀⠀⠀⠀⠟⠀⠀⠀⠤⠄⣰⠀⠦⠀⠐⠁⣊⡼⠿⠿⠛⠋⠁⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠛⠛⠓⠶⣤⣼⣤⣤⣤⡴⠾⠶⠶⠶⠞⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠶⠶⠶⠾⠶⣤⣤⣤⣴⣥⡤⠶⠚⠛⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Kirby Halloween","tags":["halloween","juego"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣴⢶⣻⢾⣶⣦⣄⣀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⡾⢯⣟⡾⣭⣟⣾⣻⣾⣽⣿⣿⣷⣦⣀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⢿⣻⢷⣻⣟⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡆⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣻⡽⣯⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢲⣦⣯⣷⡗⠒⡖⣶⣿⢣⠀⡆⠀⠀⠀⠀⠀⠀⢠⣾⣿⢻⣶⡟⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠛⠛⢻⣿⣿⣿⣿⣿⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⣿⣿⡷⣿⡾⣮⣟⣉⠇⠀⠀⠀⠀⣠⣴⡿⣿⣽⣿⡾⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⣀⣄⡀⢹⣿⣿⣿⣿⡇\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣷⣯⣷⣝⣻⡟⣷⣶⣤⣾⣯⣳⣽⡟⢹⠛⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⢸⣿⣟⣉⣸⣿⣿⣿⣿⠇\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⢿⣿⣷⣿⣳⣟⣾⣟⣿⣿⣾⣷⣦⣯⣀⣽⣧⢟⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⡿⠋⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠉⠙⠿⣿⣿⣾⣿⣷⣿⡿⣿⣿⣿⣿⣼⡿⣽⣾⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠈⠙⠛⠛⠛⠉⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡤⠤⠤⣤⣀⣠⡾⠋⠀⠀⠀⠀⠈⠛⢷⣿⣿⣾⣿⡿⣿⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⡷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣀⠤⣖⠚⠓⠒⠲⢤⣤⡾⠁⠀⠀⠀⠀⣨⡟⠁⠀⠀⠀⡀⠀⠀⠀⠀⠊⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢠⠞⠁⠀⣟⡆⠀⣧⣖⣢⣾⡟⠲⣄⠀⠀⢠⣿⠁⠀⠀⠀⣼⣿⣆⠀⠀⠀⢠⣾⣷⡈⠙⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⢀⣠⠴⣯⣀⠀⠀⠿⠅⠀⠀⠀⠀⠘⣿⡀⠈⣧⠀⣾⡇⠀⠀⠀⣤⣿⡏⢸⡇⠀⠀⣼⣿⠁⢱⠀⠀⠀⠈⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⣴⠋⠀⠀⠈⠻⣿⣶⣄⡀⠀⠀⠀⠀⠀⠈⠻⣦⣼⣠⣿⠀⠀⠀⠀⢿⣿⣷⡾⠁⠀⢰⣿⣿⣤⡜⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠛⢿⡿⠿⠿⣿⣿⣿⣿⣷⣦⣄⠀⠀⠀⠀\n⠀⣸⠁⠀⠀⠀⡀⠀⠉⢿⣿⣿⣷⣀⠀⠀⢰⣶⢶⣾⣿⢿⣏⠀⢀⣶⡀⠈⣿⣿⠇⠀⠀⠈⢿⣿⣿⠇⠀⢀⣰⣆⠀⠀⠀⠀⠀⠀⠿⠶⣾⣷⣀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀\n⢀⡧⠀⠀⠰⢾⣾⠀⠀⠀⠈⠛⢿⣿⣷⣦⡈⠉⠉⣩⠃⢸⣿⠀⠈⢿⣿⡄⠘⠋⠀⢀⣀⣤⣬⡟⠋⠀⣴⣫⣞⡼⠁⠀⠀⠀⠀⠀⡀⢠⠀⢌⠹⡳⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠘⣷⡀⠀⠀⠀⣉⠀⢀⡄⠀⠀⠀⠈⠙⠻⠿⣷⡴⠁⠀⠘⣿⡆⠀⠀⠀⠀⠀⠀⠀⠸⣿⡏⣭⡇⠀⠀⠈⠛⠉⠀⠀⠀⠀⠀⡐⣀⠂⣂⠱⣈⠒⡥⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠘⢧⣰⡀⠸⣿⣶⣯⣁⢠⣾⡷⠀⠀⢄⡓⣺⡿⠀⠀⠀⠸⣷⡠⠀⠀⠀⠀⠀⠀⠀⠈⠛⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⢰⡄⢄⠒⣄⠣⡔⣩⠲⣽⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠈⠓⢄⣈⠛⠛⠛⠀⢉⠉⡄⡸⢤⢯⣽⠇⠀⠀⠀⠀⠙⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⡐⠨⡐⢡⠢⣙⢷⣮⣴⣵⣬⣵⠿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠙⠺⠧⣼⡼⢆⡳⣌⢷⣭⣿⠋⠀⠀⠀⠀⠀⠀⢈⣻⣷⣤⣀⠀⠀⠀⢀⠠⢀⠄⠤⠐⡌⢌⠒⣌⠱⣌⠣⣵⣵⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠾⣽⣽⠾⠛⠁⠀⠀⠀⠀⢀⣤⠞⠋⡙⠾⡽⣿⢿⣶⣷⣤⣇⣢⣘⣢⣙⣔⣪⣱⣬⣷⣾⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡟⠁⢀⡰⢍⢳⡱⢎⣯⢻⡽⡿⣿⠏⠉⢹⣿⠿⡿⣟⢿⣫⢟⡧⡿⣽⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡟⢀⡰⢣⡜⣭⢲⡝⣾⡼⣯⢿⡽⠋⠀⠀⠸⣯⠓⡹⢜⡣⡝⣎⢷⣹⣟⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⢎⡵⣏⣾⣱⢯⣞⣷⣽⠟⠋⠀⠀⠀⠀⠀⣿⡇⢐⡡⢎⡵⣚⢮⣳⣞⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⢿⣿⣼⣧⡿⠿⠟⠛⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⡄⡘⢇⣸⢣⡟⣤⢿⡼⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⡖⣁⠎⡖⣏⡾⣽⣫⣟⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣎⡰⣙⢮⠷⣏⣷⣻⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⢠⣤⣤⣤⣴⣤⣶⣴⣦⣶⣴⣦⣴⣤⣼⣷⣮⣭⣿⣽⣾⠿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠉⠈⠉⠉⠉⠉⠙⠉⠋⠉⠋⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Gatito Halloween","tags":["halloween","gato"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠢⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣃⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢶⠟⠉⠉⠙⢿⣲⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠃⡞⠀⠀⠀⠀⠈⣧⠉⣳⠶⠒⣶⣶⢶⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢹⡝⣿⣿⠟⠳⠷⣠⣤⣤⣤⡰⠯⠛⠋⢠⡾⠛⢁⡿⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠃⣿⡇⢀⡼⠁⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢀⣈⣿⣁⠀⣾⣧⢀⣤⡄⠀⢰⣿⡦⢀⣽⣷⡯⠔⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⣀⡐⣦⠀⣀⣽⣟⡃⠙⠁⠈⠷⠟⠀⠈⠛⠁⢐⣾⣿⣄⣀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⣤⣄⣏⢹⡞⣢⠈⢿⡉⠛⠃⠀⠀⠀⠀⠀⠀⠀⠚⠋⢉⣿⡟⠀⠀⠀⠀⠀⠀⠀\n⣞⣻⣤⣧⣹⡏⠛⠁⢀⡤⠬⣳⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣯⠠⣄⡀⠀⠀⠀⠀⠀\n⠙⢧⡼⠃⠉⠀⢠⣞⡭⠤⢎⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣇⢋⠶⢽⣷⢄⠀⠀⠀\n⠀⠀⠀⠀⢀⡴⠋⣁⡴⠞⠉⠉⣻⠿⢶⡶⠶⠶⠶⠶⣿⡿⣿⡟⠃⠻⢦⣄⠈⠳⣧⡀⠀\n⠀⠀⠀⢠⠏⢠⡾⠁⠀⠀⣠⠞⠁⠀⠀⠀⠀⢸⠀⠀⠀⠀⠈⠻⣆⠀⠀⠉⠳⣄⠈⢿⡄\n⠀⠀⢠⡿⢡⡟⠀⠀⠀⣴⠋⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠩⢧⠀⠀⠀⠙⣧⠈⢷\n⠀⠀⢸⠀⡟⠀⠀⠀⣶⠃⠀⠀⠀⠀⠀⠀⠀⡟⠀⠀⠀⠀⠀⠀⠀⠉⢧⠀⠀⠀⠘⣇⠰\n⠀⠀⢹⢸⡇⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠘⣆⠀⠀⠀⣿⢸\n⠀⠀⢸⡼⡇⠀⠀⠀⣏⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡀⠀⠀⡟⡌\n⠀⠀⠀⢷⣧⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡧⠂⢠⡏⠀\n⠀⠀⠀⠀⠘⣧⡀⠀⠘⣆⠀⠀⠀⠀⠀⠀⠄⢸⠀⠀⠀⠀⠀⠀⡀⠀⢀⣾⣀⣴⠏⠀⠀\n⠀⠀⠀⠀⠀⠈⠛⠶⢤⣼⣷⣄⡀⠀⠀⠀⢀⣸⣄⡀⠀⠀⠀⠀⣀⢤⡪⠚⠫⠁⠡⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠑⠛⠛⠛⠒⠉⠉⠑⠛⠛⠛⠓⠋⠁⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Fantasma","tags":["halloween","fantasma"],"plain":true,"art":"⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣦⠀\n⠀⠀⠀⠀⣰⣿⡟⢻⣿⡟⢻⣧\n⠀⠀⠀⣰⣿⣿⣇⣸⣿⣇⣸⣿\n⠀⠀⣴⣿⣿⣿⣿⠟⢻⣿⣿⣿\n⣠⣾⣿⣿⣿⣿⣿⣤⣼⣿⣿⠇\n⢿⡿⢿⣿⣿⣿⣿⣿⣿⣿⡿⠀\n⠀⠀⠈⠿⠿⠋⠙⢿⣿⡿⠁⠀"},
+{"label":"Planeta","tags":["espacio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠳⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⣀⡴⢧⣀⠀⠀⣀⣠⠤⠤⠤⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠘⠏⢀⡴⠊⠁⠀⠀⠀⠀⠀⠀⠈⠙⠦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢶⣶⣒⣶⠦⣤⣀⠀⠀\n⠀⠀⠀⠀⠀⠀⢀⣰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣟⠲⡌⠙⢦⠈⢧⠀\n⠀⠀⠀⣠⢴⡾⢟⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡴⢃⡠⠋⣠⠋⠀\n⠐⠀⠞⣱⠋⢰⠁⢿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⠤⢖⣋⡥⢖⣫⠔⠋⠀⠀⠀\n⠈⠠⡀⠹⢤⣈⣙⠚⠶⠤⠤⠤⠴⠶⣒⣒⣚⣩⠭⢵⣒⣻⠭⢖⠏⠁⢀⣀⠀⠀⠀⠀\n⠠⠀⠈⠓⠒⠦⠭⠭⠭⣭⠭⠭⠭⠭⠿⠓⠒⠛⠉⠉⠀⠀⣠⠏⠀⠀⠘⠞⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⢤⣀⠀⠀⠀⠀⠀⠀⣀⡤⠞⠁⠀⣰⣆⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠘⠿⠀⠀⠀⠀⠀⠈⠉⠙⠒⠒⠛⠉⠁⠀⠀⠀⠉⢳⡞⠉⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Gatito Abrazo","tags":["amor","gato"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠔⠶⠒⠉⠈⠸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠪⣦⢄⣀⡠⠁⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⣤⣤⣤⣤⣄⣀⣀⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠈⠉⠀⠀⠀⣰⣶⣶⣦⠶⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠉⠉⢷⡔⠒⠚⢽⠃⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣰⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⢅⢰⣾⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⣀⡴⠞⠛⠉⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣧⠀⠀⠀⠀⠀\n⠀⣀⣀⣤⣤⡞⠋⠀⠀⠀⢠⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡇⠀⠀⠀⠀\n⢸⡏⠉⣴⠏⠀⠀⠀⠀⠀⢸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀\n⠈⣧⢰⠏⠀⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⠰⠯⠥⠠⠒⠄⠀⠀⠀⠀⠀⠀⢠⠀⣿⠀⠀⠀⠀\n⠀⠈⣿⠀⠀⠀⠀⠀⠀⠀⠈⡧⢀⢻⠿⠀⠲⡟⣞⠀⠀⠀⠀⠈⠀⠁⠀⠀⠀⠀⠀⢀⠆⣰⠇⠀⠀⠀⠀\n⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣧⡀⠃⠀⠀⠀⠱⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣂⡴⠋⠀⣀⡀⠀⠀\n⠀⠀⢹⡄⠀⠀⠀⠀⠀⠀⠀⠹⣜⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠒⠒⠿⡻⢦⣄⣰⠏⣿⠀⠀\n⠀⠀⠀⢿⡢⡀⠀⠀⠀⠀⠀⠀⠙⠳⢮⣥⣤⣤⠶⠖⠒⠛⠓⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⢌⢻⣴⠏⠀⠀\n⠀⠀⠀⠀⠻⣮⣒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣧⣤⣀⣀⣀⣤⡴⠖⠛⢻⡆⠀⠀⠀⠀⠀⠀⢣⢻⡄⠀⠀\n⠀⠀⠀⠀⠀⠀⠉⠛⠒⠶⠶⡶⢶⠛⠛⠁⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⠞⠁⠀⠀⠀⠀⠀⠀⠈⢜⢧⣄⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠃⠇⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠉⢻⠀⠀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠉⠈⣷\n⠀⠀⠀⠀⠀⠀⠀⣼⠟⠷⣿⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠲⠶⢶⣶⠶⠶⢛⣻⠏⠙⠛⠛⠛⠁\n⠀⠀⠀⠀⠀⠀⠀⠈⠷⣤⣀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠉⠛⠓⠚⠋⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⣟⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢹⡟⡟⢻⡟⠛⢻⡄⠀⠀⣸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⠀⠀⠈⠷⠧⠾⠀⠀⠀⠻⣦⡴⠏⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Gatito durmiendo","tags":["gato","kaomoji"],"plain":true,"art":"𝑍 𝑧 𝑧\n　　／￣￣ヽ￣￣＼♡︎\n　∠　　レ |　　⌒ ヽ♡︎\n　　＼＿＿ノ丶 　 )\n　　 (_と＿_ノ⊂ニノ"},
+{"label":"gatito","tags":["gato"],"plain":true,"art":"⠀⠀⠀⠀⠀⢀⣠⣤⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢠⣿⡟⠉⠉⠉⠛⠻⢷⣶⣄⣀⣀⣠⣤⣤⣀⣀⣀⣀⡀⠀⠀⢀⣠⣤⣶⡿⠿⠿⢿⣦⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠈⠻⡛⠉⠏⢩⠃⡏⠋⢹⠛⠻⠿⣿⠿⠋⠁⠀⠀⠀⠀⠀⢿⡇⠀⠀⠀⠀\n⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⢠⡇⡆⠀⢸⢰⡄⢸⠀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀\n⠀⠀⠀⠀⠘⣿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠉⠀⠈⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡿⠋⠀⠀⠀⠀⠀\n⠘⠿⣷⣦⡄⠀⢀⣾⡿⠉⠈⠉⢻⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣶⣶⣶⣤⣀⠀⠀⠀⠀⣠⣴⣶⠀\n⠀⠀⠀⠈⠁⠀⢸⣿⠀⠀⠀⠀⢠⣿⣿⣷⡄⠀⠀⠀⠀⠀⠀⢠⣾⡿⠁⠀⠀⠀⠘⣿⣿⣆⠀⢶⡿⠋⠁⠀⠀\n⠿⠿⣷⣶⡄⠀⢸⣿⣷⣦⣴⣾⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⣿⣿⡄⠀⠀⢀⣠⣼⣿⣿⣿⠀⠀⠀⠀⢀⡀⠀\n⠀⠀⠀⠀⠀⣀⠬⢿⣿⣿⣿⣿⣿⡿⢿⣿⣿⠂⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠘⠛⠛⠛⠛⠃\n⠀⠀⠀⠀⠀⠓⠲⣾⣏⠛⢿⣿⣿⣷⣾⠟⠁⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣧⣼⣿⣿⣟⠁⠓⣆⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿⣶⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⣋⣩⣶⡿⠟⠉⠉⠁⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⣿⣿⠻⠻⢷⣦⣀⣤⣶⣶⣶⣶⣾⠿⠟⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡇⠀⠀⢩⠟⠉⠁⢠⣾⡿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣤⣾⠿⠿⣷⣤⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Gato Hola","tags":["gato"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡯⢙⢍⣛⣶⣤⠴⠶⠦⢤⣤⣀⡀⠀⠀⢀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⣨⡾⠋⠁⠀⠀⠀⠀⠀⠀⠉⠙⠷⠛⣫⠍⣻⢍⠹⡆⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠢⡄⠀⢸⠀⣷⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢢⣼⠀⣿⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠁⠀⠀⣴⣶⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⡏⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢀⣴⣶⢿⡷⣆⠀⠀⠿⠿⠟⢀⣀⠀⠀⠀⢰⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⣾⣥⠛⡘⢳⡾⡇⠀⠀⠀⡀⠸⣿⠟⠀⠀⠘⠻⠟⠃⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢻⡈⠿⠿⠿⠀⣧⠀⠀⠀⠛⠛⠻⠦⠤⠴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡇⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⢸⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⣠⡟⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠸⣇⠀⠀⠀⠀⠀⠻⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠛⠉⠉⠙⢷⣾⠋⠀⠀⠀⠀⠀⠀⠀\n⠀⣀⣀⣀⣀⣠⣿⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣸⡇⣶⠀⣆⢀⣶⣿⣀⣀⣀⣀⣀⣀⡀⠀\n⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠙⠛⠛⠻⠛⠋⠉⠉⠉⠉⠉⠉⠉⠉⠁"},
+{"label":"Gatitos Lindos","tags":["amor","gato"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠤⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣷⣆⠀⠀⣴⣿⣷⣄⡀⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣧⣼⣿⣿⣿⣯⠙⣄⢀⡞⠁⠘⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠈⠉⠀⠀⠀⠸⣄⠀⠀⠀⠀⠀⠀⠀⠀\n⠐⠚⠋⠉⣛⣛⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠐⠉⠁⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⢹⠀⠸⢟⣓⠒⠦⠄\n⠀⠀⠀⠀⠀⠀⠀⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⡾⠀⠀⠈⠙⠆⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⣀⡠⣾⡁⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠁⠀⠀⠙⢦⡀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠇⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⢀⣀⣠⠴⠋⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⣿⣿⡿⠻⠟⠛⠛⠁⠀⠉⠉⢉⣻⠟⠉⡏⠁⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⡀⠀⠀⠀⠀⡰⠒⠙⠉⠀⠀⣰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣧⠀⠀⠀⠀⠷⣄⣀⣠⠤⠔⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⢿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Gatito luna","tags":["gato","luna"],"plain":true,"art":".⠀⠀⠀⠀⠀⠀⠀⠀⠀⠒⠲⢤⣤⣀\n⠀⠀✩⠀⠀✩⠀⠀⠀⠀⠀⠀⠈⢻⣷⣄\n⠀⠀⠀✩⠀⠀⢀⡀⠀⢀⡀⠀⠀⠀⢻⣿⣧\n⠀⠀⠀⠀⠀⠀⣻⣿⣷⣿⡃⡔⠂⠀⢸⣿⣿\n⠀⠀⠠⠀⠀⠀⢻⣿⣿⣿⠇⠇⠀⠀⢸⣿⣿\n⠀⠀⠀⢦⠀⠀⠀⣼⣿⡆⢀⠇⠀⣠⣿⣿⡿⠀\n⠀⠀⠀⠈⠳⣦⣜⣿⣿⣿⣁⣤⣾⣿⣿⡟\n⠀⠀⠀⠀⠀⠈⠛⠿⣿⣿⣿⣿⠿⠛⠁"},
+{"label":"Gatito en la Luna","tags":["gato","luna"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠤⠄⠀⠀⠀⠂⠀⠀⠤⠄⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀⠐⠒⠀⠄⣀⠀⠀⠀⠀⠀⠀⠀⠈⠐⠠⠄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠂⢄⠀⠀⠀⠀⠀⠀⠀⠀⠈⠐⠠⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⡀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢄⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡾⡟⢢⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠢⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⠲⠦⢤⣀⢠⠄⠶⣒⣖⣾⣿⡿⠀⠈⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠱⡀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣷⣈⠖⣬⣶⢿⣻⣽⢾⣻⣷⡇⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠱⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣟⣿⣻⢟⡾⣯⢷⣟⣿⣯⣿⣥⡆⠀⠘⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠂⢃⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣻⣯⢯⡿⣽⣻⣯⣿⣾⢿⣻⣿⣿⣷⣶⣩⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠈⡄\n⢠⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢾⣿⣯⠿⣽⣿⣽⣷⣿⠛⠻⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⢁\n⡈⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢝⣿⠀⡘⣿⣿⣾⠃⢆⠀⢨⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡆⢸\n⡇⡌⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣿⣿⣷⣶⣿⣽⣿⣷⣮⣶⣿⣿⣿⠛⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠃⠈\n⡇⠰⠐⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣺⣿⣿⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠\n⠇⠀⠡⠘⢄⠀⠀⠀⠀⠀⠀⠀⠀⠰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠀⢸\n⢠⠀⠀⠐⠄⠑⢄⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⡄\n⠈⡀⠀⠀⠀⠑⢄⠁⠂⠄⡀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⡠⠀⠀⡰⠀⢠⠁\n⠀⢡⠀⠀⠀⠀⠀⠈⠢⡀⠀⠈⠁⠒⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠠⠁⠀⠆⠀\n⠀⠀⢂⠀⠀⠀⠀⠀⠀⠈⠀⢀⠀⠀⠀⠉⠉⠉⢻⣿⣿⣿⡍⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡅⠀⠌⠀⠀\n⠀⠀⠀⠢⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡐⢀⠎⠀⠀⠀\n⠀⠀⠀⠀⠑⡄⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢠⠁⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢄⠀⢄⠀⠀⠀⠀⠔⠒⢠⣤⣤⣾⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⢂⠔⠁⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠁⠄⡡⠀⠀⠀⠢⣰⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⢊⠔⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠂⢔⠀⠀⠀⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠄⢀⠠⠒⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠐⠀⠄⢀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡂⠥⠐⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⠒⠒⠒⠂⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Gatito flor","tags":["amor","gato","flor","kaomoji"],"plain":true,"art":"  /\\_/\\\n(˶ᵔ ᵕ ᵔ˶)\n/ >🌷<\\~⁠♡"},
+{"label":"Gatito kaomoji","tags":["amor","gato","kaomoji"],"plain":true,"art":"   /ᐢ⑅ᐢ\\   ♡   ₊˚  \n꒰ ˶• ༝ •˶꒱       ♡‧₊˚    ♡\n./づ~ :¨·.·¨:     ₊˚  \n           `·..·‘    ₊˚   ♡"},
+{"label":"Gatitos","tags":["amor","gato","kaomoji"],"plain":true,"art":"               へ   ♡   ╱|、 \n         ૮  >  <)     (˚ˎ 。7      \n          /  ⁻  ៸|       |、˜〵       \n     乀(ˍ, ل ل      じしˍ,)ノ"},
+{"label":"Gato Paz","tags":["gato","feliz"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠶⢦⡀⠀⠀⢀⣀⡀⠀⠀\n⠀⠀⠀⣀⣤⣄⡀⠀⠀⠀⠀⠀⠀⢠⠖⠒⢆⠀⠀⠀⡏⠀⠀⠀⠙⣇⡞⠋⠙⢿⣷⠀\n⠀⠀⢀⡟⠁⠉⠛⣧⠀⠀⠀⠀⣠⠇⠀⠀⠈⢇⠀⢸⠁⠀⠀⠀⠀⡟⠀⠀⠀⠀⣿⠃\n⠀⠀⣾⠃⠀⠀⠀⠈⠁⠒⠊⠉⠁⠀⠀⠀⠀⠘⢢⡈⡆⠀⠀⠀⣰⠃⠀⠀⠀⠀⡟⠀\n⠀⣀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠋⠙⠲⡄⠀⠁⠀⠀⠀⢀⣞⠁⠀\n⣰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⡼⠁⠀⠀⠀⢧⠀⠀⠀⠀⠐⠋⠀⢱⡀\n⡇⠀⠀⠀⣠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠃⠀⣏⠀⠸⣄⡤⠇⠀⠀⢀⡞⠀⠀⠀⢠⠇\n⡇⠀⠀⠀⠉⠀⠀⢠⠀⣠⣄⣰⠀⠀⠀⠀⠀⠈⢧⡀⠀⠀⠀⠀⠀⢸⡀⠀⠀⡰⠃⠀\n⠙⣄⠀⠀⠀⠀⠀⠈⠛⠁⠀⠀⠀⠀⠀⣀⣀⣴⠿⠃⠀⠀⠀⠀⠀⢀⡛⠒⠚⠁⠀⠀\n⠀⠈⠳⠤⣀⣀⣀⣀⣀⣠⡤⠤⠔⠒⠈⠁⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⣠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡖⠦⠤⣄⣀⡤⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⢀⡞⠁⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⢠⡛⣆⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠸⣇⣀⣴⢀⣧⠀⠀⠀⠀⠀⠀⠀⢀⡏⠣⣈⠙⠉⢁⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠈⠉⠈⡇⢰⠒⠒⠒⢺⣠⠏⠀⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠙⠚⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Gato Angel","tags":["gato"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠤⠤⠤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠣⣀⣀⣀⠜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⣠⡶⠒⠶⢦⣄⠀⠀⠀⠀⣾⠓⢆⠀⠀⠀⠀⣠⡞⠹⡆⠀⠀⢀⣤⠶⠛⠙⢶⣤\n⠹⢆⠀⠀⠀⠉⠳⠦⠀⣼⠇⠀⠊⠙⠉⠋⠙⠉⡠⠀⢷⠀⠴⠋⠀⠀⠀⢀⡼⠋\n⠀⠀⢳⡄⠀⠀⠀⢀⣴⠟⠀⣴⣧⠀⠀⠀⠀⣼⣦⠀⠈⢷⡀⠀⠀⠀⠴⡏⠁⠀\n⠀⠀⣟⡁⠀⠀⠀⢸⠇⠀⠀⢻⠏⠀⠀⠀⠀⠻⡟⠀⠀⠈⡧⠀⠀⠀⣈⣿⠀⠀\n⠀⠀⣸⠟⠀⠀⠀⠈⠳⣠⣀⠀⠀⠀⠀⠀⠀⠀⡀⣀⣴⠞⠁⠀⠀⠀⢻⡆⠀⠀\n⠀⠀⠉⠶⠖⠆⠀⠀⢰⠞⠉⠠⠛⠓⢤⠀⣰⠞⠂⠘⢦⡀⠀⠀⠘⠛⠛⠃⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀⠀⣤⣤⣴⠛⠀⣿⣀⣤⠀⠈⠷⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Gatito Mariposa","tags":["amor","gato","kaomoji"],"plain":true,"art":": ¨·.·¨ :\n ` ·. 🦋\n                  ╱|、                   \n                (˚ˎ 。7  \n                 |、˜〵          \n                じしˍ,)ノ           "},
+{"label":"Gatito","tags":["gato"],"plain":true,"art":"⠀⠀⠀⠀⢠⡶⠚⢷⣤⡀⠀⠀⠀⠀⠀⣲⡶⠛⠻⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⢠⡿⠁⠀⠀⠙⣷⣄⠀⢀⣴⡟⠁⠀⠀⢷⢹⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⣾⠃⠀⠠⠶⠚⠛⠛⠛⠛⠋⠀⠀⣀⡀⢸⠈⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⢸⣏⡔⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠚⠉⠉⣿⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⢾⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⢠⣿⢠⣶⡆⠀⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀\n⢒⡾⠁⠘⠟⠁⠀⠀⠀⠀⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀\n⠉⣧⠀⠀⠀⠀⠃⠀⠀⠀⠈⠉⠠⣍⠀⠀⠀⠀⠀⠀⣸⡇⢀⣤⠶⠛⠛⠻⢦⣄\n⠀⠸⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡟⣴⠟⠁⠀⠀⠀⠀⠀⢻\n⠀⠀⠀⠛⣷⡦⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⡴⠞⠋⢠⡟⠀⠀⠀⠀⠀⠀⢀⡾\n⠀⠀⠀⢰⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⣤⡀⢸⠃⠀⠀⠀⠀⢠⡶⠟⠁\n⠀⠀⠀⣸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⣹⡄⠀⠀⠀⠀⣼⠀⠀⠀\n⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣇⠀⠀⠀⠀⢹⡄⠀⠀\n⠀⠀⠀⢸⡀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡄⠀⠀⠀⠈⣧⠀⠀\n⠀⠀⠀⢸⡇⠘⡇⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⢹⡇⠀\n⠀⠀⠀⢸⡇⠀⠙⠀⠀⠀⠀⠀⢠⠞⠁⠀⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⢸⡇⠀\n⠀⠀⠀⢸⡇⠀⢸⡆⠀⠀⠀⠀⣟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀⠀⠀⣸⠇⠀\n⠀⠀⠀⢸⣿⠀⠀⡇⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀⠀⠀⢀⡇⠀⠀⢀⣴⡟⠁⠀\n⠀⠀⠀⠘⠿⠶⢶⢧⣦⣦⡴⢾⣥⣽⣤⣤⣤⣤⣤⣤⡴⣯⡤⠴⠶⠛⠋⠀⠀⠀"},
+{"label":"Gato corazón","tags":["amor","gato"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⣤⣤⣤⣄⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢀⣠⣶⣿⠿⠟⠛⠛⠋⠉⠙⠛⠛⠿⢿⣷⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⢀⣴⣿⠟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⢿⣷⣄⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣶⣶⣾⠿⠿⠿⠿⠿⢿⣶⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⣰⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣷⣄⠀⠀⣀⣴⣾⡿⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣷⣆⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⣰⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣧⣾⡿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢻⣧⠀⠀⠀⠀⠀\n⠀⣰⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢻⣷⠀⠀⠀\n⢀⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣞⣇⠀\n⣸⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣯⡆\n⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡇\n⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⠿⠛⠉⠙⠛⠻⣿⣦⠀⠀⠀⠀⢀⣤⣶⣿⠿⠿⣷⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣧⠀⠀\n⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⡟⠁⠀⠀⠀⠀⠀⠀⠘⣿⣧⣀⣀⢰⣿⠟⠉⠀⠀⠀⠀⠉⠻⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣇⠀\n⢿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠻⠿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇\n⠸⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿\n⠀⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡿\n⠀⠘⣿⣧⠀⠀⠀⠀⠀⠀⢰⣿⡇⠀⠀⠀⠀⠀⠀⠀⢠⣴⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠏⠀\n⠀⠀⠘⣿⣧⠀⠀⠀⠀⠀⢸⣿⡀⠀⠀⠀⠀⠀⠀⠀⠘⠿⠃⠀⠀⠀⠀⣀⡀⠀⠀⠀⢸⣿⡇⠀⠀⠀⠀⠀⠀⠀⠘⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠃⠀⠀\n⠀⠀⠀⠘⢿⣷⡀⠀⠀⠀⠘⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠃⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⢀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⠃⠀⠀⠀\n⠀⠀⠀⠀⠀⠻⣿⣄⠀⠀⠀⢻⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠃⠀⠀⠀⠀⠀⠀⠀⣠⣾⣟⡟⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠙⢿⣷⡀⠀⠀⠙⢿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠏⠀⠀⠀⠀⠀⠀⣠⣾⡿⠋⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠹⣿⣦⡀⠀⠀⢙⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⡿⠃⠀⠀⠀⠀⢀⣤⣾⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣦⣴⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣏⠀⠀⠀⢀⣠⣶⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⢿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣷⣤⣴⣿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠿⣷⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣿⠿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢿⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣾⡿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⢿⣦⣄⡀⠀⠀⠀⠀⠀⢀⣠⣤⣶⡿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⢿⣶⣦⣤⣴⣾⡿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Conejito acostado","tags":["conejo"],"plain":false,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⢀⡴⢲⡄⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢀⡞⠀⠀⡇⠀⢀⡴⠋⠁⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⣸⠁⠀⠀⡇⣠⠟⠀⠀⠀⣼⣠⣤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⣿⠀⢠⢤⡿⠃⣀⠀⢀⡞⠉⠁⠀⠀⠈⠙⠶⡄⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⣻⣰⡏⣼⢁⡴⠋⣰⠋⠀⠀⠀⠀⠀⠀⠀⠀⠹⡄⣀⡀⠀⠀⠀⠀\n⠀⠀⠀⢀⡾⠋⠉⠁⠀⠙⠁⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡈⢷⠀⠀⠀⠀\n⠀⠀⠀⣼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠀⠀⠀⠀⠀⢀⣧⡾⠁⠀⠀⠀\n⠀⠀⠀⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠀⠀⠀⠀⠀⣾⠃⠀⠀⠀⠀⠀\n⠀⠀⠀⣹⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠁⠀⠀⡀⠀⠀⢰⡾⠋⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⢻⡇⣀⡀⠀⠺⣿⠇⠀⣀⣤⣄⣀⣠⣬⣥⣤⠾⠛⠁⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠉⠛⠓⠂⠤⠤⠖⠊⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀𖦹 ׂ 𓈒🐇 ೀ"},
+{"label":"Corazones de año nuevo","tags":["ano nuevo"],"plain":false,"art":"♥〃´`)\n　 ,·´ ¸,·´`)\n　(¸,·´　(¸＊♥ 🇭🇦🇵🇵🇾 🇳🇪🇼 🇾🇪🇦🇷 ♥〃´`)\n　　　　　　　　　　　　　　 ,·´ ¸,·´`)\n　　　　　　　　　　　　　　(¸,·´　 (¸＊♥"},
+{"label":"Arbolito de navidad","tags":["navidad","kaomoji"],"plain":false,"art":"⠀.⠀⠀⠀⠀⠀✬⠀⠀⠀⠀⠀⠀.⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀.•*•*•.⠀⠀.⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀.⠀⠀.•'*✩*'•.⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⋰•*•❄•*•⋱⠀⠀.⠀⠀.⠀⠀𝑀𝑒𝑟𝑟𝑦 𝐶ℎ𝑟𝑖𝑠𝑡𝑚𝑎𝑠 ♥⠀⠀⠀⠀\n.⠀⠀⠀.•*´*•✩•*`*•.⠀⠀⠀⠀.⠀⠀\n⠀⠀⋰✩*•.❄.•*✩⋱⠀⠀⠀\n⠀.•*´❄`*•✩•*´❄`*.•*"},
+{"label":"Chica anime","tags":["perro","anime"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣶⣶⣶⣶⣶⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⣠⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⡀⠀⠀⠀⠀⠀\n⠀⠀⠀⣠⣴⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣮⣵⣄⠀⠀⠀\n⠀⠀⢾⣻⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⡀⠀\n⠀⠸⣽⣻⠃⣿⡿⠋⣉⠛⣿⣿⣿⣿⣿⣿⣿⣿⣏⡟⠉⡉⢻⣿⡌⣿⣳⡥⠀\n⠀⢜⣳⡟⢸⣿⣷⣄⣠⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣤⣠⣼⣿⣇⢸⢧⢣⠀\n⠀⠨⢳⠇⣸⣿⣿⢿⣿⣿⣿⣿⡿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⠀⡟⢆⠀\n⠀⠀⠈⠀⣾⣿⣿⣼⣿⣿⣿⣿⡀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣽⣿⣿⠐⠈⠀⠀\n⠀⢀⣀⣼⣷⣭⣛⣯⡝⠿⢿⣛⣋⣤⣤⣀⣉⣛⣻⡿⢟⣵⣟⣯⣶⣿⣄⡀⠀\n⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣶⣾⣶⣶⣴⣾⣿⣿⣿⣿⣿⣿⢿⣿⣿⣧\n⣿⣿⣿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⣿⡿"},
+{"label":"Gato estirado","tags":["gato"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀\n⠀⠀⠀⠀⢀⡴⣆⠀⠀⠀⠀⠀⣠⡀⠀⠀⠀⠀⠀⠀⣼⣿⡗⠀⠀⠀⠀\n⠀⠀⠀⣠⠟⠀⠘⠷⠶⠶⠶⠾⠉⢳⡄⠀⠀⠀⠀⠀⣧⣿⠀⠀⠀⠀⠀\n⠀⠀⣰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣤⣤⣤⣤⣤⣿⢿⣄⠀⠀⠀⠀\n⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣧⠀⠀⠀⠀⠀⠀⠙⣷⡴⠶⣦\n⠀⠀⢱⡀⠀⠉⠉⠀⠀⠀⠀⠛⠃⠀⢠⡟⠀⠀⠀⢀⣀⣠⣤⠿⠞⠛⠋\n⣠⠾⠋⠙⣶⣤⣤⣤⣤⣤⣀⣠⣤⣾⣿⠴⠶⠚⠋⠉⠁⠀⠀⠀⠀⠀⠀\n⠛⠒⠛⠉⠉⠀⠀⠀⣴⠟⢃⡴⠛⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Conejita","tags":["conejo"],"plain":true,"art":"⠀⠀⠀⠀⢀⣤⠤⣄⠀⠀⠀⠀⣠⠤⣄⠀⠀⠀\n⠀⠀⠀⢠⠞⠀⠀⠈⢷⠀⠀⡜⠃⠀⠈⢳⠀⠀\n⠀⠀⠀⣾⠀⠀⠀⠀⠘⡇⢰⠅⠀⠀⠀⠸⡇⠀\n⠀⠀⠀⣿⠀⠀⠀⠀⠀⡇⣾⠀⠀⠀⠀⢸⠃⠀\n⠀⠀⠀⢹⡀⠀⠀⠀⠀⡇⣿⠀⠀⠀⠀⡾⠀⠀\n⠀⠀⠀⠸⡇⠀⠀⠀⠀⠷⠿⠀⠀⠀⢰⠇⠀⠀\n⠀⢀⡴⠛⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢶⡀⠀\n⢰⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡄\n⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷\n⢹⠀⠀⠀⢰⡆⠀⠀⠀⠀⠀⠀⢀⣄⠀⠀⠀⡟\n⠈⢧⡀⠀⠀⠀⠀⠀⢄⡀⣀⠀⠀⠁⠀⠀⣸⠃\n⠀⠈⠻⢦⣀⠀⠀⠀⠚⠙⠂⠀⠀⠀⣀⡴⠋⠀\n⠀⠀⠀⠀⠈⠉⠓⠒⠲⠶⠶⠒⠒⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"},
+{"label":"Conejito","tags":["conejo"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠤⠤⣀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⣚⣥⣤⠀⠀⢀⡷⠔⠒⠒⠲⠦⡀\n⠀⠀⠀⠀⠀⠀⠀⠀⢀⢎⣾⣿⠟⠁⡠⠖⣡⣶⣶⣶⠀⠀⠀⡇\n⠀⠀⠀⠀⠀⠀⠀⡔⣱⣿⠟⠁⡠⠊⣠⣾⣿⡿⠟⠁⠀⢀⠌\n⠀⠀⠀⠀⢀⠔⠉⠀⠀⠀⠀⠉⠀⠘⠛⠛⠁⠀⣀⠤⠚⠁\n⠀⠀⠀⡔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢯⠁\n⠀⠀⡸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱\n⠀⣰⠁⠀⣤⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹\n⢰⠃⠀⠀⠛⠁⠐⠂⠀⣿⡗⠀⠀⠀⠀⠀⠀⠀⢹\n⠈⢧⣠⣾⣷⣦⣠⣶⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⡇\n⠒⠒⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⡰\n⠀⠀⠈⢿⣿⣿⣿⣿⣯⡉⠉⠉⠒⠲⢤⡔⠁\n⢀⠔⠁⠈⠻⣿⣿⡿⡋⠉⠓⠦⡄⠀⠀⠉⢫⠉⡆\n⠀⠀⠀⠀⠀⡐⠀⠀⠀⠈⢢⠤⠤⠜⠀⠀⠀⠀⡗⠁\n⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⢇⠀⡖⠒⠒⠤⣀⠇\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁"},
+{"label":"Gatos durmiendo","tags":["amor","gato"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⢾\n⠀⠀⠀⠀⠀⡐⢕⠊⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠀⢳\n⠀⠀⠀⠀⢰⢕⡇⠀⢀⡞⠙⢆⠀⠀⢀⣀⣀⣠⠶⠛⠉⠀⠀⠀⠙⢦\n⠀⠀⠀⠀⢸⢕⡇⠀⣸⠀⠀⠀⠉⠒⠚⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳\n⠀⠀⠀⠀⢸⢕⠗⠉⠏⠀⢀⡀⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠔⠁⠀⢀⠃\n⠀⠀⠀⠀⠸⠁⠀⠀⠀⠀⠀⠈⠁⠤⣆⠪⠸⠀⠒⠂⠜⠒⠀⠀⣠⠞⢷\n⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸\n⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠚⠲⠶⡤⡤⠔⡈⢧⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣶⣶⣶⡾\n⠀⠀⠀⠀⠀⠙⠛⠉⠑⠒⠢⠤⣾⡷⠓⢾⡷⠈⢾⣷⠒⠒⢾⣷⠊⠉⠉⠉⠉"},
+{"label":"Perrito nube","tags":["perro","anime","cinnamoroll","sanrio"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢎⠱⠊⡱⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠤⠒⠒⠒⠒⠤⢄⣑⠁⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⢀⡤⠒⠝⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠲⢄⡀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⢠⣢⠐⡄⠀⠉⠑⠒⠒⠒⣄\n⠀⠀⠀⣀⠴⠋⠀⠀⠀⡎⢀⣘⠿⠀⠀⢠⣀⢄⡦⠀⣛⣐⢸⠀⠀⠀⠀⠀⠀⢘\n⡠⠒⠉⠀⠀⠀⠀⠀⡰⢅⠣⠤⠘⠀⠀⠀⠀⠀⠀⢀⣀⣤⡋⠙⠢⢄⣀⣀⡠⠊\n⢇⠀⠀⠀⠀⠀⢀⠜⠁⠀⠉⡕⠒⠒⠒⠒⠒⠛⠉⠹⡄⣀⠘⡄⠀⠀⠀⠀⠀⠀\n⠀⠑⠂⠤⠔⠒⠁⠀⠀⡎⠱⡃⠀⠀⡄⠀⠄⠀⠀⠠⠟⠉⡷⠁⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⠤⠤⠴⣄⡸⠤⣄⠴⠤⠴⠄⠼⠀⠀"},
+{"label":"Rosa","tags":["flor","amor"],"plain":false,"art":"⊹⠀⠀⠀⠀⣤⣶⠿⢖⣢⣴⣶⣦⣤⣄\n⠀⠀⠀⢸⡟⢁⣼⠟⣩⢤⣤⠤⣉⠻⣇⠀⠀˖\n⢀⣾⣿⡈⡇⢸⡏⣼⣇⡑⢀⠇⣸⢆⢿⢸⣿⣦\n⣸⣿⣿⡇⠁⣀⡘⠿⠿⠿⢣⡾⢏⣼⠈⣼⣿⣿\n⣿⣿⣿⣄⠾⣿⣿⣿⣶⣶⣤⣶⣿⡟⠀⣿⣿⠏\n⠈⠙⠿⣿⣦⡈⢿⣿⣿⣿⣿⡿⠋⣠⣾⣿⣷\n⠀⠀⠀⠈⠉⠉⢀⣉⣉⣩⣥⣶⣿⣿⡿⠟⠋\n⁺⊹⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⠟⠉⠀⠀⊹"},
+{"label":"conejo kaomoji","tags":["conejo"],"plain":false,"art":"　　 　　　　　 　　　　,.;'''``':;\n　　　　　　　　　　　;:　 　 :;\n　 　 　💖__,,...,,_　 ,;:　　 ;;　_,,,,_\n　 　 .,.~т' 　︵　　 ''';~＊　.~''''　 　''`'';\n　 　;:　人　　　　　　　　　,,.　　.~`\n　　;.　　　　　　　　　　:;``_.,,,~``'\n　　彡　　　　　　　　　　ミ\n　　 ;;,　　　　,..,_　　　　:;`\n　　　;```　 　 `　　　　 　/\n　　　;　 　 　　 　　　 　:;;\n　　　 ;:　　 　　　 　 　 　ミ\n　　　彡　　　　　 　　 　 　ミ,.~``~,,\n　　　;　　.　　,..~`　　　　　Y　　ミ\n　　　;::　　　;:　　　　　　　　:;~''''`\n　　 　 ;:::　　 :,_,,.,　　　　　　:;`\n　　　;`　``;,.., ::`　　;　　　　,.;;`\n　　　``~~`　　``~~```''''''~~~''''''"},
+{"label":"Gatito mini","tags":["gato","feliz","kaomoji"],"plain":false,"art":"　／l、\n（ﾟ､ ｡ ７\n　l、 ~ヽ　　　ㅤ\n　じしf_, )ノ\n𝘩𝘢𝘷𝘦 𝘢 𝘯𝘪𝘤𝘦 𝘸𝘦𝘦𝘬♥"},
+{"label":"Alitas","tags":["anime"],"plain":false,"art":"⠀⠰⠎⠉⢶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠊⠙⡆⠀\n⠀⢸⠀⠒⢌⠣⢤⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⣠⠾⠁⠞⠀⡏⠀\n⠀⠀⠙⡦⢀⢕⣄⣀⣉⣉⡓⠰⢄⡀⠀⠀⠀⣀⠶⠒⢉⠁⢉⠀⡀⠀⢴⡏⠀⠀\n⠀⠀⢺⠀⠶⠰⠡⠟⢇⣼⣷⣆⡄⢳⠀⠀⡶⠁⣠⣶⣮⣅⢥⠁⠁⠠⠀⡿⠀⠀\n⠀⠀⠈⠉⠚⡷⠀⠀⢼⡟⠌⠅⡎⢸⠆⠈⣇⠈⡪⡃⠙⣿⠔⠅⢼⠓⠙⠁⠀⠀\n⠀⠀⠀⠀⠀⠙⠴⠴⠚⠧⣠⢤⡴⠋⠀⠀⠘⠇⢬⡬⠼⠓⠶⠶⠊⠀⠀⠀⠀⠀\n⠀\n‹𝟑 have a wonderful day!! ‹𝟑\n⠀⠀⠀⠀⠀⠀⠀⠀⠀(˶˃ ᵕ ˂˶) .ᐟ.ᐟ"},
+{"label":"Angelita","tags":["anime"],"plain":true,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠤⢒⣒⣒⣒⠒⠢⡄⠀\n⠀⠀⠀⠀⠀⠀⢀⡠⢊⠥⠂⢉⣀⠠⠤⡤⠀⣠⠧⣀⡀\n⠀⠀⠀⠀⠀⢠⠋⡔⣡⠔⠊⣁⡠⠔⣊⡤⠚⠁⠀⠀⠉⠳⡄⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠘⠦⣌⣉⣩⠭⢴⠖⠻⡁⠀⠄⠀⡀⠀⠀⠀⠘⡆\n⠀⠀⠀⠀⠀⠀⢸⢀⢀⠀⢀⠞⠀⠀⠙⢦⡀⠐⢌⡢⢄⣀⠀⣹⠀\n⠀⠀⠀⠀⠀⣀⠼⠗⠀⣠⠊⠀⠀⠀⠀⠀⡬⡓⠦⢌⡁⠒⠐⠯⣄⠀⠀⠀⠀\n⠀⢀⣀⣀⢰⠁⢀⡠⠞⢱⣹⡄⠀⠀⠀⠀⢿⡗⠀⠀⠈⣩⠃⠁⠈⣇⡀⠀⠀\n⢸⡁⠀⠀⠉⠓⢤⡹⣄⠀⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣁⠤⠚⠉⠁⠈⢹⠄\n⢀⡝⠛⠒⠀⠀⢠⠬⠷⣍⠒⠲⡤⡤⣶⠖⣮⠉⣠⠮⢥⠀⠀⠒⠒⠺⣅⠀\n⠀⠉⠒⢲⠖⢂⣈⠖⠂⡸⠀⣸⠀⡏⢪⠋⠰⣸⠸⡀⠂⢎⡑⠒⢶⡒⠚⠁⠀\n⠀⠀⠀⠀⠈⣅⠈⠀⠉⢀⡜⠹⡀⣇⠎⡠⠋⠘⡆⠈⠑⠒⢁⡽⠉⠀\n⠀⠀⠀⠀⠀⠀⠉⠙⡶⠋⠀⠀⠣⠯⠒⠁⠀⠀⢣⢀⡼⠉⠉"},
+{"label":"Pompompurin “have a nice day”","tags":["feliz","oso","sanrio"],"plain":false,"art":"⢠⠋⠒⠙⡄⠀⣀⢴⠛⡦⣀\n⠀⠑⣀⣊⠤⠯⣥⣄⣀⣠⣬⠵⣀\n⣰⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠓⠦⠀⋆｡ﾟ✶°⋆｡ﾟ✶°\n⣏⠀⢠⠟⠀⠛⠀⢠⣤⠀⠶⠀⠘⣇⠀⣹⠀⋆｡ﾟ have ﾟ｡⋆\n⠙⠒⣾⠀⠀⠀⠘⠚⠓⠚⠀⠀⠀⠙⡲⠚⠀⋆｡ﾟ a ﾟ｡⋆\n⠀⠀⡾⠀⣀⠔⠒⢞⣫⡷⠖⠢⡀⠀⢧⠀⋆｡ﾟ nice ﾟ｡⋆\n⠀⣼⠥⡀⢀⡀⣀⡜⠀⢣⣀⣀⠀⡴⠚⢦⠀⋆｡ﾟ day ﾟ｡⋆\n⢸⠁⠀⠙⡀⠀⠀⠙⠒⠋⠀⠀⠨⠀⠀⢸⠀⋆｡ﾟ✶°⋆｡ﾟ✶°\n⠀⠳⣄⣠⠴⠤⠤⠤⠤⠤⠤⠤⠦⣤⡤⠋"},
+{"label":"Gato durmiendo","tags":["gato","feliz"],"plain":false,"art":"⠀⠀⠀⠀⠀⠀⠀⠀⊹⠀⠀⠀⠀⢠⠏⡆⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣀⡀⠀⠀⠀⊹\n⠀⊹⠀⠀⠀⡟⢦⡀⠀⠀⠀⣀⠞⠀⠀⠘⡀⢀⡠⠚⣉⠤⠂⠀⠀⠀⠈⠙⢦⡀\n⠀⠀⠀⠀⠀⠀⡇⠀⠉⠒⠊⠁⠀⠀⠀⠀⠀⠘⢧⠔⣉⠤⠒⠒⠉⠉⠀⠀⠀⠀⠹⣆⠀⠀⊹\n⠀⠀⠀⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⠀⠀⣤⠶⠶⢶⡄⠀⠀⠀⠀⢹⡆\n⠀⣀⠤⠒⠒⢺⠒⠀⠀⠀⠀⠀⠀⠀⠀⠤⠊⠀⢸⠀⡿⠀⡀⠀⣀⡟⠀⠀⠀⠀⢸⡇\n⠈⠀⠀⣠⠴⠚⢯⡀⠐⠒⠚⠉⠀⢶⠂⠀⣀⠜⠀⢿⡀⠉⠚⠉⠀⠀⠀⠀⣠⠟\n⠀⠠⠊⠀⠀⠀⠀⠙⠂⣴⠒⠒⣲⢔⠉⠉⣹⣞⣉⣈⠿⢦⣀⣀⣀⣠⡴⠟\n⠀⠀⠀⠀⠀⠀⊹₊˚ 𝘸𝘪𝘴𝘩𝘪𝘯𝘨 𝘺𝘰𝘶 𝘢 𝘭𝘰𝘷𝘦𝘭𝘺 𝘥𝘢𝘺 ˚₊⊹"},
+{"label":"Corazón “lovely day”","tags":["amor","feliz"],"plain":false,"art":"⢀⠔⠉⠉⠢⣀⠔⠉⠉⠹⣦\n⡇⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⣿⠇\n⠡⡀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡟\n⠀⠈⠢⡀⠀⠀⠀⠀⢀⡾⠋\n⠀⠀⠀⠀⠙⠲⣦⠞⠋⠀𝒽𝒶𝓋𝑒 𝒶⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀𝓁𝑜𝓋𝑒𝓁𝓎 𝒹𝒶𝓎 ♡"},
+{"label":"Carita de gato","tags":["gato","amor"],"plain":false,"art":"⢠⠊⣉⠒⠤⢀⡀⠀         ⡐⢁⠴⢜⢄\n ⡎⢸⠀ ⠉⠐⠢⢌⠑⢄⠀   ⡸⠀ ⡆⠀   ⠣⠱⡀\n ⡇⢸⠀       ⣀⠗⠀ ⠉⠉⠁⠀ ⠙⠢⠤⡀⢃⢱\n ⡇⠘⣄⢀⠔⠉⠀                   ⠈⠁⠘⡄\n ⢇⠀   ⠁⠀                     ⠀⠘⡄\n ⢸⠀           ⢀⣀⣀⡀⠀     ⢀⣀⣀⡀⠀ ⠀⢣\n ⡸⠀       ⢴⣾⡿⠿⠽⠇⠀       ⠘⠛⠛⠛⠀ ⠀⠈⢄\n⠰⡁⠀             ⢠⠒⠢⡀⠈⠒⠊⠀ ❤⠀⡠⢄⠀ ⡘\n ⠱⣀⠀         ⢀⠜⠀   ⠇⠀       ⢀⠔⠁⠀ ⡏\n     ⠑⠤⢄⣀⠔⠁⠀   ⡜⠀       ⠊⠁⠀ ⢀⠜"},
+{"label":"Luna con gato","tags":["luna","gato"],"plain":false,"art":"⠀⠀⠀⠀⠀⠀⢀⣠⠤⠶⠒⠚⠛⠓⢲⣶⡤\n⠀⠀⠀⠀⢀⡴⠚⠁⠁⠁⠁⣁⠵⠛⠉⠁⠀⠀⠀⠀★\n⠀⠀⢀⣴⠁⠁⠁⠁⠁⢁⡞⠁\n⠀⢠⡞⠁⠁⠁⠁⠁⢁⠏⠀⠀\n⢀⡾⠁⠁⠁⠁⠁⢁⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠀⠀⠀⠀⢠⡿\n⣼⠁⠁⠁⠁⠁⠁⣹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣶⡄⣰⣿\n⣿⠁⠁⠁⠁⠁⠁⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⠏\n⣿⠁⠁⠁⠁⠁⠁⢻⡄⠀⠀⠀⣴⠿⢿⣆⠀⢀⣴⣿⣿⣿⣿⠃\n⢻⠁⠁⠁⠁⠁⠁⠉⣷⡀⠀⠀⣿⠀⠾⠏⣴⣿⣿⣿⣿⣿⡟\n⠈⢧⠁⠁⠁⠁⠁⠁⠉⠷⣄⠀⠹⡄⠀⠀⣿⣿⣿⣿⣿⣿⡇\n⠀⠘⢆⠁⠁⠁⠁⠁⠁⠁⠉⠳⣄⠹⣦⡀⢿⣿⣿⣿⣿⣿⡇\n⠀⠀⠈⢳⡁⠁⠁⠁⠁⠁⠁⠁⠉⠙⠶⡿⣿⣿⣿⣿⣿⣿⠷\n⠀⠀⠀⠀⠉⠳⣅⠁⠁⠁⠁⠁⠁⠁⠁⠁⠁⠁⠁⣁⡥⠛⠁\n⠀⠀⠀⠀⠀⠀⠀⠉⠓⠳⢧⣥⣥⣥⡥⠥⠵⠛⠋⠁⠀⠀"},
+{"label":"Happy new year","tags":["ano nuevo"],"plain":false,"art":"⢦⠀⠀*\n⠀⢇⠀⠀⠀⠀⠀⠀*⠀⠀⠀⠀*\n⠀⢸⠞⢳⠀⢠⠋⡄⢱⠞⠉⢦⢱⠞⠉⢦⠹⡄⠀⢀⡞⠁\n⠀⡾⠀⠀⡇⡏⠀⣿⠀⢸⠀⢠⠃⢸⠀⢠⠃⠀⠘⡶⠃⠀⠀*\n⠀⠃⠀⠀⠁⠘⠊⠈⠀⡸⠚⠁⠀⡸⠚⠁⠀⠀⡴⠁\n⠀⠀⠀*⠀⠀⠀⠀⠀⠀⠰⡇⠀⠀⠰⡇⠀⠀⢠⡋⠀⠀*\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀*\n⠀⠀⠀⠀⠀⠀*⠀⠀⠀⢣⠀⡴⢦⠀⠀⠀⡠⠋⡼⠀⢆⠀⠀⡀⠀⠀⡴⠂⠀⠀*\n⠀⠀⠀*⠀⠀⠀⠀⠀⠀⠀⡟⠀⠀⡇⠀⡏⠋⠁⠀⠀⠘⡄⡎⡇⡔⠃\n⠀⠀⠀⢀⠚⠉⢦⠀⠀⠀⠸⠃⠀⠀⠅⠈⠒⠊⠀⠀⠛⠀⠀⠘⠁⠀⠀*\n⠀⠀⠀⡃⠀⠀⠀⠈⡀⠀⠀⠀*⠀⠀⠀⠀*\n⠀⣐⠉⠑⠀⠀⠀⠀⡂⠀⠀⠀⠀⠀⠹⡄⠀⢀⡞⠁⡠⠋⡼⠀⢠⠋⡄⠈⡵⠀⢀⡤\n⠀⢁⠀⠀⠀⠀⠀⠀⢨⠀⠀⠀⠀⠀⠀⠘⡶⠃⠀⠀⡏⠋⠁⠀⡏⠀⣿⠀⠀⠀⣝⠁\n⠀⠀⠈⠂⠠⠠⠄⠊⠀⠀⠀*⠀⠀⠀⡴⠁⠀⠀⠀⠈⠒⠊⠀⠘⠊⠈⠀⠀⢠⡃\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡋⠀⠀⠀*⠀⠀⠀⠀*"},
+{"label":"Conejo con globo","tags":["ano nuevo","amor","conejo"],"plain":false,"art":"⢀⠔⠉⠉⠢⣀⠔⠉⠉⠹⣦\n⡇⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⣿⠇\n⠡⡀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡟\n⠀⠈⠢⡀⠀⠀⠀⠀⢀⡾⠋\n⠀⠀⠀⠀⠙⠲⣦⠞⠋\n⠀⠀⠀⠀⠀⠀⢹⠁\n⠀⠀⠀⠀⠀⠀⢸\n⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⢀⠠⠂⠉⣴⣿⠏\n⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⡠⠊⠀⢀⡤⠞⠛⠋⠉⣩⣿⡿\n⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⡠⠊⠀⡠⠞⠁⠀⠀⣀⣴⣾⠟⠋\n⠀⠀⠀⠀⠀⠀⢸⡠⠒⠉⠁⠀⠀⣊⣀⣤⣴⠿⠛⠋⠁\n⠀⠀⠀⠀⠀⣠⠊⠀⠂⠀⠀⠀⠀⠀⢿⡆\n⠀⠀⠀⠀⠀⠙⣄⠀⠀⠀⠀⠀⠀⠀⣾⠇\n⠀⠀⠀⠀⠀⠀⢸⠳⢦⣄⡀⠀⠠⢴⣅\n⠀⠀⠀⠀⠀⠀⠸⠀⡔⠁⠀⠀⠀⠀⣀⣉⡻⢦\n⠀⠀⠀⠀⠀⠀⠀⠀⢁⠀⠀⠀⢀⡾⠉⠀⠀⠀⠻⡄\n⠀⠀⠀⠀⠀⠀⠀⠀⡘⠀⠀⠀⣿⠁⠀⠀⠀⠀⠀⠹⠦⣄\n⠀⠀⠀⠀⠀⠀⠀⣰⠁⠀⢀⣴⣿⡄⠀⠀⠀⠀⠀⣨⣤⡿\u0001⠀\n                        🎉ʜᴀᴘᴘʏ ɴᴇᴡ ʏᴇᴀʀ! ✨\n                        ɪ ᴡɪꜱʜ ʏᴏᴜ ᴀ ʙᴇᴀᴜᴛɪꜰᴜʟ 2023"},
+{"label":"Cinnamoroll","tags":["perro","anime","cinnamoroll","sanrio"],"plain":true,"art":"⠀⣠⠔⠛⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⢀⡍⠀⠀⠀⢹⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠈⣧⠀⠀⠀⠘⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠘⣆⠀⠀⠀⡸⠏⠑⢢⡴⠶⠦⢤⣄⣀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠘⠷⣄⠀⣸⡤⣤⠏⠀⠀⠀⠀⠀⠈⠛⡖⠊⠳⠀⠀⠀\n⠀⠀⠀⠀⢈⡟⠁⢀⡀⠀⠀⠀⠀⠀⠀⠀⠘⠤⣀⡴⣏⠀⠀\n⠀⠀⠀⠀⣾⠁⠀⠞⠙⠂⠀⠀⠀⠀⠀⢀⣄⡀⠁⣄⢹⡆⠀\n⠀⠀⠀⠀⠘⣦⡀⠀⠀⠀⠻⠤⠤⣤⠀⠉⠀⠃⢀⣼⠀⢷⠀\n⠀⠀⠀⠀⠀⠈⠙⠒⠶⢤⣤⣄⣀⣀⠀⠄⠀⢀⡡⠋⠀⠈⡇\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠻⣏⠀⠀⠀⢠⡯\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠲⠾⠋⠀"},
+{"label":"Osito navideño","tags":["navidad","oso","kaomoji"],"plain":false,"art":"♡ ∩_∩\n（„• ֊ •„)♡\n┏━∪∪━━━━━━┓\n♡ Merry Christmas! ♡\n┗━━━━━━━━━┛"}
+];
+
+
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+const EMOJI_RE = /\p{Extended_Pictographic}(?:️|‍\p{Extended_Pictographic}️?)*/gu;
+
+const $ = id => document.getElementById(id);
+const st = {
+  mode: 'lineas', font: 'script', deco: '1', pos: 'abajo', palCat: 'Estrellas', target: 'decoEnd', big: 'no', skin: 'steam',
+  ramp: 'clasico', lang: 'es', theme: 'light', dither: 'atkinson',
+  sources: [], sel: 0, userImages: [], galOpen: false,
+};
+const pref = {
+  get: k => { try { return localStorage.getItem('puntitos.' + k); } catch (e) { return null; } },
+  set: (k, v) => { try { localStorage.setItem('puntitos.' + k, v); } catch (e) {} },
+};
+
+// ---------- fuentes (emoji / imagen / texto) a canvas ----------
+function cropCanvas(c, pad) {
+  const x = c.getContext('2d', { willReadFrequently: true });
+  const d = x.getImageData(0, 0, c.width, c.height).data;
+  let l = c.width, r = -1, t = c.height, b = -1;
+  for (let y = 0; y < c.height; y++) for (let xx = 0; xx < c.width; xx++) {
+    if (d[(y * c.width + xx) * 4 + 3] > 16) { if (xx < l) l = xx; if (xx > r) r = xx; if (y < t) t = y; if (y > b) b = y; }
+  }
+  if (r < 0) return c;
+  const o = document.createElement('canvas');
+  o.width = r - l + 1 + pad * 2; o.height = b - t + 1 + pad * 2;
+  o.getContext('2d').drawImage(c, l, t, r - l + 1, b - t + 1, pad, pad, r - l + 1, b - t + 1);
+  return o;
+}
+function emojiCanvas(e) {
+  const c = document.createElement('canvas'); c.width = c.height = 600;
+  const x = c.getContext('2d');
+  x.font = '256px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif';
+  x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.fillText(e, 300, 300);
+  return cropCanvas(c, 6);
+}
+function textCanvas(str, family) {
+  const size = 120, c = document.createElement('canvas');
+  const x = c.getContext('2d');
+  const font = family === 'cursiva' ? `${size}px Pacifico, cursive` : `600 ${size}px Fredoka, sans-serif`;
+  x.font = font;
+  c.width = Math.ceil(x.measureText(str).width + size); c.height = size * 2;
+  const y = c.getContext('2d'); y.font = font; y.textBaseline = 'middle'; y.fillStyle = '#000';
+  y.fillText(str, size / 2, size);
+  return cropCanvas(c, 4);
+}
+
+function sourceEl(src) {
+  if (!src.el) src.el = src.kind === 'emoji' ? emojiCanvas(src.value) : src.kind === 'text' ? textCanvas(src.value, 'redonda') : src.img;
+  return src.el;
+}
+
+function opts(over) {
+  return Object.assign({
+    S: 3,
+    mode: st.mode,
+    hi: 1.05 - (+$('detail').value) / 100 * 0.95,
+    smooth: +$('smooth').value / 10,
+    dark: +$('dark').value / 100,
+    thr: +$('thr').value / 100,
+    ink: +$('ink').value / 100,
+    solid: $('solid').checked,
+    color: $('color').checked,
+    clean: +$('clean').value,
+    ratio: +$('ratio').value / 100,
+    thick: $('thick').checked,
+    dither: st.dither === 'no' ? false : st.dither,
+    autoLevels: $('autoLevels').checked,
+    invert: $('invert').checked,
+    trim: $('trim').checked,
+    width: +$('width').value,
+    contrast: +$('contrast').value / 100,
+    ramp: st.ramp,
+  }, over || {});
+}
+
+function renderArt(el, o) {
+  const w = el.naturalWidth || el.width, h = el.naturalHeight || el.height;
+  if (o.mode === 'letras') {
+    const cw = o.width, ch = Math.max(1, Math.round(h / w * cw * 0.5 * o.ratio)), W = cw * o.S, H = ch * o.S;
+    const c = document.createElement('canvas'); c.width = W; c.height = H;
+    const x = c.getContext('2d', { willReadFrequently: true });
+    x.fillStyle = '#fff'; x.fillRect(0, 0, W, H);
+    x.imageSmoothingQuality = 'high';
+    x.drawImage(el, 0, 0, W, H);
+    const rows = charsFromPixels(x.getImageData(0, 0, W, H).data, W, H, o);
+    return o.trim && !o.invert ? trimChars(rows) : rows;
+  }
+  const pw = o.width * 2;
+  const ph = Math.max(4, Math.round(h / w * pw * o.ratio / 4) * 4);
+  const W = pw * o.S, H = ph * o.S;
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d', { willReadFrequently: true });
+  x.imageSmoothingQuality = 'high';
+  x.drawImage(el, 0, 0, W, H);
+  const d = x.getImageData(0, 0, W, H).data;
+  const alpha = new Uint8Array(W * H);
+  let transparent = false;
+  for (let i = 0; i < W * H; i++) {
+    const a = d[i * 4 + 3]; alpha[i] = a;
+    if (a < 250) transparent = true;
+    const k = a / 255;
+    d[i * 4] = d[i * 4] * k + 255 * (1 - k); d[i * 4 + 1] = d[i * 4 + 1] * k + 255 * (1 - k); d[i * 4 + 2] = d[i * 4 + 2] * k + 255 * (1 - k);
+  }
+  if (o.autoLevels) autoLevels(d, W * H, transparent ? alpha : null);
+  const { on } = dotsFromPixels(d, W, H, transparent ? Object.assign({}, o, { alpha }) : o);
+  let cells = toCells(on, pw, ph);
+  if (o.trim && !o.invert) cells = trimCells(cells);
+  return cellsToLines(cells);
+}
+
+// ---------- UI ----------
+function buildSeg(id, entries, key) {
+  const box = $(id);
+  if (entries) box.innerHTML = entries.map(([v, label]) => `<button type="button" data-v="${v}">${label}</button>`).join('');
+  box.addEventListener('click', ev => {
+    const b = ev.target.closest('button'); if (!b) return;
+    st[key] = b.dataset.v; syncSeg(id, key); update();
+  });
+  syncSeg(id, key);
+}
+function syncSeg(id, key) {
+  $(id).querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === st[key])));
+}
+
+function search(q) {
+  const nq = norm(q);
+  const emojis = [], seen = new Set(), ids = new Set();
+  let phrase = null;
+  const add = e => { if (!seen.has(e)) { seen.add(e); emojis.push(e); } };
+  (q.match(EMOJI_RE) || []).forEach(add);
+  const words = nq.replace(EMOJI_RE, ' ').trim();
+  const all = (!words && !emojis.length) || ['galeria', 'gallery', 'todo', 'todos', 'all'].includes(words);
+  if (words && !all) {
+    for (const t of THEMES) {
+      const hit = t.k.some(k => k === words || (words.length >= 3 && (k.startsWith(words) || words.includes(k))));
+      if (hit) { ids.add(t.k[0]); t.e.forEach(add); if (!phrase) phrase = t.p; }
+    }
+  }
+  const srcs = st.userImages.map(u => ({ kind: 'img', label: u.key ? t(u.key) : u.label, img: u.img }));
+  // Primero lo que se genera (emojis, palabra); la galería va al final y se muestra recortada.
+  emojis.forEach(e => srcs.push({ kind: 'emoji', value: e, label: e }));
+  if (words && !phrase && !all) srcs.push({ kind: 'text', value: q.replace(EMOJI_RE, '').trim(), label: t('word') });
+  GALLERY.filter(g => all || g.tags.some(t => ids.has(t)))
+    .forEach(g => srcs.push({ kind: 'art', label: galLabel(g.label), art: g.art, plain: g.plain }));
+  st.galOpen = all && !!words;
+  st.sources = srcs;
+  st.found = srcs.length - st.userImages.length;
+  const firstTheme = srcs.findIndex(s => s.kind !== 'img');
+  st.sel = firstTheme >= 0 ? firstTheme : 0;
+  if (phrase) $('phrase').value = phrase;
+  renderCards();
+  update();
+}
+
+const GAL_MIN = 4;
+function renderCards() {
+  const box = $('results');
+  const o = opts({ width: 18, trim: true, invert: false });
+  const fit = t => {
+    const ls = t.split('\n'), cols = Math.max(1, ...ls.map(cpLen));
+    return Math.max(2, Math.min(8, 108 / (cols * 0.62), 84 / (ls.length * 1.2))).toFixed(1);
+  };
+  let html = `<button type="button" class="card upload" id="dropCard"><b>+</b>${t('drop')}</button>`;
+  const galTotal = st.sources.filter(s => s.kind === 'art').length;
+  let galSeen = 0, galHidden = 0;
+  st.sources.forEach((s, i) => {
+    if (s.kind === 'art' && galSeen++ >= GAL_MIN && !st.galOpen && i !== st.sel) { galHidden++; return; }
+    let art = '';
+    try { art = s.kind === 'art' ? s.art : renderArt(sourceEl(s), forSrc(s, o)).map(r => r.join('')).join('\n'); } catch (e) { art = ''; }
+    const mono = s.kind !== 'art' && st.mode === 'letras' ? ' class="mono"' : '';
+    html += `<button type="button" class="card" data-i="${i}" aria-pressed="${i === st.sel}"><pre${mono} aria-hidden="true" style="font-size:${fit(art)}px">${escapeHtml(art)}</pre><span>${escapeHtml(s.label)}</span></button>`;
+  });
+  if (galHidden) html += `<button type="button" class="card more" id="galToggle" aria-expanded="false"><b>+${galHidden}</b>${t('galMore')(galHidden)}</button>`;
+  else if (st.galOpen && galTotal > GAL_MIN) html += `<button type="button" class="card more" id="galToggle" aria-expanded="true"><b>−</b>${t('galLess')}</button>`;
+  if (!st.sources.some(s => s.kind !== 'img' && s.kind !== 'text')) html += `<p class="empty">${t('empty')}</p>`;
+  box.innerHTML = html;
+  hookDrop($('dropCard'));
+}
+function escapeHtml(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+const forSrc = (s, o) => s.kind === 'img' ? o : Object.assign({}, o, { autoLevels: false });
+
+function buildOutput(src, o, preview) {
+  const fixed = src.kind === 'art' && !src.plain;
+  const mono = o.mode === 'letras' && src.kind !== 'art';
+  if (fixed) return { text: src.art, fixed, mono };
+  let grid = src.kind === 'art' ? src.art.split('\n').map(l => [...l]) : renderArt(sourceEl(src), forSrc(src, o));
+  if (!preview && $('sparkle').checked && !mono) grid = sprinkle(grid, 7);
+  const raw = $('phrase').value.trim();
+  const styled = FONTS[st.font].fn(raw);
+  const ds = $('decoStart').value.trim(), de = $('decoEnd').value.trim();
+  const wrap = t => [ds, t, de].filter(Boolean).join(' ');
+  const text = !raw ? [] : st.pos === 'pila' ? styled.split(/\s+/).filter(Boolean).map(wrap) : [wrap(styled)];
+  const pos = st.pos === 'pila' ? 'lado' : st.pos;
+  let big = null;
+  if (st.big !== 'no' && raw) {
+    big = renderArt(textCanvas(raw, st.big), mono
+      ? opts({ mode: 'letras', contrast: 1, invert: false, trim: true, ratio: 1, width: Math.max(24, o.width) })
+      : opts({ mode: 'relleno', thr: 0.5, dither: false, autoLevels: false, invert: false, trim: true, clean: 0, thick: false, ratio: 1, width: Math.max(16, o.width) }));
+  }
+  let out = compose(grid, text, pos, big, mono ? ' ' : BL);
+  if (mono && $('codeWrap').checked) out = '[code]\n' + out + '\n[/code]';
+  return { text: out, fixed, mono };
+}
+
+
+let sizesTm;
+function scheduleSizes(src) {
+  clearTimeout(sizesTm);
+  const box = $('sizesBox');
+  if (!src || src.kind === 'art') { box.classList.add('hide'); return; }
+  box.classList.remove('hide');
+  sizesTm = setTimeout(() => {
+    const w = +$('width').value, min = +$('width').min, max = +$('width').max;
+    const ws = [...new Set([Math.round(w * 0.6), w, Math.round(w * 1.4)].map(v => Math.max(min, Math.min(max, v))))];
+    $('sizes').innerHTML = ws.map(v => {
+      let out = '';
+      try { out = buildOutput(src, opts({ width: v }), true).text; } catch (e) {}
+      const ls = out.split('\n'), cols = Math.max(1, ...ls.map(cpLen)), n = cpLen(out);
+      const fs = Math.max(1.5, Math.min(8, 150 / (cols * 0.62), 72 / (ls.length * 1.2))).toFixed(1);
+      return `<button type="button" class="size" data-w="${v}" aria-pressed="${v === w}"><pre${st.mode === 'letras' ? ' class="mono"' : ''} aria-hidden="true" style="font-size:${fs}px">${escapeHtml(out)}</pre>` +
+        `<span class="${n > 1000 ? 'over' : ''}">${t('sizeLbl')(v, n)}</span></button>`;
+    }).join('');
+  }, 180);
+}
+
+let lastText = '';
+function update() {
+  ['width', 'detail', 'smooth', 'dark', 'thr', 'ink', 'clean', 'ratio', 'fontSize', 'contrast'].forEach(id => {
+    const v = +$(id).value;
+    $(id + 'Out').textContent = id === 'width' ? t('nChars')(v) : id === 'ratio' || id === 'contrast' ? t('pct')(v) : id === 'smooth' ? (v / 10).toFixed(1) : id === 'fontSize' ? t('px')(v) : v;
+  });
+  document.querySelectorAll('[data-for]').forEach(f => f.classList.toggle('hide', !f.dataset.for.split(' ').includes(st.mode)));
+  const letras = st.mode === 'letras';
+  $('outNote').innerHTML = t(letras ? 'outNoteLetras' : 'outNote');
+  $('widthPresets').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.w === $('width').value)));
+  $('results').querySelectorAll('.card[data-i]').forEach(c => c.setAttribute('aria-pressed', String(+c.dataset.i === st.sel)));
+
+  const stage = $('stage');
+  stage.className = 'stage skin-' + st.skin;
+  $('output').style.fontSize = $('fontSize').value + 'px';
+
+  const src = st.sources[st.sel];
+  const ds = $('decoStart').value.trim(), de = $('decoEnd').value.trim();
+  $('deco').querySelectorAll('button').forEach(b => {
+    const [ps, pe] = DECO_PRESETS[+b.dataset.v];
+    b.setAttribute('aria-pressed', String(ps === ds && pe === de));
+  });
+  if (!src) { $('output').textContent = t('pick'); $('meta').innerHTML = ''; lastText = ''; scheduleSizes(null); return; }
+  const { text: out, fixed, mono } = buildOutput(src, opts());
+  $('output').classList.toggle('mono', mono);
+  lastText = out;
+  $('output').textContent = lastText;
+  scheduleSizes(src);
+  const n = cpLen(lastText), lines = lastText.split('\n').length;
+  const fits = n <= 1000;
+  const why = src.kind === 'art' ? t(fixed ? 'galFixed' : 'galPlain') : '';
+  $('meta').innerHTML = `<span>${t('nChars')(n)} · ${t('nLines')(lines)}</span>` + (why ? `<span>${why}</span>` : '') +
+    `<span class="pill ${fits ? 'ok' : 'warn'}">${t(fits ? 'fits' : 'tooBig')}</span>`;
+}
+
+async function copy() {
+  const toast = $('toast');
+  try { await navigator.clipboard.writeText(lastText); toast.textContent = t('copied'); }
+  catch (e) {
+    const r = document.createRange(); r.selectNodeContents($('output'));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    toast.textContent = t('selected');
+  }
+  clearTimeout(copy.tm); copy.tm = setTimeout(() => toast.textContent = '', 2200);
+}
+
+function addImageFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+  img.onload = () => {
+    st.userImages.unshift(file.name ? { label: file.name, img } : { key: 'yourImg', img });
+    search($('q').value);
+    st.sel = 0;
+    st.mode = 'tinta'; syncSeg('mode', 'mode');
+    update();
+  };
+  img.src = url;
+}
+function hookDrop(el) {
+  el.addEventListener('click', () => $('file').click());
+  el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag'); });
+  el.addEventListener('dragleave', () => el.classList.remove('drag'));
+  el.addEventListener('drop', e => { e.preventDefault(); el.classList.remove('drag'); addImageFile(e.dataTransfer.files[0]); });
+}
+
+const FIELD_KEY = { phrase: 'phrase', decoStart: 'start', decoEnd: 'end' };
+function renderPalette() {
+  $('palCat').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === st.palCat)));
+  $('palette').innerHTML = PALETTE[st.palCat].map(s => `<button type="button" title="${t('add')} ${escapeHtml(s)}">${escapeHtml(s)}</button>`).join('');
+}
+
+function applyLang() {
+  document.documentElement.lang = st.lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
+  $('font').innerHTML = Object.entries(FONTS).map(([k, v]) => `<button type="button" data-v="${k}">${st.lang === 'en' ? v.en : v.label}</button>`).join('');
+  syncSeg('font', 'font');
+  $('deco').innerHTML = DECO_PRESETS.map(([s, e], i) => `<button type="button" data-v="${i}">${i ? escapeHtml(s + ' · ' + e) : t('none')}</button>`).join('');
+  $('palCat').innerHTML = Object.keys(PALETTE).map(k => `<button type="button" data-v="${k}">${st.lang === 'en' ? PAL_EN[k] : k}</button>`).join('');
+  renderPalette();
+  $('targetName').textContent = t(FIELD_KEY[st.target]);
+  $('hintList').innerHTML = t('hints').map(h => `<button type="button">${h}</button>`).join('');
+  syncSeg('langSw', 'lang');
+}
+function setTheme(v) {
+  st.theme = v;
+  document.documentElement.dataset.theme = v;
+  syncSeg('themeSw', 'theme');
+}
+
+function init() {
+  const sysDark = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(pref.get('theme') || (sysDark ? 'dark' : 'light'));
+  $('themeSw').addEventListener('click', ev => { const b = ev.target.closest('button'); if (b) { setTheme(b.dataset.v); pref.set('theme', b.dataset.v); } });
+  const navEn = /^en\b/i.test(navigator.language || '');
+  st.lang = pref.get('lang') || (navEn ? 'en' : 'es');
+  applyLang();
+  $('langSw').addEventListener('click', ev => {
+    const b = ev.target.closest('button'); if (!b || b.dataset.v === st.lang) return;
+    st.lang = b.dataset.v; pref.set('lang', st.lang);
+    applyLang(); search($('q').value);
+  });
+  buildSeg('mode', null, 'mode');
+  $('mode').addEventListener('click', () => renderCards());
+  buildSeg('ramp', null, 'ramp');
+  $('ramp').addEventListener('click', () => renderCards());
+  buildSeg('ditherKind', null, 'dither');
+  $('ditherKind').addEventListener('click', () => renderCards());
+  $('autoLevels').addEventListener('change', () => renderCards());
+  $('sizes').addEventListener('click', e => { const b = e.target.closest('.size'); if (b) { $('width').value = b.dataset.w; update(); } });
+  buildSeg('font', null, 'font');
+  $('deco').addEventListener('click', ev => {
+    const b = ev.target.closest('button'); if (!b) return;
+    [$('decoStart').value, $('decoEnd').value] = DECO_PRESETS[+b.dataset.v]; update();
+  });
+  Object.keys(FIELD_KEY).forEach(id => $(id).addEventListener('focus', () => { st.target = id; $('targetName').textContent = t(FIELD_KEY[id]); }));
+  $('palCat').addEventListener('click', ev => { const b = ev.target.closest('button'); if (b) { st.palCat = b.dataset.v; renderPalette(); } });
+  $('palette').addEventListener('mousedown', ev => ev.preventDefault());
+  $('palette').addEventListener('click', ev => {
+    const b = ev.target.closest('button'); if (!b) return;
+    const inp = $(st.target), sym = b.textContent;
+    const a = inp.selectionStart ?? inp.value.length, z = inp.selectionEnd ?? inp.value.length;
+    inp.value = inp.value.slice(0, a) + sym + inp.value.slice(z);
+    inp.selectionStart = inp.selectionEnd = a + sym.length;
+    update();
+  });
+  renderPalette();
+  buildSeg('pos', null, 'pos');
+  buildSeg('big', null, 'big');
+  buildSeg('skin', null, 'skin');
+  $('hints').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { $('q').value = b.textContent; search(b.textContent); } });
+  $('searchForm').addEventListener('submit', e => { e.preventDefault(); search($('q').value); });
+  let tm; $('q').addEventListener('input', () => { clearTimeout(tm); tm = setTimeout(() => search($('q').value), 350); });
+  $('results').addEventListener('click', e => {
+    if (e.target.closest('#galToggle')) { st.galOpen = !st.galOpen; renderCards(); $('galToggle')?.focus(); return; }
+    const c = e.target.closest('.card[data-i]'); if (c) { st.sel = +c.dataset.i; update(); }
+  });
+  $('widthPresets').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { $('width').value = b.dataset.w; update(); } });
+  document.querySelectorAll('.side input, #fontSize').forEach(i => i.addEventListener('input', update));
+  $('uploadBtn').addEventListener('click', () => $('file').click());
+  $('file').addEventListener('change', e => { addImageFile(e.target.files[0]); e.target.value = ''; });
+  document.addEventListener('paste', e => {
+    const f = [...(e.clipboardData?.files || [])].find(f => f.type.startsWith('image/'));
+    if (f) { e.preventDefault(); addImageFile(f); }
+  });
+  $('copy').addEventListener('click', copy);
+
+  $('q').value = themeForToday();
+  const sample = new Image();
+  sample.onload = () => { st.userImages.push({ key: 'sample', img: sample }); search($('q').value); };
+  sample.onerror = () => search($('q').value);
+  sample.src = 'data:image/jpeg;base64,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';
+}
+
+(document.fonts ? Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1500))]) : Promise.resolve())
+  .then(() => Promise.all(['120px Pacifico', '600 120px Fredoka'].map(f => document.fonts ? document.fonts.load(f).catch(() => {}) : null)))
+  .then(init);
+</script>
