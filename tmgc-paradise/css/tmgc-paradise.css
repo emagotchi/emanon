@@ -52,7 +52,6 @@ emanon.vip
     --text-dark: #4A5A6A;
     --text-muted: #5B6B7C;
     --primary-text: #44729F;
-    --title-gradient: linear-gradient(0deg, #4A79A8 0%, #5F8EBD 60%);
 
     --font-title: 'Aldrich', sans-serif;
 
@@ -171,11 +170,8 @@ body {
     font-size: clamp(1.4rem, 6vw, 2.2rem);
     font-weight: 400;
     letter-spacing: 0.04em;
-    background: var(--title-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    color: var(--primary-text);
+    text-shadow: 2px 2px 0 #d2e4f5;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -637,11 +633,8 @@ h4 {
 
 #guide-kid-name {
     font-size: clamp(1.4rem, 6vw, 2rem);
-    background: var(--title-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    color: var(--primary-text);
+    text-shadow: 2px 2px 0 #d2e4f5;
 	overflow-wrap: anywhere;
     word-break: break-word;
     line-height: 1.1;
