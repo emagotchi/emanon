@@ -42,14 +42,14 @@ emanon.vip
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<meta name="description" content="Guía completa en español del Tamagotchi Paradise: personajes, evoluciones, células y comidas favoritas de cada etapa (baby, kid, young y adulto).">
-    <meta name="keywords" content="tamagotchi paradise, tamagotchi guide, guía tamagotchi paradise español, personajes tamagotchi paradise, evoluciones tamagotchi paradise, 
-		comidas tamagotchi paradise, células tamagotchi paradise, personajes secretos tamagotchi paradise, errores de cuidado tamagotchi paradise, duración etapas tamaogtchi paradise">
+	<meta name="description" content="Guía completa en español del Tamagotchi Paradise: evoluciones, comidas y células de los 7 campos, incluido el nuevo Galaxy Kid de Neon Planets, más guía de cuidados, Caza de Huevos, snacks y viajes espaciales.">
+    <meta name="keywords" content="tamagotchi paradise, tamagotchi guide, guía tamagotchi paradise español, personajes tamagotchi paradise, evoluciones tamagotchi paradise, campo cosmico, cosmic field,
+		comidas tamagotchi paradise, células tamagotchi paradise, personajes secretos tamagotchi paradise, errores de cuidado tamagotchi paradise, duración etapas tamagotchi paradise, tamagotchi paradise neon planets, galaxy kid tamagotchi paradise, mimimimitchi, caza de huevos tamagotchi paradise, egg hunt tamagotchi paradise">
     <meta name="author" content="emagotchi">
     <link rel="canonical" href="https://emanon.vip/tmgc-paradise/">
 	
     <meta property="og:title" content="🎐 Guía Tamagotchi Paradise ✦ Evoluciones y Comidas">
-    <meta property="og:description" content="Personajes, evoluciones y comidas favoritas del Tamagotchi Paradise, en español :3">
+    <meta property="og:description" content="Evoluciones, comidas y cuidados del Tamagotchi Paradise en español, ahora con el nuevo Galaxy Kid de Neon Planets :3">
     <meta property="og:image" content="https://emanon.vip/assets/og/paradise.jpg">
 	<meta property="og:locale" content="es_CL">
     <meta property="og:url" content="https://emanon.vip/tmgc-paradise/">
@@ -59,13 +59,13 @@ emanon.vip
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="🎐 Guía Tamagotchi Paradise ✦ Evoluciones y Comidas">
-    <meta name=" twitter:description" content="Personajes, evoluciones y comidas favoritas del Tamagotchi Paradise, en español :3">
+    <meta name="twitter:description" content="Evoluciones, comidas y cuidados del Tamagotchi Paradise en español, ahora con el nuevo Galaxy Kid de Neon Planets :3">
     <meta name="twitter:image" content="https://emanon.vip/assets/og/paradise.jpg">
 	
     <title>Guía Tamagotchi Paradise ✦ Personajes, Evoluciones y Comidas | emanon</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Aldrich&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/tmgc-paradise.css">
     <link rel="icon" type="image/png" href="../assets/favicon.png">
@@ -82,7 +82,10 @@ emanon.vip
             <div class="header-content">
                 <div class="title-container">
                     <img src="../assets/logo_tmgchile.png" alt="Logo Tamagotchi" class="logo" width="50" height="50">
-                    <h1 class="logo-title" id="app-title">Guía Tamagotchi Paradise</h1>
+                    <div class="title-text">
+                        <h1 class="logo-title" id="app-title">Guía Tamagotchi Paradise</h1>
+                        <span class="app-subtitle" lang="ja">たまごっち パラダイス ・ しんかのみち</span>
+                    </div>
                 </div>
 
                 <div class="controls">
@@ -94,7 +97,7 @@ emanon.vip
             </div>
 
             <button id="back-btn" class="back-btn hidden">
-                <i class="fa-solid fa-chevron-left"></i> <span id="back-text">Volver a los Niños</span>
+                <span class="back-arrow" aria-hidden="true">‹</span> <span id="back-text">Volver a los Niños</span>
             </button>
         </header>
 
@@ -103,9 +106,8 @@ emanon.vip
             <div class="selection-intro">
                 <h2>Select your starting Kid</h2>
                 <p>Learn about all possible evolutionary branches depending on how you care for them.</p>
+				<a href="#guia-cuidados" class="care-guide-link" id="care-guide-link">¿primera vez? la guía de cuidados está más abajo ↓</a>
             </div>
-
-			<div id="help-accordion"></div>
 
             <div class="tree-selection-container">
                 <div class="base-branch">
@@ -120,14 +122,31 @@ emanon.vip
                     <!-- Cards will be populated dynamically -->
                 </div>
             </div>
+
+			<div class="care-guide-heading" id="guia-cuidados">
+                <span class="care-guide-title" id="care-guide-title">// guía de cuidados</span>
+                <span class="care-guide-jp" lang="ja">おせわ</span>
+            </div>
+            <div id="help-accordion"></div>
+			
         </section>
 
         <!-- GUIDE -->
         <section id="guide-screen" class="view-section hidden">
             <div class="guide-header">
-                <div class="selected-kid-info">
-                    <img id="guide-kid-img" src="" alt="Kid" class="kid-img-large">
-                    <h2 id="guide-kid-name">Field Kid</h2>
+                <div class="selected-kid-info kid-window">
+                    <div class="kid-window-bar">
+                        <span class="kid-window-title" id="guide-window-title"></span>
+                        <div class="kid-window-controls">
+                            <span class="kw-ctrl kw-ctrl--min" aria-hidden="true"></span>
+                            <span class="kw-ctrl kw-ctrl--max" aria-hidden="true"></span>
+                            <button type="button" class="kw-ctrl kw-ctrl--close" id="guide-window-close" aria-label="Volver">&times;</button>
+                        </div>
+                    </div>
+                    <div class="kid-window-body">
+                        <img id="guide-kid-img" src="" alt="Kid" class="kid-img-large">
+                        <h2 id="guide-kid-name">Field Kid</h2>
+                    </div>
                 </div>
                 <p class="guide-desc">Evolution branches are separated by meals. The final adult form depends on the
                     care provided.</p>
@@ -190,9 +209,9 @@ emanon.vip
         <h3>Forest Kid</h3>
         <p>Se obtiene una Célula de Bosque por cada 15 minutos que Babymarutchi pase en el Campo de Bosque. Cuando tengas 4 Células de Bosque, evolucionará en Forest Kid.</p>
         <p><strong>Sprout Young:</strong> comidas: Pellets +1 — General. Adultos: Shiitaketchi (5+ cuidados excelentes, 0 errores de cuidado), Peatchi (0-1 errores de cuidado), Nappatchi (2-5 errores de cuidado), Rushraditchi (6+ errores de cuidado).</p>
-        <p><strong>Roar Young:</strong> comidas: Peking Meat +1 — Volcán; Chashu Pork +2 — Volcán. Adultos: Forest-Horhotchi (5+ cuidados excelentes, 0 errores de cuidado), Konkotchi (0-1 errores de cuidado), Tigaotchi (2-5 errores de cuidado), Tanoontchi (6+ errores de cuidado).</p>
-        <p><strong>Toddle Young:</strong> comidas: Sesame Leaves +1 — Fuente; Bamboo Grass +2 — Fuente. Adultos: Lessapantchi (5+ cuidados excelentes, 0 errores de cuidado), Kanokotchi (0-1 errores de cuidado), Suigyutchi (2-5 errores de cuidado), Panbootchi (6+ errores de cuidado).</p>
-        <p><strong>Chirp Young:</strong> comidas: Persimmon +1 — Volcán y Fuente; Pomegranate +2 — Volcán y Fuente. Adultos: Kachitchi (5+ cuidados excelentes, 0 errores de cuidado), Tokipatchi (0-1 errores de cuidado), Kuchipatchi (2-5 errores de cuidado), Sparrotchi (6+ errores de cuidado).</p>
+        <p><strong>Roar Young:</strong> comidas: Carne Pekín +1 — Volcán; Cerdo Chashu +2 — Volcán. Adultos: Forest-Horhotchi (5+ cuidados excelentes, 0 errores de cuidado), Konkotchi (0-1 errores de cuidado), Tigaotchi (2-5 errores de cuidado), Tanoontchi (6+ errores de cuidado).</p>
+        <p><strong>Toddle Young:</strong> comidas: Hojas de Sésamo +1 — Fuente; Hierba de Bambú +2 — Fuente. Adultos: Lessapantchi (5+ cuidados excelentes, 0 errores de cuidado), Kanokotchi (0-1 errores de cuidado), Suigyutchi (2-5 errores de cuidado), Panbootchi (6+ errores de cuidado).</p>
+        <p><strong>Chirp Young:</strong> comidas: Caqui +1 — Volcán y Fuente; Granada +2 — Volcán y Fuente. Adultos: Kachitchi (5+ cuidados excelentes, 0 errores de cuidado), Tokipatchi (0-1 errores de cuidado), Kuchipatchi (2-5 errores de cuidado), Sparrotchi (6+ errores de cuidado).</p>
 		<p><strong>Secreto — Tatsutchi:</strong> Se obtiene conectando un shell Jade Forest con dos shells de distinto color durante la etapa Young. No evoluciona desde Sprout Young.</p>
       
 		<h3>Frozen Kid</h3>
@@ -210,7 +229,15 @@ emanon.vip
       	<p><strong>Toddle Young:</strong> comidas: Plátano +1 — Fuente; Frutas Tropicales +2 — Fuente. Adultos: Tropical Mametchi (5+ cuidados excelentes, 0 errores de cuidado), Parorotchi (0-1 errores de cuidado), Tenatchi (2-5 errores de cuidado), Namakemotchi (6+ errores de cuidado).</p>
       	<p><strong>Lick Young:</strong> comidas: Bichitos +1 — Volcán y Fuente; Snacks de Mariposa +2 — Volcán y Fuente. Adultos: Kuikuitchi (5+ cuidados excelentes, 0 errores de cuidado), Poizutchi (0-1 errores de cuidado), Chameleotchi (2-5 errores de cuidado), Iguanatchi (6+ errores de cuidado).</p>
 		<p><strong>Secreto — Manapatchi:</strong> Se obtiene conectando un shell Orange Tropics con dos shells de distinto color durante la etapa Young. No evoluciona desde Sprout Young.</p>
-      	
+
+		<h3>Galaxy Kid (nuevo)</h3>
+      	<p>Nuevo campo cósmico (コズミック星) del próximo lanzamiento, disponible en la shell Neon Planets. Las comidas y las células todavía no están confirmadas.</p>
+      	<p><strong>Piko Young:</strong> comidas: por confirmar. Adultos: Cosmitchi (5+ cuidados excelentes, 0 errores de cuidado), Hoshimortchi (0-1 errores de cuidado), Uchutchi (2-5 errores de cuidado), Kumamutchi (6+ errores de cuidado).</p>
+      	<p><strong>Slithr Young:</strong> comidas: por confirmar. Adultos: Ukiukitchi (5+ cuidados excelentes, 0 errores de cuidado), Pochipotchi (0-1 errores de cuidado), Takonyatchi (2-5 errores de cuidado), Kumarstchi (6+ errores de cuidado).</p>
+      	<p><strong>Orbit Young:</strong> comidas: por confirmar. Adultos: Hanawatchi (5+ cuidados excelentes, 0 errores de cuidado), Nagarebotchi (0-1 errores de cuidado), Planetchi (2-5 errores de cuidado), Quepealetchi (6+ errores de cuidado).</p>
+      	<p><strong>Mech Young:</strong> comidas: por confirmar. Adultos: Mamerobotchi (5+ cuidados excelentes, 0 errores de cuidado), Uchuhikotchi (0-1 errores de cuidado), Satelatchi (2-5 errores de cuidado), Parabolatchi (6+ errores de cuidado).</p>
+      	<p><strong>Secreto — Mimimimitchi:</strong> aún no se sabe cómo se obtiene.</p>
+		
 		<h3>Herramienta útil</h3>
       	<p>Tamagotchi Paradise Genes Generator: permite ver los genes y colores de cada Tamagotchi para planear cruces — https://tamaparagenerator.streamlit.app/</p>
     
@@ -226,6 +253,14 @@ emanon.vip
             <span class="separator">•</span>
             <span>community logs</span>
         </div>
+		<div class="footer-source">
+            <span>more data from</span>
+            <a href="https://tools.bbamorachi.us/" target="_blank" rel="noopener noreferrer">
+                bbamorachi
+            </a>
+            <span class="separator">•</span>
+            <span>paradise tools</span>
+        </div>
 
         <div class="footer-inner">
             <div class="footer-left">
@@ -235,7 +270,7 @@ emanon.vip
                 <span>Fan guide — not affiliated with Bandai</span>
             </div>
             <div class="footer-right">
-                <span>Made with ♡ by
+                <span>with ♡ by
                 <a href="https://emanon.vip/" class="no-link-style" target="_blank" rel="noopener noreferrer">
                 emagotchi
             	</a>
