@@ -232,8 +232,8 @@ const tamagotchiData = {
                 {
                     young: { name: "Roar Young", image: "assets/characters/forest field/roar-young.webp" },
                     meals: [
-                        { name: { es: "Peking Meat +1", en: "Peking Meat +1" }, image: "assets/meals/jade forest/volcano/peking-meat.webp", location: { es: "Volcán", en: "Volcano" }, cellImage: "assets/stats/peking-meat-cell.png" },
-                        { name: { es: "Chashu Pork +2", en: "Chashu Pork +2" }, image: "assets/meals/jade forest/volcano/chashu-pork.webp", location: { es: "Volcán", en: "Volcano" }, cellImage: "assets/stats/peking-meat-cell.png" }
+                        { name: { es: "Carne Pekín +1", en: "Peking Meat +1" }, image: "assets/meals/jade forest/volcano/peking-meat.webp", location: { es: "Volcán", en: "Volcano" }, cellImage: "assets/stats/peking-meat-cell.png" },
+                        { name: { es: "Cerdo Chashu +2", en: "Chashu Pork +2" }, image: "assets/meals/jade forest/volcano/chashu-pork.webp", location: { es: "Volcán", en: "Volcano" }, cellImage: "assets/stats/peking-meat-cell.png" }
                     ],
                     adults: [
                         { name: "Forest-Horhotchi", image: "assets/characters/forest field/roar species/forest-horhotchi.webp", careMistakes: "0", excellentCares: "5+" },
@@ -245,8 +245,8 @@ const tamagotchiData = {
                 {
                     young: { name: "Toddle Young", image: "assets/characters/forest field/toddle-young.webp" },
                     meals: [
-                        { name: { es: "Sesame Leaves +1", en: "Sesame Leaves +1" }, image: "assets/meals/jade forest/spring/sesame-leaves.webp", location: { es: "Fuente", en: "Spring" }, cellImage: "assets/stats/bamboo-grass-cell.png" },
-                        { name: { es: "Bamboo Grass +2", en: "Bamboo Grass +2" }, image: "assets/meals/jade forest/spring/bamboo-grass.webp", location: { es: "Fuente", en: "Spring" }, cellImage: "assets/stats/bamboo-grass-cell.png" }
+                        { name: { es: "Hojas de Sésamo +1", en: "Sesame Leaves +1" }, image: "assets/meals/jade forest/spring/sesame-leaves.webp", location: { es: "Fuente", en: "Spring" }, cellImage: "assets/stats/bamboo-grass-cell.png" },
+                        { name: { es: "Hierba de Bambú +2", en: "Bamboo Grass +2" }, image: "assets/meals/jade forest/spring/bamboo-grass.webp", location: { es: "Fuente", en: "Spring" }, cellImage: "assets/stats/bamboo-grass-cell.png" }
                     ],
                     adults: [
                         { name: "Lessapantchi", image: "assets/characters/forest field/toddle species/lessapantchi.webp", careMistakes: "0", excellentCares: "5+" },
@@ -260,8 +260,8 @@ const tamagotchiData = {
                         name: "Chirp Young", image: "assets/characters/forest field/chirp-young.webp", cellImage: "assets/stats/pomegranate-cell.png"
                     },
                     meals: [
-                        { name: { es: "Persimmon +1", en: "Persimmon +1" }, image: "assets/meals/jade forest/persimmon.webp", location: { es: "Volcán y Fuente", en: "Volcano & Spring" }, cellImage: "assets/stats/pomegranate-cell.png" },
-                        { name: { es: "Pomegranate +2", en: "Pomegranate +2" }, image: "assets/meals/jade forest/pomegranate.webp", location: { es: "Volcán y Fuente", en: "Volcano & Spring" }, cellImage: "assets/stats/pomegranate-cell.png" }
+                        { name: { es: "Caqui +1", en: "Persimmon +1" }, image: "assets/meals/jade forest/persimmon.webp", location: { es: "Volcán y Fuente", en: "Volcano & Spring" }, cellImage: "assets/stats/pomegranate-cell.png" },
+                        { name: { es: "Granada +2", en: "Pomegranate +2" }, image: "assets/meals/jade forest/pomegranate.webp", location: { es: "Volcán y Fuente", en: "Volcano & Spring" }, cellImage: "assets/stats/pomegranate-cell.png" }
                     ],
                     adults: [
                         { name: "Kachitchi", image: "assets/characters/forest field/chirp species/kachitchi.webp", careMistakes: "0", excellentCares: "5+" },
@@ -394,6 +394,63 @@ const tamagotchiData = {
                         { name: "Poizutchi", image: "assets/characters/tropical field/lick species/poizutchi.webp", careMistakes: "0-1" },
                         { name: "Chameleotchi", image: "assets/characters/tropical field/lick species/chameleotchi.webp", careMistakes: "2-5" },
                         { name: "Iguanatchi", image: "assets/characters/tropical field/lick species/iguanatchi.webp", careMistakes: "6+" }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "galaxy-kid",
+            isNew: true,
+            name: { es: "", en: "Galaxy Kid" },
+            image: "assets/characters/cosmic field/galaxy-kid.webp",
+            evolutionText: {
+                es: "Nuevo campo cósmico (コズミック星) del próximo lanzamiento ✧ <br> Disponible en la shell Neon Planets. <br> Todavía no se sabe cómo se obtienen sus células; esta sección se irá completando a medida que se confirmen los datos.",
+                en: "New Cosmic field (コズミック星) from the upcoming release ✧ <br> Available on the Neon Planets shell. <br> It's not known yet how its cells are obtained; this section will be filled in as the data is confirmed."
+            },
+            secret: { name: "Mimimimitchi", image: null, silhouette: null, condition: { es: "Aún no se sabe cómo se obtiene. Solo se conoce su nombre…", en: "It's not known yet how to obtain it. Only its name is known…" } },
+            evolutions: [
+                {
+                    young: { name: "Piko Young", image: "assets/characters/cosmic field/piko-young.webp" },
+                    // comidas aún por confirmar: se muestran como "???"
+                    meals: [ { unknown: true } ],
+                    adults: [
+                        { name: "Cosmitchi", image: "assets/characters/cosmic field/piko species/cosmitchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Hoshimortchi", image: "assets/characters/cosmic field/piko species/hoshimortchi.webp", careMistakes: "0-1" },
+                        { name: "Uchutchi", image: "assets/characters/cosmic field/piko species/uchutchi.webp", careMistakes: "2-5" },
+                        { name: "Kumamutchi", image: "assets/characters/cosmic field/piko species/kumamutchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Slithr Young", image: "assets/characters/cosmic field/slithr-young.webp" },
+                    // comidas aún por confirmar: se muestran como "???"
+                    meals: [ { unknown: true } ],
+                    adults: [
+                        { name: "Ukiukitchi", image: "assets/characters/cosmic field/slithr species/ukiukitchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Pochipotchi", image: "assets/characters/cosmic field/slithr species/pochipotchi.webp", careMistakes: "0-1" },
+                        { name: "Takonyatchi", image: "assets/characters/cosmic field/slithr species/takonyatchi.webp", careMistakes: "2-5" },
+                        { name: "Kumarstchi", image: "assets/characters/cosmic field/slithr species/kumarstchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Orbit Young", image: "assets/characters/cosmic field/orbit-young.webp" },
+                    // comidas aún por confirmar: se muestran como "???"
+                    meals: [ { unknown: true } ],
+                    adults: [
+                        { name: "Hanawatchi", image: "assets/characters/cosmic field/orbit species/hanawatchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Nagarebotchi", image: "assets/characters/cosmic field/orbit species/nagarebotchi.webp", careMistakes: "0-1" },
+                        { name: "Planetchi", image: "assets/characters/cosmic field/orbit species/planetchi.webp", careMistakes: "2-5" },
+                        { name: "Quepealetchi", image: "assets/characters/cosmic field/orbit species/quepealetchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Mech Young", image: "assets/characters/cosmic field/mech-young.webp" },
+                    // comidas aún por confirmar: se muestran como "???"
+                    meals: [ { unknown: true } ],
+                    adults: [
+                        { name: "Mamerobotchi", image: "assets/characters/cosmic field/mech species/mamerobotchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Uchuhikotchi", image: "assets/characters/cosmic field/mech species/uchuhikotchi.webp", careMistakes: "0-1" },
+                        { name: "Satelatchi", image: "assets/characters/cosmic field/mech species/satelatchi.webp", careMistakes: "2-5" },
+                        { name: "Parabolatchi", image: "assets/characters/cosmic field/mech species/parabolatchi.webp", careMistakes: "6+" }
                     ]
                 }
             ]
