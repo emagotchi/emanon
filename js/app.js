@@ -57,6 +57,7 @@ const gridCharacters = document.getElementById('character-grid');
 const modal = document.getElementById('character-modal');
 const btnCloseModal = document.getElementById('close-modal');
 const modalBody = document.getElementById('modal-body-content');
+const modalTitle = document.getElementById('modal-title');
 
 // Placeholder SVG used when an image is missing
 const IMG_PLACEHOLDER = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3QgZmlsbD0iI2VlZSIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiLz48dGV4dCBmaWxsPSIjOTk5IiB4PSI1MCIgeT0iNTAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
@@ -188,7 +189,7 @@ function renderGrid() {
     });
 
     if (filtered.length === 0) {
-        gridCharacters.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color: var(--clr-text-muted);">No se encontraron personajes.</p>`;
+        gridCharacters.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color: var(--clr-text-muted);">${i18n[currentLang].empty}</p>`;
         return;
     }
 
@@ -206,7 +207,10 @@ function renderGrid() {
         else if (c.versions.includes('pix')) badgeHtml = `<span class="version-badge">${i18n[currentLang].pixOnly}</span>`;
         else if (c.versions.includes('party')) badgeHtml = `<span class="version-badge party">${i18n[currentLang].partyOnly}</span>`;
 
+		const charNumber = String(db.indexOf(c) + 1).padStart(2, '0');
+
         card.innerHTML = `
+			<span class="char-n">${charNumber}</span>
             ${badgeHtml}
             <div class="char-img-container">
                 ${imgWithFallback(c.image, 'png', c.name[currentLang])}
@@ -226,7 +230,7 @@ function openModal(char) {
     const eggName = egg ? egg.name[currentLang] : '';
     const eggImgHtml = egg ? imgWithFallback(egg.img, 'png', eggName, 'egg-icon egg-icon--modal') : '';
 
-    const buildSection = (title, iconClass, itemsList) => {
+    const buildSection = (title, jpTitle, iconClass, itemsList) => {
         if (!itemsList || itemsList.length === 0) return '';
         const listHtml = itemsList.map(item => {
             // If item has downloadUrl, render as clickable link
@@ -245,19 +249,21 @@ function openModal(char) {
         }).join('');
         return `
             <div class="fav-section">
-                <h3 class="${iconClass}">${title}</h3>
+                <h3 class="${iconClass}"><span class="fav-title">${title}<span class="fav-jp" lang="ja">${jpTitle}</span></span></h3>
                 <ul class="fav-list">${listHtml}</ul>
             </div>
         `;
     };
 
-    const mealSection  = buildSection(t.meals,       'icon-meals',       char.favorites.meals);
-    const snackSection = buildSection(t.snacks,      'icon-snacks',      char.favorites.snacks);
-    const itemSection  = buildSection(t.items,        'icon-items',       char.favorites.items);
-    const accSection   = buildSection(t.accessories, 'icon-accessories', char.favorites.accessories);
+    const mealSection  = buildSection(t.meals,       'たべもの',     'icon-meals',       char.favorites.meals);
+    const snackSection = buildSection(t.snacks,      'おやつ',       'icon-snacks',      char.favorites.snacks);
+    const itemSection  = buildSection(t.items,       'おもちゃ',     'icon-items',       char.favorites.items);
+    const accSection   = buildSection(t.accessories, 'アクセサリー', 'icon-accessories', char.favorites.accessories);
 
     const hasFavorites = char.favorites.meals.length > 0 || char.favorites.snacks.length > 0
                       || char.favorites.items.length > 0 || char.favorites.accessories.length > 0;
+
+	modalTitle.textContent = `${char.name[currentLang].toLowerCase()}.dat`;
 
     modalBody.innerHTML = `
         <div class="modal-header">
@@ -272,7 +278,7 @@ function openModal(char) {
                 ${mealSection}${snackSection}${itemSection}${accSection}
             </div>
         ` : `
-            <p style="text-align:center; padding: 30px; color: var(--clr-text-muted);">Sin datos cargados aún.</p>
+            <p style="text-align:center; padding: 30px; color: var(--clr-text-muted);">${t.noData}</p>
         `}
     `;
 
@@ -284,5 +290,22 @@ function closeModal() {
     modal.classList.add('hidden');
     document.body.style.overflow = '';
 }
+
+const originalTitle = document.title;
+let awayInterval = null;
+
+document.addEventListener('visibilitychange', () => {
+    clearInterval(awayInterval);
+    if (document.hidden) {
+        let s = i18n[currentLang].awayTitle;
+        document.title = s;
+        awayInterval = setInterval(() => {
+            s = s.substring(1) + s[0];
+            document.title = s;
+        }, 50);
+    } else {
+        document.title = originalTitle;
+    }
+});
 
 document.addEventListener('DOMContentLoaded', init);
