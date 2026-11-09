@@ -49,7 +49,10 @@ const i18n = {
         accessories: "Accesorios Favoritos",
         both: "AMBOS",
         pixOnly: "SOLO PIX",
-        partyOnly: "SOLO PARTY"
+        partyOnly: "SOLO PARTY",
+        empty: "no hay señal de ese tama… (；ω；)",
+        noData: "este tama aún no comparte sus favoritos ✧",
+        awayTitle: "   vuelve pronto. . . tus tamas te esperan ✦   "
     },
     en: {
         title: "Tamagotchi Pix Guide",
@@ -61,7 +64,10 @@ const i18n = {
         accessories: "Favorite Accessories",
         both: "BOTH",
         pixOnly: "PIX ONLY",
-        partyOnly: "PARTY ONLY"
+        partyOnly: "PARTY ONLY",
+        empty: "no signal from that tama… (；ω；)",
+        noData: "this tama hasn't shared its favorites yet ✧",
+        awayTitle: "   come back soon. . . your tamas are waiting ✦   "
     }
 };
 
