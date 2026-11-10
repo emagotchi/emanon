@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+Hi 🎐
+If you're reading this, it means you opened the source code of my little project.
+                            ╱|、
+                          (˚ˎ 。7  
+                           |、˜〵          
+                          じしˍ,)ノ
+						
+This is a personal project that compiles my social media links so I no longer have to rely on third-party platforms. It also includes a fan-made Tamagotchi guide, written in Spanish and created with lots of love♡ (and I hope there will be many more in the future).
+
+All the Tamagotchi resources were taken from the Tamagotchi Wiki & the official Tamagotchi site, for the main page I was partly inspired by Yokiie's website.
+
+You are welcome to:
+• learn from it
+• take inspiration
+• experiment with your own ideas
+
+But if you reuse parts of it, please credit this website ⸜(｡˃ ᵕ ˂ )⸝♡
+
+— Ema
+emanon.vip
+⠀⠀⠀⠀⠀⢀⣠⣤⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢠⣿⡟⠉⠉⠉⠛⠻⢷⣶⣄⣀⣀⣠⣤⣤⣀⣀⣀⣀⡀⠀⠀⢀⣠⣤⣶⡿⠿⠿⢿⣦⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠈⠻⡛⠉⠏⢩⠃⡏⠋⢹⠛⠻⠿⣿⠿⠋⠁⠀⠀⠀⠀⠀⢿⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⢠⡇⡆⠀⢸⢰⡄⢸⠀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⠘⣿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠉⠀⠈⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡿⠋⠀⠀⠀⠀⠀
+⠘⠿⣷⣦⡄⠀⢀⣾⡿⠉⠈⠉⢻⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣶⣶⣶⣤⣀⠀⠀⠀⠀⣠⣴⣶⠀
+⠀⠀⠀⠈⠁⠀⢸⣿⠀⠀⠀⠀⢠⣿⣿⣷⡄⠀⠀⠀⠀⠀⠀⢠⣾⡿⠁⠀⠀⠀⠘⣿⣿⣆⠀⢶⡿⠋⠁⠀⠀
+⠿⠿⣷⣶⡄⠀⢸⣿⣷⣦⣴⣾⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⣿⣿⡄⠀⠀⢀⣠⣼⣿⣿⣿⠀⠀⠀⠀⢀⡀⠀
+⠀⠀⠀⠀⠀⣀⠬⢿⣿⣿⣿⣿⣿⡿⢿⣿⣿⠂⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠘⠛⠛⠛⠛⠃
+⠀⠀⠀⠀⠀⠓⠲⣾⣏⠛⢿⣿⣿⣷⣾⠟⠁⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣧⣼⣿⣿⣟⠁⠓⣆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿⣶⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⣋⣩⣶⡿⠟⠉⠉⠁⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⣿⣿⠻⠻⢷⣦⣀⣤⣶⣶⣶⣶⣾⠿⠟⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡇⠀⠀⢩⠟⠉⠁⢠⣾⡿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣤⣾⠿⠿⣷⣤⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Guía en español de los DLC del Tamagotchi Uni: qué darle a cada uno de sus 90 personajes, precios de la tienda, cuartos, minijuegos y la rama base de evoluciones.">
+    <meta name="keywords" content="tamagotchi uni, guía tamagotchi uni español, dlc tamagotchi uni, tama portal, tamaverse ticket, personajes tamagotchi uni, evoluciones tamagotchi uni, baby's dream, galgal street, tamazon jungle tour, sanrio tamagotchi uni, angel festival, monster carnival">
+    <meta name="author" content="emagotchi">
+    <link rel="canonical" href="https://emanon.vip/tmgc-uni/">
+
+    <meta property="og:title" content="🎐 Guía Tamagotchi Uni ✦ DLC y Evoluciones">
+    <meta property="og:description" content="Qué darle a cada personaje de los DLC del Tamagotchi Uni, en español :3">
+    <meta property="og:image" content="https://emanon.vip/assets/og/uni.jpg">
+    <meta property="og:locale" content="es_CL">
+    <meta property="og:url" content="https://emanon.vip/tmgc-uni/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="emanon">
+    <meta property="og:image:type" content="image/jpeg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🎐 Guía Tamagotchi Uni ✦ DLC y Evoluciones">
+    <meta name="twitter:description" content="Qué darle a cada personaje de los DLC del Tamagotchi Uni, en español :3">
+    <meta name="twitter:image" content="https://emanon.vip/assets/og/uni.jpg">
+
+    <title>Guía Tamagotchi Uni ✦ DLC, Personajes y Evoluciones | emanon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+2:wght@300;400;600;800&family=Aldrich&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/tmgc-uni.css">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"Guía Tamagotchi Uni: DLC, personajes y evoluciones","inLanguage":"es","author":{"@type":"Person","name":"emagotchi","url":"https://emanon.vip/"},"url":"https://emanon.vip/tmgc-uni/","about":{"@type":"VideoGame","name":"Tamagotchi Uni"}}
+    </script>
+</head>
+
+<body>
+
+    <div id="app" class="app-container">
+
+        <header class="app-header">
+            <div class="header-content">
+                <div class="title-container">
+                    <img src="../assets/logo_tmgchile.png" alt="Logo Tamagotchi" class="logo" width="50" height="50">
+                    <div class="title-text">
+                        <h1 class="logo-title" data-i="title">Guía Tamagotchi Uni</h1>
+                        <span class="app-subtitle" lang="ja">たまごっちユニ ・ たまポータル</span>
+                    </div>
+                </div>
+                <div class="lang-toggle-container" role="group" aria-label="idioma / language">
+                    <button class="lang-btn active" data-lang="es">ES</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+            </div>
+            <p class="intro" data-i="intro"></p>
+        </header>
+
+        <main>
+            <!-- TAMA PORTAL: tickets + ventana de cada DLC -->
+            <section id="portal" aria-labelledby="portal-title">
+                <div class="sec-heading"><h2 class="sec-title" id="portal-title" data-i="portalTitle"></h2><span class="sec-jp" lang="ja">たまポータル</span></div>
+                <p class="sec-desc" data-i="portalDesc"></p>
+                <div class="pills">
+                    <button data-f="all" aria-pressed="true" data-i="all"></button>
+                    <button data-f="free" aria-pressed="false" data-i="free"></button>
+                    <button data-f="2024" aria-pressed="false">2024</button>
+                    <button data-f="2025" aria-pressed="false">2025</button>
+                    <button data-f="2026" aria-pressed="false">2026</button>
+                    <input class="search" id="search" type="search" data-iph="search" aria-label="buscar personaje">
+                </div>
+                <div class="tickets" id="tickets"></div>
+                <div class="win" id="win" aria-live="polite"></div>
+            </section>
+
+            <!-- RAMA BASE -->
+            <section id="base" aria-labelledby="base-title">
+                <div class="sec-heading"><h2 class="sec-title" id="base-title" data-i="baseTitle"></h2><span class="sec-jp" lang="ja">しんか</span></div>
+                <p class="sec-desc" data-i="baseDesc"></p>
+                <div class="pills"><button data-g="male" aria-pressed="true"></button><button data-g="female" aria-pressed="false"></button></div>
+                <div class="base-wrap" id="base-tree"></div>
+            </section>
+
+            <!-- CÓMO FUNCIONAN LOS DLC -->
+            <section id="como" aria-labelledby="how-title">
+                <div class="sec-heading"><h2 class="sec-title" id="how-title" data-i="howTitle"></h2><span class="sec-jp" lang="ja">ダウンロード</span></div>
+                <div id="help-accordion"></div>
+            </section>
+        </main>
+    </div>
+
+    <noscript>
+    <section class="seo-fallback">
+      <h2>Guía Tamagotchi Uni: personajes de los DLC del Tama Portal</h2>
+      <p>Para conseguir un personaje de DLC hay que darle su comida o snack, o jugar con su ítem, al menos una vez antes de que el Tamagotchi pase a adulto. Si cumple con varios, sale el del ítem que más veces se usó.</p>
+      <h3>Very Berry Land (2024)</h3>
+      <p>Hotcaketchi ♂: jugar con Sartén (Frying Pan); Ichigotchi ♀: darle Mochi de frutilla (Strawberry Rice Cake); Ringotchi ♀: darle Pastel de manzana (Apple Cake); Patitchi ♀: darle Pastel pâtissier (Patissier Cake); Cornetchi ♀: darle Sándwich de helado (Ice Cream Sandwich); Tanghulutchi ♀: darle Fruta confitada (Fruit Candy).</p>
+      <h3>LoveMelo ♪ Concert (2024)</h3>
+      <p>Chekeratchi ♂: jugar con Cabina de DJ (DJ Booth); Drumcrubtchi ♂: darle Palomitas tambor (Drum Popcorn); Lovelitchi ♀: darle Frappé Lovely (Lovely Frappe); Melodytchi ♀: darle Sachertorte ♪ (♪ Sachertorte); Pianitchi ♀: jugar con Piano táctil (Smart Piano Pad); Rhythristchi ♀: darle Fideos rítmicos (Rhythm Noodles).</p>
+      <h3>Tamamori Fashion Show ★ (2024)</h3>
+      <p>Spacytchi ♂: darle Curry espacial (Spacy Curry); Mystartchi ♂: darle Éclair sombrero de copa (Top Hat Eclair); Boots Brothers ♂: darle Té en vaso bota (Boots-Glass Tea); Moriritchi ♀: darle Fideos Tamamori (Tamamori Noodles); Coffretchi ♀: darle Macaron puff (Puff Macaron); Dresstchi ♀: darle Ensalada vestido (Dress Salad).</p>
+      <h3>Sanrio Characters (2024)</h3>
+      <p>Mame Kitty ♂: jugar con Caja de moño (Ribbon Box); Patchi Purin ♂: jugar con Bolso Purin (Purin Bag); Usahana Memetchi ♀: darle Sorbete de flor (Flower Sherbet); Cinnamon Moriritchi ♀: jugar con Taza Cinnamon (Cinnamon Cup); Kuromi Melodytchi ♀: jugar con Diario Kuromi (Kuromi Diary); Hangyodon Sebiretchi ♀: darle Pan Hangyodon (Hangyodon Bun); MyMelo Lovelitchi ♀: darle Frutilla Melody (Melody Strawberry); Pochacco Mimitchi ♀: darle Onigiri Pochacco (Pochacco Rice Ball); Cogimyun Woopatchi ♀: darle Algodón Cogimyun (Cotton Cogimyun); Little Unimarutchi ♂♀: darle Panqueque estrella (Star Pancake).</p>
+      <h3>Angel Festival (2024)</h3>
+      <p>Mame-El ♂: darle Brioche campana (Bell Brioche); Pegasustchi ♂: darle Algodón Pegaso (Pegasus Cotton Candy); Flowerdite ♀: darle Dulces de lluvia (Rain Candy); Sebirecupid ♀: darle Omelette corazón (Heart Omelette); Yumemittie ♀: darle Pan moño (Ribbon Bread); Unimarucorn ♂♀: darle Parfait unicornio (Unicorn Parfait).</p>
+      <h3>Monster Carnival (2024)</h3>
+      <p>Mamegon ♂: darle Sándwich monstruo (Monster Sandwich); Slimy Patchi ♂: darle Gelatina viscosa (Slimy Jelly); Meduupa ♀: darle Churros serpiente (Snake Churros); Gobpyon ♀: darle Pan goblin (Goblin Bun); Giveuptchi ♀: darle Gelatina de ojos (Eye Ball Jelly); Onimarutchi ♂♀: darle Onigiri ogro (Ogre Rice Ball).</p>
+      <h3>Fairy Tale Library (2024)</h3>
+      <p>Mamecchio ♂: darle Gelatina ballena (Whale Jelly); Piggypatchis ♂: jugar con Alcancía cerdito (Piggy Bank); Kikigoku ♂: jugar con Nube voladora (Flying Cloud); Pyonderella ♀: darle Flan de calabaza (Pumpkin Pudding); Milkyukihime ♀: darle Manzana caramelizada (Caramelized Apple); Neliakaguya ♀: darle Sushi Kaguya (Kaguya Sushi).</p>
+      <h3>PokoPea Land (2024)</h3>
+      <p>Peanutskun ♂: darle Gomitas Peanuts-kun (Peanuts-kun Jellies); Chancho ♂: darle Sodas surtidas (Soda Tasters); Peanutsoyaji ♂: jugar con Sauna Peanuts-kun (Peanuts-kun Sauna); Bnn-hairtchi ♂: darle Ramune (Ramune); Tanukininja ♂: darle Poko latte (Poko Latte); Ponpoko ♀: darle Takoyaki infinito (Endless Takoyaki); Gachikoi-P ♀: darle Parfait escarabajo (Beetle Parfait).</p>
+      <h3>DoriTama School (2025)</h3>
+      <p>Kuromametchi ♂: darle Onigiri fútbol (Soccer Rice Ball); Octpasketchi ♂: darle Galleta básquetbol (Basketball Cookie); Tapepentchi ♂: darle Pastel cinta (Tape Cake); Yumemitchi ♀: darle Bento Yumecantchi (Yumecantchi Bento); Kiraritchi ♀: jugar con Bolso Yume Kira (Yume Kira Bag); Miraitchi ♀: jugar con Knock Tap (Knock Tap); Clulutchi ♀: jugar con Pocket Designer (Pocket Designer).</p>
+      <h3>KAWAISOUNI! Land (2025)</h3>
+      <p>Opanchu Usagi ♂♀: jugar con Auto personal (Personal Car); Npocham ♂♀: jugar con Macaron (Macaron); Kimimaro ♂♀: darle Galleta (Cookie); Kawaisouni Mametchi ♂: darle Arroz frito (Fried Rice); Kawaisouni Kuchipatchi ♂: darle Flan (Flan); Kawaisouni Mimitchi ♀: darle Yakisoba (Yakisoba).</p>
+      <h3>Esther Bunny World (2025)</h3>
+      <p>Ribbon Bunny ♂♀: darle Hamburguesa moño (Ribbon Burger); Cream Bunny ♂♀: darle Cupcake de crema (Cream Cupcake); Lavender Bunny ♂♀: darle Macaron lavanda (Lavender Macaron); Happy Bunny ♂♀: jugar con Cámara (Camera); Blue Bunny ♂♀: darle Soda azul (Blue Soda).</p>
+      <h3>Tamazon Jungle Tour (2026)</h3>
+      <p>Ginjirotchi ♂: darle Arroz recién hecho (Freshly Cooked Rice); Hashizotchi ♂: darle Donas kabuki (Kabuki Donuts); Smartchi ♂: jugar con Piano (Piano); Gorippatchi ♀: darle Montón de plátanos (Banana Hoard); Makiko ♀: jugar con Rizador (Curling Iron); Himespetchi ♀: darle Omelette Mametchi (Mametchi Omelette).</p>
+      <h3>Baby&#x27;s Dream (2026)</h3>
+      <p>Mameyotchi ♂: darle Potaje Mametchi (Mametchi Pottage); Cakeypatchi ♂: darle Torta mil crepes (Mille Crepe Cake); Shycootchi ♂: darle Dango pesa (Dumbbell Dango); Babumimitchi ♀: darle Repollo relleno (Stuffed Cabbage); Ms. Chama ♀: darle Malatang Chamametchi (Chamametchi Malatang); Unimobiltchi ♂♀: darle Algodón de azúcar Unimaru (Unimaru Cotton Candy).</p>
+      <h3>GalGal Street (2026)</h3>
+      <p>Mamedecotchi ♂: condición aún desconocida; Gangurpatchi ♂: condición aún desconocida; Bangsinotchi ♀: condición aún desconocida; Galhimetchi ♀: condición aún desconocida; Radmimitchi ♀: condición aún desconocida; Luvlitchi ♀: condición aún desconocida; Cool Melody ♀: condición aún desconocida.</p>
+      <h3>Rama base</h3>
+      <p>Bebés: Yooyutchi ♂ y Niinitchi ♀ (50%). Niños: Welcotchi ♂ / Lionetchi ♀ con felicidad 10 o más; Mitumarutchi ♂ / Otamatchi ♀ con 9 o menos.</p>
+      <p>Adolescentes: Kuriritchi ♂ / Labilatchi ♀ (felicidad 15–20 o 10 manualidades DIY); Gunchitchi ♂ / Teftetchi ♀ (felicidad 6–14 o 40 snacks); Curltchi ♂ / Tustustchi ♀ (felicidad 0–5 o 15 puntajes perfectos).</p>
+      <p>Adultos desde Kuriritchi: Mametchi (0 errores), Weeptchi (1–3), Simagurutchi (4+). Desde Gunchitchi: Kuchipatchi (0–1), Shykutchi (2–5), Bigsmile (6+). Desde Curltchi: Kikitchi (0–1), Unimarutchi (2–5), Gozarutchi (6+).</p>
+      <p>Adultas desde Labilatchi: Neliatchi (0 errores), Milktchi (1–3), Momotchi (4+). Desde Teftetchi: Woopatchi (0–1), Memetchi (2–5), Picochutchi (6+). Desde Tustustchi: Mimitchi (0–1), Unimarutchi (2–5), Sebiretchi (6+).</p>
+      <p>Especiales: Hypertchi y Bubbletchi (generación múltiplo de 5 y matrimonio en el Tamaverse), Simasimatchi y Yattatchi (matrimonio entre dos Uni y un accesorio DIY).</p>
+    </section>
+    </noscript>
+
+    <footer class="app-footer">
+        <div class="footer-source">
+            <span>characters & requirements from</span>
+            <a href="https://tamagotchi.fandom.com/wiki/Tamagotchi_Uni/Character_list" target="_blank" rel="noopener noreferrer">tamagotchi wiki</a>
+            <span class="separator">•</span>
+            <span>items & areas from</span>
+            <a href="https://tamagotchi-official.com/gb/series/uni/news/?c=product" target="_blank" rel="noopener noreferrer">tamagotchi official</a>
+        </div>
+        <div class="footer-source">
+            <span>buttons inspired by</span>
+            <a href="https://autosam.github.io/Tamaweb/" target="_blank" rel="noopener noreferrer">tamaweb</a>
+        </div>
+
+        <div class="footer-inner">
+            <div class="footer-left">
+                <img src="../assets/tamagotchile.PNG" class="footer-logo" alt="Tamagotchile" loading="lazy">
+            </div>
+            <div class="footer-center">
+                <span>Fan guide — not affiliated with Bandai</span>
+            </div>
+            <div class="footer-right">
+                <span>Made with ♡ by
+                <a href="https://emanon.vip/" class="no-link-style" target="_blank" rel="noopener noreferrer">emagotchi</a>
+                <span class="separator">•</span>
+                <span>© 2026</span>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/data.js"></script>
+    <script src="./js/nombres.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
