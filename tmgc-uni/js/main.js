@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ruleSoon: 'Esta zona todavía no abre, así que aún no sabemos qué le gusta a cada uno. Vuelvo con la info apenas salga ♡',
             feed: 'Dale', play: 'Juega con', toGet: 'para obtener a', unknown: 'todavía no se sabe qué darle ♡',
             meal: 'comida', snack: 'snack', item: 'ítem', meals: 'Comidas', snacks: 'Snacks', toys: 'Ítems para jugar',
-            whatGive: 'QUÉ DARLE', awayTitle: '   vuelve pronto. . . el tama portal sigue abierto ⌯⌲   ', pickHint: 'toca una tarjeta y aparece en la pantalla',
-            lA: 'A ◀ anterior', lB: 'B voltear', lC: 'C siguiente ▶',
+            whatGive: 'QUÉ DARLE', awayTitle: '   vuelve pronto. . . el tama portal sigue abierto ⌯⌲   ', pickHint: 'toca una tarjeta y aparece en la pantalla', toTop: 'Volver arriba',
+            lA: '◀ A anterior', lB: 'B voltear', lC: 'C siguiente ▶',
             shell: 'carcasa', dlcColors: 'colores del DLC', official: 'anuncio oficial ↗', buy: 'comprar ticket ↗', shopUrl: 'https://ticketshop.tamagotchi-official.com/es-ES', close: 'cerrar ✕',
             year: 'año', tamas: 'personajes', price: 'precio', firmware: 'versión', release: 'sale',
             freeVal: 'gratis', pet: 'Mascota del patio', rooms: 'Cuartos', game: 'Minijuego',
@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ruleSoon: 'This area isn\'t open yet, so we don\'t know what each one likes. I\'ll be back with the info as soon as it\'s out ♡',
             feed: 'Give', play: 'Play with', toGet: 'to get', unknown: 'requirement not known yet ♡',
             meal: 'meal', snack: 'snack', item: 'item', meals: 'Meals', snacks: 'Snacks', toys: 'Items to play with',
-            whatGive: 'WHAT TO GIVE', awayTitle: '   come back soon. . . the tama portal is still open ⌯⌲   ', pickHint: 'tap a card and it shows up on the screen',
-            lA: 'A ◀ prev', lB: 'B flip', lC: 'C next ▶',
+            whatGive: 'WHAT TO GIVE', awayTitle: '   come back soon. . . the tama portal is still open ⌯⌲   ', pickHint: 'tap a card and it shows up on the screen', toTop: 'Back to top',
+            lA: '◀ A  prev', lB: 'B flip', lC: 'C next ▶',
             shell: 'shell', dlcColors: 'DLC colors', official: 'official post ↗', buy: 'buy ticket ↗', shopUrl: 'https://ticketshop.tamagotchi-official.com/', close: 'close ✕',
             year: 'year', tamas: 'characters', price: 'price', firmware: 'firmware', release: 'release',
             freeVal: 'free', pet: 'Backyard pet', rooms: 'Rooms', game: 'Mini game',
@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('[data-i]').forEach(e => { e.innerHTML = t(e.dataset.i); });
         document.querySelectorAll('[data-iph]').forEach(e => { e.placeholder = t(e.dataset.iph); });
         document.title = pageTitle();
+        $('#to-top').setAttribute('aria-label', t('toTop'));
     }
 
     /* ── rama base ── */
@@ -307,6 +308,12 @@ document.addEventListener('DOMContentLoaded', () => {
             document.title = pageTitle();
         }
     });
+
+    const toTop = $('#to-top');
+    const updateTop = () => toTop.classList.toggle('show', window.scrollY > 400);
+    window.addEventListener('scroll', updateTop, { passive: true });
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+    updateTop();
 
     renderAll();
     // enlace directo a un DLC: emanon.vip/tmgc-uni/#babys-dream
