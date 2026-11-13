@@ -2,15 +2,40 @@
 // sin ese impuesto a tu moneda y le suma el IVA de tu país. Ej.: Baby's Dream en Chile, sept. 2026: 900 × 5,79 × 1,19 = $6.201.
 // Cuánto vale 1 yen (noviembre 2026, aprox.): cámbialo aquí si el yen se mueve mucho.
 const YEN = { CLP: 6.22, EUR: 0.00565, MXN: 0.1178, USD: 0.00633 };
-const IVA = { CLP: 0.19, EUR: 0.21, MXN: 0.16 };
-// se redondea hacia arriba (a $100, 0,10 € y $5) para no mostrar menos de lo que se paga
-const local = (yen, cur, step) => Math.ceil(yen / 1.1 * YEN[cur] * (1 + IVA[cur]) / step - 1e-9) * step;
+// en EE. UU. el impuesto depende del estado, así que el dólar va sin impuesto
+const IVA = { CLP: 0.19, EUR: 0.21, MXN: 0.16, USD: 0 };
+// se redondea hacia arriba (a $100, 0,10 €, $5 y US$0,10) para no mostrar menos de lo que se paga
+const STEP = { CLP: 100, EUR: 0.1, MXN: 5, USD: 0.1 };
+const local = (yen, cur) => Math.ceil(yen / 1.1 * YEN[cur] * (1 + IVA[cur]) / STEP[cur] - 1e-9) * STEP[cur];
+const money = (yen, cur, L) => {
+    const v = local(yen, cur), dec = L === 'es' ? ',' : '.';
+    if (cur === 'CLP') return '$' + v.toLocaleString('es-CL');
+    if (cur === 'MXN') return '$' + v;
+    if (cur === 'EUR') return L === 'es' ? v.toFixed(2).replace('.', ',') + '\u00a0€' : '€' + v.toFixed(2);
+    return 'US$' + v.toFixed(2).replace('.', dec);
+};
+const yenText = (yen, L) => '¥' + yen.toLocaleString(L === 'es' ? 'es-CL' : 'en-US');
 function ticketPrice(yen, L) {
-    const jp = '¥' + yen.toLocaleString(L === 'es' ? 'es-CL' : 'en-US');
-    if (L !== 'es') return `${jp} (about US$${Math.round(yen / 1.1 * YEN.USD)})`;
-    const clp = local(yen, 'CLP', 100).toLocaleString('es-CL');
-    const eur = local(yen, 'EUR', 0.1).toFixed(2).replace('.', ',');
-    return `${jp} (unos $${clp} CLP · ${eur} € · $${local(yen, 'MXN', 5)} MXN)`;
+    if (L !== 'es') return `${yenText(yen, L)} (about ${money(yen, 'USD', L)} · ${money(yen, 'EUR', L)})`;
+    return `${yenText(yen, L)} (unos ${money(yen, 'CLP', L)}\u00a0CLP · ${money(yen, 'EUR', L)} · ${money(yen, 'MXN', L)}\u00a0MXN · ${money(yen, 'USD', L)})`;
+}
+// La moneda de quien visita, según su zona horaria: Chile, México, España y, si no, dólares.
+const MY_CUR = (() => {
+    try {
+        const z = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        if (/^(America\/(Santiago|Punta_Arenas)|Pacific\/Easter)$/.test(z)) return 'CLP';
+        if (/^America\/(Mexico_City|Cancun|Merida|Monterrey|Matamoros|Chihuahua|Ciudad_Juarez|Ojinaga|Mazatlan|Bahia_Banderas|Hermosillo|Tijuana)$/.test(z)) return 'MXN';
+        if (/^(Europe\/Madrid|Africa\/Ceuta|Atlantic\/Canary)$/.test(z)) return 'EUR';
+    } catch (e) { /* sin Intl: dólares */ }
+    return 'USD';
+})();
+const approx = (yen, cur, L) => cur === 'USD' ? `~${Math.round(local(yen, 'USD'))} USD`
+    : cur === 'EUR' ? '~' + money(yen, 'EUR', L) : `~${money(yen, cur, L)} ${cur}`;
+// Dato «precio» de la pestaña Área: ¥990 (~$6.700 CLP); al tocarlo se abren los otros países.
+function priceFact(yen, L, t) {
+    const rows = [['cl', 'CLP'], ['es', 'EUR'], ['mx', 'MXN'], ['us', 'USD']]
+        .map(([c, cur]) => `<li><em>${t('country')[c]}</em> ${money(yen, cur, L)}${cur === 'MXN' ? ' MXN' : ''}${cur === 'USD' ? ` <small>${t('plusTax')}</small>` : ''}</li>`).join('');
+    return `<details class="price-fact"><summary>${yenText(yen, L)} (${approx(yen, MY_CUR, L)})</summary><ul>${rows}</ul><p>${t('priceNote')}</p></details>`;
 }
 
 function resumenHTML(L, t, nameOf) {
@@ -23,10 +48,9 @@ function resumenHTML(L, t, nameOf) {
     const dateOf = iso => iso.split('-').reverse().join('.');
 
     const zone = d => {
-        const meta = [d.year, `${d.chars.length} ${t('tamas')}`];
+        const meta = [`${t('release')} ${dateOf(d.release)}`, `${d.chars.length} ${t('tamas')}`];
         if (d.free) meta.push(t('freeVal'));
         else if (d.yen) meta.push(ticketPrice(d.yen, L));
-        if (d.soon) meta.push(`${t('release')} ${dateOf(d.release)}`);
         const rows = d.chars.map(c => {
             const it = c.it && d.items[c.it];
             const give = it
@@ -35,7 +59,7 @@ function resumenHTML(L, t, nameOf) {
             return `<tr><td>${c.n}</td><td>${sym[c.g] || ''}</td><td>${give}</td><td>${it && it.price ? it.price : ''}</td></tr>`;
         }).join('');
         return `<details class="help-box sum-box" id="recetas-${d.id}"><summary><h3>${d.name}</h3><span class="sum-meta">${meta.join(' · ')}</span></summary>
-<div class="help-body"><div class="table-wrap"><table class="recipes"><thead><tr><th>${t('thChar')}</th><th>${t('thGender')}</th><th>${t('thGive')}</th><th>${t('price')}</th></tr></thead><tbody>${rows}</tbody></table></div></div></details>`;
+<div class="help-body"><p class="sum-best">${tx(d.best)}</p><div class="table-wrap"><table class="recipes"><thead><tr><th>${t('thChar')}</th><th>${t('thGender')}</th><th>${t('thGive')}</th><th>${t('price')}</th></tr></thead><tbody>${rows}</tbody></table></div></div></details>`;
     };
 
     const B = BASE;
@@ -47,7 +71,7 @@ function resumenHTML(L, t, nameOf) {
     const base = `<details class="help-box sum-box" id="recetas-rama-base"><summary><h3>${t('baseSumTitle')}</h3><span class="sum-meta">${t('baseSumMeta')}</span></summary>
 <div class="help-body"><p>${t('baseSumKids')} ${kids}.</p>
 <div class="table-wrap"><table class="recipes base"><thead><tr><th>${t('teen')}</th><th>${t('adult')}</th><th>${t('thHow')}</th></tr></thead><tbody>${baseRows}</tbody></table></div>
-<p>${t('special')}:</p><ul>${specials}</ul></div></details>`;
+<p>${t('special')}:</p><ul>${specials}</ul><p>${t('baseNote')}</p></div></details>`;
 
     return DLCS.map(zone).join('') + base;
 }

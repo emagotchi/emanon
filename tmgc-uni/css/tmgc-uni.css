@@ -337,8 +337,20 @@ img.px { image-rendering: pixelated; }
 .item .for { font-family: var(--font-mono); font-size: .7rem; color: var(--pink); margin-top: 2px; }
 
 /* área */
-.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; list-style: none; }
+.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; list-style: none; }
 .facts li { background: #f5f9ff; border-radius: 10px; padding: 8px 10px; font-size: .9rem; }
+.best-note { margin-top: 10px; font-size: .88rem; color: var(--text-muted); }
+.facts li.price-li:has(details[open]) { grid-column: 1 / -1; }
+.price-fact summary { cursor: pointer; list-style: none; }
+.price-fact summary::-webkit-details-marker { display: none; }
+.price-fact summary::after { content: ' ▾'; color: var(--text-muted); font-size: .8em; }
+.price-fact[open] summary::after { content: ' ▴'; }
+.price-fact ul { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; }
+.facts .price-fact li { background: none; padding: 0; border-radius: 0; font-size: .85rem; }
+.price-fact em { font-style: normal; font-family: var(--font-mono); font-size: .68rem; color: var(--text-muted); letter-spacing: .08em; text-transform: uppercase; }
+.price-fact small, .price-fact p { font-size: .74rem; color: var(--text-muted); }
+.price-fact p { margin-top: 6px; }
+.sum-best { margin-bottom: 8px; }
 .facts li span { display: block; font-family: var(--font-mono); font-size: .68rem; color: var(--text-muted); letter-spacing: .08em; text-transform: uppercase; }
 .pet { font-size: .88rem; color: var(--text-muted); }
 .shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; align-items: start; }
@@ -453,6 +465,8 @@ body {
 #recetas .help-body ul { margin-top: 4px; }
 #recetas-rama-base td:last-child { white-space: normal; }
 /* en celular cada personaje es una tarjetita de dos líneas: nombre y género / qué darle y precio */
+/* en el celu las tres pestañas caben a lo ancho */
+@media (max-width: 560px) { .tabs { gap: 0; } .tabs button { flex: 1 1 auto; padding: 6px 4px; font-size: .8rem; } }
 @media (max-width: 560px) {
     .recipes:not(.base) thead { display: none; }
     .recipes:not(.base) tr { display: grid; grid-template-columns: 1fr auto; column-gap: 10px; row-gap: 2px; padding: 9px 2px; border-bottom: 1px solid var(--line); }

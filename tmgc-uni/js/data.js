@@ -80,11 +80,11 @@ const BASE = {
     },
     specials: {
         male: [
-            { n: "Hypertchi", img: "adult stage/male/hypertchi.webp", cond: happy("Generación múltiplo de 5, nacido de un matrimonio en el Tamaverse y 3 viajes con Tama Travel", "Generation multiple of 5, born from a Tamaverse marriage and 3 Tama Travel trips") },
+            { n: "Hypertchi", img: "adult stage/male/hypertchi.webp", cond: happy("Generación múltiplo de 5, nacido de un matrimonio en el Tamaverse (el huevo sale con rayas de arcoíris) y 3 viajes con Tama Travel", "Generation multiple of 5, born from a Tamaverse marriage (the egg has rainbow stripes) and 3 Tama Travel trips") },
             { n: "Simasimatchi", img: "adult stage/male/simasimatchi.webp", cond: happy("Nacido de un matrimonio entre dos Uni y hacer 1 accesorio DIY como niño o adolescente", "Born from a marriage between two Unis and make 1 DIY accessory as a child or teen") }
         ],
         female: [
-            { n: "Bubbletchi", img: "adult stage/female/bubbletchi.webp", cond: happy("Generación múltiplo de 5, nacida de un matrimonio en el Tamaverse y comprar 3 outfits en Tama Fashion", "Generation multiple of 5, born from a Tamaverse marriage and buy 3 Tama Fashion outfits") },
+            { n: "Bubbletchi", img: "adult stage/female/bubbletchi.webp", cond: happy("Generación múltiplo de 5, nacida de un matrimonio en el Tamaverse (el huevo sale con rayas de arcoíris) y comprar 3 outfits en Tama Fashion", "Generation multiple of 5, born from a Tamaverse marriage (the egg has rainbow stripes) and buy 3 Tama Fashion outfits") },
             { n: "Yattatchi", img: "adult stage/female/yattatchiUniSprite.webp", cond: happy("Nacida de un matrimonio entre dos Uni y hacer 1 accesorio DIY como niña o adolescente", "Born from a marriage between two Unis and make 1 DIY accessory as a child or teen") }
         ]
     }
@@ -98,6 +98,11 @@ const DLCS = [
   "id": "very-berry-land",
   "name": "Very Berry Land",
   "year": 2024,
+  "release": "2024-03-21",
+  "best": {
+   "es": "Ideal para empezar, porque es gratis ( ˶ˆᗜˆ˵ )",
+   "en": "Great for starting out, since it's free ( ˶ˆᗜˆ˵ )"
+  },
   "pal": "pink",
   "post": "01_142",
   "icons": "icons/",
@@ -359,6 +364,11 @@ const DLCS = [
   "id": "lovemelo-concert",
   "name": "LoveMelo ♪ Concert",
   "year": 2024,
+  "release": "2024-03-21",
+  "best": {
+   "es": "Ideal si te gusta la música y quieres uno de los minijuegos más entretenidos (~˘▽˘)~♪",
+   "en": "Great if you like music and want one of the most fun mini-games (~˘▽˘)~♪"
+  },
   "pal": "purple",
   "post": "01_141",
   "icons": "icons/",
@@ -620,6 +630,11 @@ const DLCS = [
   "id": "tamamori-fashion-show",
   "name": "Tamamori Fashion Show ★",
   "year": 2024,
+  "release": "2024-05-30",
+  "best": {
+   "es": "Ideal si te gusta la moda; trae 3 personajes femeninos y 3 masculinos 𐔌՞ ܸ.ˬ.ܸ՞𐦯⋆.𐙚 ̊",
+   "en": "Great if you like fashion; it has 3 female and 3 male characters 𐔌՞ ܸ.ˬ.ܸ՞𐦯⋆.𐙚 ̊"
+  },
   "pal": "tamamori",
   "post": "01_143",
   "icons": "icons/",
@@ -881,6 +896,11 @@ const DLCS = [
   "id": "sanrio-characters",
   "name": "Sanrio Characters",
   "year": 2024,
+  "release": "2024-07-13",
+  "best": {
+   "es": "Ideal si te encanta Sanrio y quieres muchos personajes: trae 10 en un solo ticket, como Mame Kitty y Kuromi Melodytchi ≽^•༚• ྀི≼",
+   "en": "Great if you love Sanrio and want lots of characters: it has 10 in one ticket, like Mame Kitty and Kuromi Melodytchi ≽^•༚• ྀི≼"
+  },
   "pal": "sanrio",
   "post": "01_303",
   "icons": "icons/",
@@ -1177,6 +1197,11 @@ const DLCS = [
   "id": "angel-festival",
   "name": "Angel Festival",
   "year": 2024,
+  "release": "2024-07-13",
+  "best": {
+   "es": "Ideal si te gustan los colores pasteles y si quieres cambiar el juego y no solo los personajes: la animación al evolucionar y al morir pasa a ser con ángeles ଘ( ᴗ͈   ᴗ͈)ഒ",
+   "en": "Great if you like pastel colors and if you want to change the game, not just the cast: the evolution and death animations get angels ଘ( ᴗ͈   ᴗ͈)ഒ"
+  },
   "pal": "angel",
   "post": "01_294",
   "icons": "icons/",
@@ -1438,6 +1463,11 @@ const DLCS = [
   "id": "monster-carnival",
   "name": "Monster Carnival",
   "year": 2024,
+  "release": "2024-07-13",
+  "best": {
+   "es": "Ideal si te gusta Halloween y si quieres cambiar el juego y no solo los personajes: la animación al evolucionar y al morir pasa al estilo monstruoso 𓆩^._.^𓆪",
+   "en": "Great if you like Halloween and if you want to change the game, not just the cast: the evolution and death animations get a monster style 𓆩^._.^𓆪"
+  },
   "pal": "monster",
   "post": "01_295",
   "icons": "icons/",
@@ -1689,6 +1719,11 @@ const DLCS = [
   "id": "fairy-tale-library",
   "name": "Fairy Tale Library",
   "year": 2024,
+  "release": "2024-11-23",
+  "best": {
+   "es": "Ideal si te gustan los cuentos clásicos, como Pinocho, Cenicienta e incluso Goku! ʕ •ᴥ•ʔ",
+   "en": "Great if you like classic fairy tales, like Pinocchio, Cinderella and even Goku! ʕ •ᴥ•ʔ"
+  },
   "pal": "fairy",
   "post": "01_619",
   "icons": "icons/",
@@ -1940,6 +1975,11 @@ const DLCS = [
   "id": "pokopea-land",
   "name": "PokoPea Land",
   "year": 2024,
+  "release": "2024-12-05",
+  "best": {
+   "es": "Ideal si te suelen salir tamas masculinos: 5 de sus 7 personajes son masculinos, ¡y su tienda es la que tiene más accesorios! ⸜(｡˃ ᵕ ˂ )⸝ ♂",
+   "en": "Great if you often get male tamas: 5 of its 7 characters are male, and its shop has the most accessories! ⸜(｡˃ ᵕ ˂ )⸝ ♂"
+  },
   "pal": "pokopea",
   "post": "01_669",
   "icons": "icons/",
@@ -2240,6 +2280,11 @@ const DLCS = [
   "id": "doritama-school",
   "name": "DoriTama School",
   "year": 2025,
+  "release": "2025-03-13",
+  "best": {
+   "es": "Ideal si prefieres jugar con ítems: 3 de sus 7 personajes salen así ദ്ദി ˉ͈̀꒳ˉ͈́ )✧",
+   "en": "Great if you prefer playing with items: 3 of its 7 characters come from them ദ്ദി ˉ͈̀꒳ˉ͈́ )✧"
+  },
   "pal": "blue",
   "post": "01_813",
   "icons": "icons/",
@@ -2499,6 +2544,11 @@ const DLCS = [
   "id": "kawaisouni-land",
   "name": "KAWAISOUNI! Land",
   "year": 2025,
+  "release": "2025-06-19",
+  "best": {
+   "es": "Ideal si no quieres depender del género: la mitad de sus personajes sirve para tamas femeninos y masculinos ₍ᐢ..ᐢ₎♡",
+   "en": "Great if you don't want to depend on gender: half of its characters work for female and male tamas ₍ᐢ..ᐢ₎♡"
+  },
   "pal": "kawaisouni",
   "post": "01_1008",
   "icons": "icons/",
@@ -2747,6 +2797,11 @@ const DLCS = [
   "id": "esther-bunny-world",
   "name": "Esther Bunny World",
   "year": 2025,
+  "release": "2025-12-18",
+  "best": {
+   "es": "Ideal si no quieres depender del género: sus 5 personajes sirven para tamas femeninos y masculinos, ¡y es la única zona con 4 cuartos! ૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა",
+   "en": "Great if you don't want to depend on gender: all 5 characters work for female and male tamas, and it's the only area with 4 rooms! ૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა"
+  },
   "pal": "esther",
   "post": "01_1195",
   "icons": "icons/",
@@ -3044,6 +3099,11 @@ const DLCS = [
   "id": "tamazon-jungle-tour",
   "name": "Tamazon Jungle Tour",
   "year": 2026,
+  "release": "2026-03-12",
+  "best": {
+   "es": "Ideal si te gustan los clásicos: trae personajes de los primeros Tamagotchi, como Ginjirotchi, Hashizotchi y Makiko! ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧",
+   "en": "Great if you like the classics: it brings characters from the first Tamagotchi, like Ginjirotchi, Hashizotchi and Makiko! ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧"
+  },
   "pal": "tamazon",
   "post": "01_1336",
   "icons": "icons/",
@@ -3304,6 +3364,11 @@ const DLCS = [
   "id": "babys-dream",
   "name": "Baby's Dream",
   "year": 2026,
+  "release": "2026-09-03",
+  "best": {
+   "es": "Ideal si quieres a los personajes bebé y jugar al minijuego del sonajero (๑ᵔ⤙ᵔ๑)",
+   "en": "Great if you want the baby characters and the rattle mini-game (๑ᵔ⤙ᵔ๑)"
+  },
   "pal": "babys",
   "post": "01_1533",
   "icons": "icons/",
@@ -3440,7 +3505,6 @@ const DLCS = [
    "accessories": []
   },
   "fw": "2.9.0",
-  "release": "2026-09-03",
   "minigame": {
    "name": "Naptime",
    "es": "Agita el sonajero para que los bebés se duerman.",
@@ -3571,6 +3635,11 @@ const DLCS = [
   "id": "galgal-street",
   "name": "GalGal Street",
   "year": 2026,
+  "release": "2026-11-19",
+  "best": {
+   "es": "Ideal si te suelen salir tamas femeninos: 5 de sus 7 personajes son femeninos ⸜(｡˃ ᵕ ˂ )⸝ ♀",
+   "en": "Great if you often get female tamas: 5 of its 7 characters are female ⸜(｡˃ ᵕ ˂ )⸝ ♀"
+  },
   "pal": "galgal",
   "post": "01_1718",
   "icons": "icons/",
@@ -3664,7 +3733,6 @@ const DLCS = [
   },
   "soon": true,
   "fw": "3.0.0",
-  "release": "2026-11-19",
   "minigame": {
    "name": "Totally Rad Dance",
    "es": "Memoriza los comandos A, B y C; si te va bien, ganas 3000 Gotchi Points.",

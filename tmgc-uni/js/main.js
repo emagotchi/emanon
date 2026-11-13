@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
             babyTime: '1 hora', childTime: '24 horas', teenTime: '24 horas', adultTime: 'toda la vida',
             babyCond: '50% al nacer',
             mistakes: 'errores de cuidado',
-            baseNote: 'Si se cumplen las condiciones de Hypertchi o Bubbletchi, el huevo sale con rayas de arcoíris. El Tama Farm no cuenta para los paseos (Tama Walk).',
+            baseNote: 'Si tu tama es de una generación múltiplo de 5 y nació de un matrimonio en el Tamaverse, el huevo sale con rayas de arcoíris: es la señal de que puede llegar a Hypertchi o Bubbletchi (le faltan los 3 viajes o los 3 outfits). El Tama Farm no cuenta para los paseos (Tama Walk).',
             all: 'todos', free: 'gratis', search: '¿a quién buscas? ej: shycootchi', soon: 'pronto',
-            chars: 'Personajes', items: 'Comidas e ítems', area: 'El área',
+            chars: 'Personajes', items: 'Comidas e ítems', area: 'Área',
             rule: 'Basta con darle su comida o snack, o jugar con su ítem, <b>una vez</b> antes de que sea adulto. Si cumples con varios, gana el que más usaste :3 Eso sí, tiene que ser del mismo género que tu tama (los ♂♀ sirven para ambos).',
             ruleSoon: 'Esta zona todavía no abre, así que aún no sabemos qué le gusta a cada uno. Vuelvo con la info apenas salga ♡',
             feed: 'Dale', play: 'Juega con', toGet: 'para obtener a', unknown: 'todavía no se sabe qué darle ♡',
@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
             whatGive: 'QUÉ DARLE', awayTitle: '   vuelve pronto. . . el tama portal sigue abierto ⌯⌲   ', pickHint: 'toca una tarjeta y aparece en la pantalla', toTop: 'Volver arriba',
             lA: '◀ A anterior', lB: 'B voltear', lC: 'C siguiente ▶',
             shell: 'carcasa', dlcColors: 'colores del DLC', official: 'anuncio oficial ↗', buy: 'comprar ticket ↗', shopUrl: 'https://ticketshop.tamagotchi-official.com/es-ES', close: 'cerrar ✕',
-            year: 'año', tamas: 'personajes', price: 'precio', firmware: 'versión', release: 'sale',
+            year: 'año', tamas: 'personajes', price: 'precio', firmware: 'versión', release: 'lanzamiento',
+            plusTax: '+ impuesto', country: { cl: 'Chile', es: 'España', mx: 'México', us: 'EE. UU.' },
+            priceNote: 'Aproximado, con el IVA de cada país incluido. Cambia con el valor del yen.',
             freeVal: 'gratis', pet: 'Mascota del patio', rooms: 'Cuartos', game: 'Minijuego',
             furniture: 'Muebles', toysArea: 'Ítems', acc: 'Accesorios',
             ticket: 'ticket', spots: 'Lugares del área', shop: 'Tienda del área',
@@ -38,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ['¿Cómo compro y descargo un DLC?', '<p>Cada área se vende como <a href="https://ticketshop.tamagotchi-official.com/es-ES" target="_blank" rel="noopener"><b>Tamaverse Ticket</b> ↗</a> en la tienda oficial de Bandai. Al comprarlo te llega por correo un código de descarga de 16 dígitos. Very Berry Land es gratis.</p><p>Para canjearlo, conecta el Uni a Wi-Fi, ten el firmware al día y sigue estos pasos:</p><ol><li>Desde el menú de cuidados, selecciona el ícono de red.</li><li>Selecciona la opción de descarga.</li><li>Selecciona «DAR CÓDIGO».</li><li>Introduce el código de 16 dígitos que te llegó por correo.</li><li>Cuando aparezca «¡LISTO!», selecciona «SÍ» en la pantalla «¿DESCARGAR?».</li><li>Ya puedes visitar la nueva zona desde el portal Tama.</li></ol><p>El portal Tama te lleva a una sola zona. Para ir a otra, cámbiala en la opción «ZONA DLC».</p>'],
                 ['¿Cuánto cuesta un Tamaverse Ticket?', '<p>La tienda cobra en yenes: la mayoría cuesta {p990} y las zonas de colaboración (Sanrio, PokoPea, KAWAISOUNI! y Esther Bunny), {p1210}. Very Berry Land es gratis.</p><p>Al pagar, la tienda pasa el precio a tu moneda y le suma el IVA de tu país (19 % en Chile, 21 % en España y 16 % en México), así que los montos son aproximados y cambian con el valor del yen. Tu banco también puede cobrar una comisión por compras en moneda extranjera. Se compran en la <a href="https://ticketshop.tamagotchi-official.com/es-ES" target="_blank" rel="noopener">tienda oficial de Bandai ↗</a> y el código te llega por correo.</p>'],
                 ['¿Qué zonas hay?', '<p>Hay {n}: {zonas}.</p><p>En inglés también les dicen <i>Tamaverse lands</i> o <i>DL areas</i>, y en el Uni aparecen en «ZONA DLC».</p>'],
+                ['¿Qué DLC me conviene comprar?', '<ul><li><b>Si nunca has descargado uno:</b> parte por Very Berry Land, que es gratis.</li><li><b>Si te salen muchos tamas ♂:</b> PokoPea Land, donde 5 de sus 7 personajes son ♂.</li><li><b>Si no quieres depender del género:</b> Esther Bunny World (sus 5 personajes sirven para ♂ y ♀) o KAWAISOUNI! Land (la mitad).</li><li><b>Para tener más personajes por ticket:</b> Sanrio Characters, con 10. Como 10 cosas de su tienda llevan a algún personaje, fíjate bien en qué le das.</li><li><b>Para cambiar el juego y no solo los personajes:</b> Angel Festival o Monster Carnival, las únicas que cambian la animación al evolucionar y al morir.</li><li><b>Si te gustan los clásicos:</b> Tamazon Jungle Tour, con personajes de los primeros Tamagotchi como Ginjirotchi y Hashizotchi.</li></ul><p>Para qué es ideal cada zona también sale en la pestaña <b>Área</b> de su ticket.</p>'],
                 ['¿Puedo tener varias zonas descargadas a la vez?', '<p>No, solo <b>una a la vez</b>.</p><ul><li>Al cambiar de área se borran los ítems de esa área que tengas puestos o guardados.</li><li>No puedes cambiar de área mientras crías a un personaje exclusivo de ella.</li><li>El código queda ligado a tu Uni; se puede volver a vincular hasta 3 veces y los códigos perdidos no se reponen.</li></ul>'],
                 ['¿Cómo consigo un personaje de DLC en el Tamagotchi Uni?', '<p>Descarga su zona con un Tamaverse Ticket. Mientras tu tama es niño o adolescente, dale la comida o el snack del personaje, o juega con su ítem (todo se compra en la tienda de la zona). Al crecer se convierte en ese personaje, siempre que sea del mismo género que tu tama; los ♂♀ sirven para ambos.</p><p>Lo que necesita cada uno está en los tickets de arriba y en <a href="#recetas">todas las recetas</a>.</p>'],
                 ['¿Cuántas veces tengo que darle la comida o el ítem?', '<p>Según la Tamagotchi Wiki basta con <b>una vez</b> antes de que sea adulto. Si usaste cosas de varios personajes, gana el que más veces usaste.</p><p>Algunas guías dicen que son 3 veces, así que si quieres ir a la segura, dáselo varias veces y no le des cosas de otros personajes de la zona.</p>'],
@@ -57,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
             babyTime: '1 hour', childTime: '24 hours', teenTime: '24 hours', adultTime: 'for life',
             babyCond: '50% when hatching',
             mistakes: 'care mistakes',
-            baseNote: 'If the Hypertchi or Bubbletchi requirements are met, the egg hatches with rainbow stripes. Tama Farm does not count towards Tama Walks.',
+            baseNote: 'If your tama is from a generation that\'s a multiple of 5 and was born from a Tamaverse marriage, its egg has rainbow stripes: that\'s the sign it can become Hypertchi or Bubbletchi (it still needs the 3 trips or the 3 outfits). Tama Farm does not count towards Tama Walks.',
             all: 'all', free: 'free', search: 'who are you looking for? e.g. shycootchi', soon: 'soon',
-            chars: 'Characters', items: 'Food & items', area: 'The area',
+            chars: 'Characters', items: 'Food & items', area: 'Area',
             rule: 'Give its meal or snack, or play with its item, <b>at least once</b> before it becomes an adult. If several apply, the one used the most wins. It must match your Tamagotchi\'s gender (♂♀ ones work with both).',
             ruleSoon: 'This area isn\'t open yet, so we don\'t know what each one likes. I\'ll be back with the info as soon as it\'s out ♡',
             feed: 'Give', play: 'Play with', toGet: 'to get', unknown: 'requirement not known yet ♡',
@@ -68,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lA: '◀ A  prev', lB: 'B flip', lC: 'C next ▶',
             shell: 'shell', dlcColors: 'DLC colors', official: 'official post ↗', buy: 'buy ticket ↗', shopUrl: 'https://ticketshop.tamagotchi-official.com/', close: 'close ✕',
             year: 'year', tamas: 'characters', price: 'price', firmware: 'firmware', release: 'release',
+            plusTax: '+ tax', country: { cl: 'Chile', es: 'Spain', mx: 'Mexico', us: 'USA' },
+            priceNote: 'Approximate, with each country\'s sales tax included. It changes with the yen.',
             freeVal: 'free', pet: 'Backyard pet', rooms: 'Rooms', game: 'Mini game',
             furniture: 'Furniture', toysArea: 'Items', acc: 'Accessories',
             ticket: 'ticket', spots: 'Area spots', shop: 'Area shop',
@@ -80,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ['How do I buy and download a DLC?', '<p>Each area is sold as a <a href="https://ticketshop.tamagotchi-official.com/" target="_blank" rel="noopener"><b>Tamaverse Ticket</b> ↗</a> on Bandai\'s official shop. After buying it you get a 16-digit download code by email. Very Berry Land is free.</p><p>To redeem it, connect the Uni to Wi-Fi, keep the firmware up to date and follow these steps:</p><ol><li>From the Care menu screen, select the Network icon.</li><li>Select <b>DOWNLOAD</b>.</li><li>Select <b>INPUT CODE</b>.</li><li>Input the 16-digit DL Code you received by email.</li><li>After the “DONE!” screen, select YES on the “DOWNLOAD?” screen.</li><li>You can now go to the new area from the Tama Portal.</li></ol><p>The Tama Portal only takes you to one area. To go to another, change it from <b>DL AREA</b>.</p>'],
                 ['How much is a Tamaverse Ticket?', '<p>The shop charges in yen: most cost {p990} and collab areas (Sanrio, PokoPea, KAWAISOUNI! and Esther Bunny) {p1210}. Very Berry Land is free.</p><p>At checkout the shop converts the price to your currency and adds your local sales tax, so the final amount depends on the exchange rate. Your bank may also charge a foreign currency fee. They\'re sold on <a href="https://ticketshop.tamagotchi-official.com/" target="_blank" rel="noopener">Bandai\'s official shop ↗</a> and the code arrives by email.</p>'],
                 ['Which areas are there?', '<p>There are {n}: {zonas}.</p><p>They\'re also called <i>Tamaverse lands</i> or <i>DL areas</i>, and on the Uni they show up under DL AREA.</p>'],
+                ['Which DLC should I buy?', '<ul><li><b>If you\'ve never downloaded one:</b> start with Very Berry Land, it\'s free.</li><li><b>If you get lots of ♂ tamas:</b> PokoPea Land, where 5 of its 7 characters are ♂.</li><li><b>If you don\'t want to depend on gender:</b> Esther Bunny World (all 5 characters work for ♂ and ♀) or KAWAISOUNI! Land (half of them).</li><li><b>For the most characters per ticket:</b> Sanrio Characters, with 10. Since 10 things in its shop lead to a character, watch what you give it.</li><li><b>To change the game, not just the cast:</b> Angel Festival or Monster Carnival, the only ones that change the evolution and death animations.</li><li><b>If you like the classics:</b> Tamazon Jungle Tour, with characters from the first Tamagotchi like Ginjirotchi and Hashizotchi.</li></ul><p>What each area is best for is also in the <b>Area</b> tab of its ticket.</p>'],
                 ['Can I have several areas downloaded at once?', '<p>No, only <b>one at a time</b>.</p><ul><li>Changing areas deletes that area\'s items you have placed or stored.</li><li>You can\'t change areas while raising one of its exclusive characters.</li><li>The code is tied to your Uni; it can be re-linked up to 3 times and lost codes are not reissued.</li></ul>'],
                 ['How do I get a DLC character on the Tamagotchi Uni?', '<p>Download its area with a Tamaverse Ticket. While your tama is a child or teen, give it the character\'s meal or snack, or play with its item (everything is sold in the area shop). When it grows up it becomes that character, as long as it matches your tama\'s gender; ♂♀ ones work with both.</p><p>What each one needs is in the tickets above and in <a href="#recetas">every recipe</a>.</p>'],
                 ['How many times do I have to give the food or item?', '<p>According to the Tamagotchi Wiki, <b>once</b> before it becomes an adult is enough. If you used things from several characters, the one you used the most wins.</p><p>Some guides say 3 times, so to be safe, give it several times and avoid other characters\' things from the same area.</p>'],
@@ -266,10 +272,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const src = f => `${IT}${d.id}/${f}`;
         const A = d.area;
         const facts = [[t('year'), d.year], [t('tamas'), d.chars.length]];
-        if (d.free) facts.push([t('price'), t('freeVal')]);
-        if (d.yen) facts.push([t('price'), ticketPrice(d.yen, L)]);
+        facts.push([t('release'), d.release.split('-').reverse().join('.')]);
         if (d.fw) facts.push([t('firmware'), 'v' + d.fw + '+']);
-        if (d.release) facts.push([t('release'), d.release.split('-').reverse().join('.')]);
+        // el precio va al final: al abrirlo crece hacia abajo sin mover los otros datos
+        if (d.free) facts.push([t('price'), t('freeVal')]);
+        if (d.yen) facts.push([t('price'), priceFact(d.yen, L, t), 'price-li']);
         const photos = fs => fs.map(f => `<figure class="photo"><img class="px" src="${src(f)}" alt="" loading="lazy"></figure>`).join('');
         const sheet = (fs, cap) => !fs.length ? '' : fs.length > 2
             ? `<figure class="sheet"><div class="minis">${fs.map(f => `<img class="px" src="${src(f)}" alt="" loading="lazy">`).join('')}</div><figcaption>${cap}</figcaption></figure>`
@@ -282,7 +289,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return `<div class="shop-cat"><h5>${cap}</h5>${sheet(files, cap)}${nameList(lst)}</div>`;
         };
         return `<div class="area">
-            <ul class="facts">${facts.map(([k, v]) => `<li><span>${k}</span>${v}</li>`).join('')}</ul>
+            <ul class="facts">${facts.map(([k, v, c]) => `<li${c ? ` class="${c}"` : ''}><span>${k}</span>${v}</li>`).join('')}</ul>
+            ${d.best ? `<p class="best-note">* ${tx(d.best)}</p>` : ''}
             ${d.spots && d.spots.length ? `<h4>${t('spots')}</h4><ul class="spots">${d.spots.map(p => `<li><b>${tx(p.name)}</b> ${tx(p.text)}</li>`).join('')}</ul>` : ''}
             ${d.pet ? `<h4>${t('pet')}</h4><p class="pet">${tx(d.pet)}</p>` : ''}
             ${A.rooms.length ? `<h4>${t('rooms')}</h4><div class="shots rooms">${photos(A.rooms)}</div>${S && S.rooms.length ? nameList(S.rooms) : ''}` : ''}
