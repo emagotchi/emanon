@@ -1,6 +1,5 @@
-// Precio del ticket. La tienda cobra en yenes con el impuesto japonés incluido (10 %); al pagar, convierte el precio
-// sin ese impuesto a tu moneda y le suma el IVA de tu país. Ej.: Baby's Dream en Chile, sept. 2026: 900 × 5,79 × 1,19 = $6.201.
-// Cuánto vale 1 yen (noviembre 2026, aprox.): cámbialo aquí si el yen se mueve mucho.
+// Precio del ticket. La tienda cobra en yenes con el impuesto japonés incluido (10 %)
+// Cuánto vale 1 yen (noviembre 2026, aprox.)
 const YEN = { CLP: 6.22, EUR: 0.00565, MXN: 0.1178, USD: 0.00633 };
 // en EE. UU. el impuesto depende del estado, así que el dólar va sin impuesto
 const IVA = { CLP: 0.19, EUR: 0.21, MXN: 0.16, USD: 0 };
