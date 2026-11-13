@@ -12,11 +12,27 @@ This project started as a **personal hub for my social media**, so I no longer h
 
 ---
 
+## ｐａｇｅｓ
+
+| page | url | what it is |
+|---|---|---|
+| main hub | [emanon.vip](https://emanon.vip) | social media hub |
+| links | [/links](https://emanon.vip/links/) | links mentioned in my TikToks |
+| puntitos | [/puntitos](https://emanon.vip/puntitos/) | braille ASCII art generator for comments |
+| tamagotchi pix | [/tmgc-pix](https://emanon.vip/tmgc-pix/) | favorite items of each character (Pix & Pix Party) |
+| tamagotchi paradise | [/tmgc-paradise](https://emanon.vip/tmgc-paradise/) | characters, evolutions and meals |
+| tamagotchi uni | [/tmgc-uni](https://emanon.vip/tmgc-uni/) | Tama Portal DLC areas, characters, recipes and evolutions |
+| precios tmgc | [/precios-tmgc](https://emanon.vip/precios-tmgc/) | Tamagotchi Connection prices in Chile and shell catalog |
+
+---
+
 ## ｆｅａｔｕｒｅｓ
 
 - personal social media hub
 - video links page (links mentioned in my TikToks)
-- tamagotchi pix favorite items guide
+- tamagotchi guides in spanish: pix, paradise and uni
+- tamagotchi connection price guide for Chile
+- braille ASCII art generator (puntitos)
 - simple static website built with HTML/CSS/JS
 - hosted with GitHub Pages
 - custom domain and analytics via Cloudflare
@@ -38,65 +54,92 @@ This project started as a **personal hub for my social media**, so I no longer h
 ```
 emanon/
 │
-├── assets/             _ images and media
-│   ├── accesories/
+├── index.html              _ main social media hub page
+├── css/                    _ shared stylesheets
+│   ├── emanon.css          _ main page
+│   └── tmgc-pix.css        _ tamagotchi pix guide
+├── js/                     _ shared scripts
+│   ├── emanon.js           _ main page
+│   ├── app.js              _ tamagotchi pix guide
+│   └── data.js             _ tamagotchi pix data
+├── assets/                 _ shared images (main page + pix guide)
+│   ├── accessories/
 │   ├── characters/
 │   ├── eggs/
 │   ├── items/
 │   ├── meals/
+│   ├── og/                 _ link preview images
 │   └── snacks/
 │
-├── css/                _ stylesheets
-│   ├── emanon.css
-│   └── tmgc-pix.css
-│
-├── js/                 _ scripts
-│   ├── app.js
-│   ├── data.js
-│   └── emanon.js
-│
-├── tmgc-pix/            _ tamagotchi pix guide
-│   └── index.html
-│
-├── tmgc-paradise/       _ tamagotchi paradise guide
-│   ├── assets
-│      ├── characters/
-│      ├── meals/
-│      ├── secrets/
-│      └── stats/
-│   ├── css/tmgc-paradise.css
-│   ├── js/app.js
-│   ├── js/data.js
-│   └── index.html
-│
-├── precios-tmgc/               _ tmgc prices in Chile
-│   ├── css/precios-tmgcs.css
-│   ├── img/carreteados
-│   ├── js/app.js
-│   ├── js/data.js
-│   └── index.html
-│
-├── links/               _ links mentioned in my videos
+├── links/                  _ links mentioned in my videos
+│   ├── index.html
 │   ├── css/links.css
-│   ├── img/             _ video + product thumbnails
-│   ├── js/data.js
-│   ├── js/links.js
-│   └── index.html
+│   └── js/
+│       ├── data.js
+│       └── links.js
 │
-└── index.html           _ main social media hub page
+├── puntitos/               _ braille ASCII art generator
+│   └── index.html          _ everything in one file
+│
+├── tmgc-pix/               _ tamagotchi pix guide
+│   └── index.html          _ uses the shared css/, js/ and assets/
+│
+├── tmgc-paradise/          _ tamagotchi paradise guide
+│   ├── index.html
+│   ├── css/tmgc-paradise.css
+│   ├── js/
+│   │   ├── data.js
+│   │   └── main.js
+│   └── assets/
+│       ├── characters/
+│       ├── meals/
+│       ├── secrets/
+│       └── stats/
+│
+├── tmgc-uni/               _ tamagotchi uni guide (DLC areas)
+│   ├── index.html
+│   ├── css/tmgc-uni.css
+│   ├── js/
+│   │   ├── data.js         _ DLC areas, characters, items and prices
+│   │   ├── nombres.js      _ spanish names for items
+│   │   ├── resumen.js      _ recipe lists, FAQ and currency conversion
+│   │   └── main.js         _ page logic and ES/EN texts
+│   └── assets/
+│       ├── characters/     _ baby, child, teen, adult and dlc
+│       └── items/          _ one folder per DLC area
+│
+├── precios-tmgc/           _ tamagotchi connection prices in Chile
+│   ├── index.html
+│   ├── css/precios-tmgcs.css
+│   ├── js/
+│   │   ├── app.js
+│   │   └── data.js
+│   └── img/carreteados/
+│
+├── CNAME                   _ custom domain (emanon.vip)
+├── robots.txt
+└── sitemap.xml
 ```
 
 ---
 
 ## ｃｒｅｄｉｔｓ
 
-All Tamagotchi Pix resources were taken from Mr. Blinky's website: http://mrblinky.net/tama/pix/download/
+**Tamagotchi Pix**
+- Resources from Mr. Blinky's website: http://mrblinky.net/tama/pix/download/
 
-All Tamagotchi Paradise resources were taken from the Tamagotchi Wiki: https://tamagotchi.fandom.com/wiki/Tamagotchi_Paradise/Item_list
+**Tamagotchi Paradise**
+- Resources from the Tamagotchi Wiki: https://tamagotchi.fandom.com/wiki/Tamagotchi_Paradise/Item_list
+- Info from Neomametchi's Forum: https://neomametchi-logs.freeforums.net/thread/408/tamagotchi-paradise
+- More data from bbamorachi webpage: https://tools.bbamorachi.us/
 
-Tamagotchi Paradise info were taken from Neomametchi's Forum: https://neomametchi-logs.freeforums.net/thread/408/tamagotchi-paradise
+**Tamagotchi Uni**
+- Characters and requirements from the Tamagotchi Wiki: https://tamagotchi.fandom.com/wiki/Tamagotchi_Uni/Character_list
+- Items and areas from the official Tamagotchi site: https://tamagotchi-official.com/gb/series/uni/news/?c=product
+- Release dates and tips from TamaVault: https://tamavault.com/devices/uni/tamaverse-lands/
 
-The design of the main page was partly inspired by Yokiie's website: https://unicodeangel.neocities.org/
+**Main page**
+- The design was partly inspired by Yokiie's website: https://unicodeangel.neocities.org/
 
 ---
 
