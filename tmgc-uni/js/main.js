@@ -30,6 +30,22 @@ document.addEventListener('DOMContentLoaded', () => {
             freeVal: 'gratis', pet: 'Mascota del patio', rooms: 'Cuartos', game: 'Minijuego',
             furniture: 'Muebles', toysArea: 'Ítems', acc: 'Accesorios',
             ticket: 'ticket', spots: 'Lugares del área', shop: 'Tienda del área',
+            sumTitle: 'todas las recetas', sumDesc: 'Lo mismo de los tickets, pero en lista: qué darle a cada personaje de las zonas del Tama Portal (los Tamaverse Ticket, que en el Uni aparecen en «ZONA DLC»), con la rama base al final ✧',
+            thChar: 'Personaje', thGender: 'Género', thGive: 'Qué darle', thHow: 'Errores de cuidado',
+            baseSumTitle: 'Rama base (sin DLC)', baseSumMeta: 'si tu tama no usa nada de las zonas', baseSumKids: 'Niño:', and: 'y',
+            updated: 'actualizado el 13 de noviembre de 2026',
+            faqTitle: 'preguntas frecuentes',
+            faq: [
+                ['¿Cómo consigo un personaje de DLC en el Tamagotchi Uni?', '<p>Descarga su zona con un Tamaverse Ticket. Mientras tu tama es niño o adolescente, dale la comida o el snack del personaje, o juega con su ítem (todo se compra en la tienda de la zona). Al crecer se convierte en ese personaje, siempre que sea del mismo género que tu tama; los ♂♀ sirven para ambos.</p><p>Lo que necesita cada uno está en los tickets de arriba y en <a href="#recetas">todas las recetas</a>.</p>'],
+                ['¿Cuántas veces tengo que darle la comida o el ítem?', '<p>Según la Tamagotchi Wiki basta con <b>una vez</b> antes de que sea adulto. Si usaste cosas de varios personajes, gana el que más veces usaste.</p><p>Algunas guías dicen que son 3 veces, así que si quieres ir a la segura, dáselo varias veces y no le des cosas de otros personajes de la zona.</p>'],
+                ['¿Qué pasa si no le doy nada de la zona?', '<p>Crece por la <a href="#base">rama base</a>, igual que un Uni sin DLC: el adolescente depende de su felicidad y el adulto, de los errores de cuidado.</p>'],
+                ['¿Cómo consigo a Mametchi, Kuchipatchi o Mimitchi?', '<ul><li><b>Mametchi ♂</b>: de adolescente tiene que ser Kuriritchi (felicidad entre 15 y 20, o 10 manualidades DIY) y llegar a adulto con 0 errores de cuidado, o con 1–3 errores y 3 paseos (Tama Walk).</li><li><b>Kuchipatchi ♂</b>: Gunchitchi (felicidad entre 6 y 14, o 40 snacks) con 0–1 errores, o con 2–5 errores y 10 pedidos a Tama Delivery.</li><li><b>Mimitchi ♀</b>: Tustustchi (felicidad entre 0 y 5, o 15 puntajes perfectos en juegos) con 0–1 errores, o con 2–5 errores y 20 puntajes perfectos en Tama Arcade.</li></ul>'],
+                ['¿Qué cuenta como error de cuidado?', '<p>Cuando el hambre o la felicidad de tu tama llegan a 0, te llama. Si no lo atiendes a tiempo, cuenta como un error de cuidado.</p><p>El Uni no muestra cuántos llevas, así que conviene anotarlos. Los de niño y de adolescente se suman, y de eso depende en qué adulto se convierte.</p>'],
+                ['¿Cuánto dura cada etapa?', '<p>Bebé, más o menos 1 hora. Niño, unas 24 horas. Adolescente, otras 24 horas. Después es adulto por el resto de su vida.</p>'],
+                ['¿Puedo tener varias zonas descargadas a la vez?', '<p>No, solo una. Para ir a otra tienes que cambiarla en «ZONA DLC», y se borran los ítems de la zona anterior. Tampoco puedes cambiarla mientras crías a un personaje exclusivo de esa zona.</p>'],
+                ['¿Cuánto cuesta un Tamaverse Ticket?', '<p>La mayoría cuesta ¥900 más impuesto (unos 6 USD). Las zonas de colaboración (Sanrio, PokoPea, KAWAISOUNI! y Esther Bunny) cuestan US$7,20, y Very Berry Land fue gratis. Se compran en la <a href="https://ticketshop.tamagotchi-official.com/es-ES" target="_blank" rel="noopener">tienda oficial de Bandai ↗</a> y el código te llega por correo.</p>'],
+                ['¿Qué zonas hay?', '<p>Hay {n}: {zonas}.</p><p>En inglés también les dicen <i>Tamaverse lands</i> o <i>DL areas</i>, y en el Uni aparecen en «ZONA DLC».</p>'],
+            ],
             how: [
                 ['¿Cómo se consigue un DLC?', '<p>Cada área se vende como <a href="https://ticketshop.tamagotchi-official.com/es-ES" target="_blank" rel="noopener"><b>Tamaverse Ticket</b> ↗</a> en la tienda oficial de Bandai. Al comprarlo te llega por correo un código de descarga de 16 dígitos. Very Berry Land fue gratis.</p><p>Para canjearlo, conecta el Uni a Wi-Fi, ten el firmware al día y sigue estos pasos:</p><ol><li>Desde el menú de cuidados, selecciona el ícono de red.</li><li>Selecciona la opción de descarga.</li><li>Selecciona «DAR CÓDIGO».</li><li>Introduce el código de 16 dígitos que te llegó por correo.</li><li>Cuando aparezca «¡LISTO!», selecciona «SÍ» en la pantalla «¿DESCARGAR?».</li><li>Ya puedes visitar la nueva zona desde el portal Tama.</li></ol><p>El portal Tama te lleva a una sola zona. Para ir a otra, cámbiala en la opción «ZONA DLC».</p>'],
                 ['Reglas del Tama Portal', '<ul><li>Solo puedes tener <b>un área descargada a la vez</b>.</li><li>Al cambiar de área se borran los ítems de esa área que tengas puestos o guardados.</li><li>No puedes cambiar de área mientras crías a un personaje exclusivo de ella.</li><li>El código queda ligado a tu Uni; se puede volver a vincular hasta 3 veces y los códigos perdidos no se reponen.</li></ul>'],
@@ -61,6 +77,22 @@ document.addEventListener('DOMContentLoaded', () => {
             freeVal: 'free', pet: 'Backyard pet', rooms: 'Rooms', game: 'Mini game',
             furniture: 'Furniture', toysArea: 'Items', acc: 'Accessories',
             ticket: 'ticket', spots: 'Area spots', shop: 'Area shop',
+            sumTitle: 'every recipe', sumDesc: 'Same as the tickets, but as a list: what to give each character in every Tama Portal area (the Tamaverse Tickets, shown as DL AREA on the Uni), with the base branch at the end ✧',
+            thChar: 'Character', thGender: 'Gender', thGive: 'What to give', thHow: 'Care mistakes',
+            baseSumTitle: 'Base branch (no DLC)', baseSumMeta: 'if your tama uses nothing from the areas', baseSumKids: 'Child:', and: 'and',
+            updated: 'updated November 13, 2026',
+            faqTitle: 'faq',
+            faq: [
+                ['How do I get a DLC character on the Tamagotchi Uni?', '<p>Download its area with a Tamaverse Ticket. While your tama is a child or teen, give it the character\'s meal or snack, or play with its item (everything is sold in the area shop). When it grows up it becomes that character, as long as it matches your tama\'s gender; ♂♀ ones work with both.</p><p>What each one needs is in the tickets above and in <a href="#recetas">every recipe</a>.</p>'],
+                ['How many times do I have to give the food or item?', '<p>According to the Tamagotchi Wiki, <b>once</b> before it becomes an adult is enough. If you used things from several characters, the one you used the most wins.</p><p>Some guides say 3 times, so to be safe, give it several times and avoid other characters\' things from the same area.</p>'],
+                ['What if I give it nothing from the area?', '<p>It grows through the <a href="#base">base branch</a>, like a Uni without DLC: the teen depends on happiness and the adult on care mistakes.</p>'],
+                ['How do I get Mametchi, Kuchipatchi or Mimitchi?', '<ul><li><b>Mametchi ♂</b>: the teen has to be Kuriritchi (happiness 15–20, or 10 DIY crafts) and reach adulthood with 0 care mistakes, or 1–3 mistakes plus 3 Tama Walks.</li><li><b>Kuchipatchi ♂</b>: Gunchitchi (happiness 6–14, or 40 snacks) with 0–1 mistakes, or 2–5 mistakes plus 10 Tama Delivery orders.</li><li><b>Mimitchi ♀</b>: Tustustchi (happiness 0–5, or 15 perfect game scores) with 0–1 mistakes, or 2–5 mistakes plus 20 perfect Tama Arcade scores.</li></ul>'],
+                ['What counts as a care mistake?', '<p>When your tama\'s hunger or happiness hits 0, it calls you. If you don\'t take care of it in time, that counts as a care mistake.</p><p>The Uni doesn\'t show how many you have, so it\'s worth writing them down. Child and teen mistakes add up, and they decide which adult it becomes.</p>'],
+                ['How long does each stage last?', '<p>Baby, about 1 hour. Child, about 24 hours. Teen, another 24 hours. After that it\'s an adult for the rest of its life.</p>'],
+                ['Can I have several areas downloaded at once?', '<p>No, only one. To visit another you have to switch it in DL AREA, and the previous area\'s items are deleted. You also can\'t switch while raising one of that area\'s exclusive characters.</p>'],
+                ['How much is a Tamaverse Ticket?', '<p>Most cost ¥900 plus tax (about 6 USD). Collab areas (Sanrio, PokoPea, KAWAISOUNI! and Esther Bunny) cost US$7.20, and Very Berry Land was free. They\'re sold on <a href="https://ticketshop.tamagotchi-official.com/" target="_blank" rel="noopener">Bandai\'s official shop ↗</a> and the code arrives by email.</p>'],
+                ['Which areas are there?', '<p>There are {n}: {zonas}.</p><p>They\'re also called <i>Tamaverse lands</i> or <i>DL areas</i>, and on the Uni they show up under DL AREA.</p>'],
+            ],
             how: [
                 ['How do I get a DLC?', '<p>Each area is sold as a <a href="https://ticketshop.tamagotchi-official.com/" target="_blank" rel="noopener"><b>Tamaverse Ticket</b> ↗</a> on Bandai\'s official shop. After buying it you get a 16-digit download code by email. Very Berry Land was free.</p><p>To redeem it, connect the Uni to Wi-Fi, keep the firmware up to date and follow these steps:</p><ol><li>From the Care menu screen, select the Network icon.</li><li>Select <b>DOWNLOAD</b>.</li><li>Select <b>INPUT CODE</b>.</li><li>Input the 16-digit DL Code you received by email.</li><li>After the “DONE!” screen, select YES on the “DOWNLOAD?” screen.</li><li>You can now go to the new area from the Tama Portal.</li></ol><p>The Tama Portal only takes you to one area. To go to another, change it from <b>DL AREA</b>.</p>'],
                 ['Tama Portal rules', '<ul><li>You can only have <b>one downloaded area at a time</b>.</li><li>Changing areas deletes that area\'s items you have placed or stored.</li><li>You can\'t change areas while raising one of its exclusive characters.</li><li>The code is tied to your Uni; it can be re-linked up to 3 times and lost codes are not reissued.</li></ul>'],
@@ -77,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dlcById = id => DLCS.find(d => d.id === id);
     const pal = d => SHELLS[d.pal];
 
-    const pageTitle = () => L === 'es' ? 'Guía Tamagotchi Uni ✦ DLC, Personajes y Evoluciones | emanon' : 'Tamagotchi Uni Guide ✦ DLC, Characters & Evolutions | emanon';
+    const pageTitle = () => L === 'es' ? 'Guía Tamagotchi Uni en español ✦ DLC, Personajes y Evoluciones | emanon' : 'Tamagotchi Uni Guide ✦ DLC, Characters & Evolutions | emanon';
 
     /* ── textos fijos ── */
     function staticText() {
@@ -273,7 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ── acordeón ── */
     function renderHow() {
-        $('#help-accordion').innerHTML = t('how').map(([q, a]) => `<details class="help-box"><summary>${q}</summary><div class="help-body">${a}</div></details>`).join('');
+        $('#help-accordion').innerHTML = accordionHTML(t('how'));
+        $('#faq-list').innerHTML = faqHTML(L, t);
+        $('#sum-list').innerHTML = resumenHTML(L, t, nameOf);
     }
 
     function renderAll() {
