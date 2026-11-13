@@ -614,7 +614,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "¥900 (~6 USD)"
+  "yen": 990
  },
  {
   "id": "tamamori-fashion-show",
@@ -875,7 +875,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "¥900 (~6 USD)"
+  "yen": 990
  },
  {
   "id": "sanrio-characters",
@@ -1171,7 +1171,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "US$7.20"
+  "yen": 1210
  },
  {
   "id": "angel-festival",
@@ -1432,7 +1432,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "¥900 (~6 USD)"
+  "yen": 990
  },
  {
   "id": "monster-carnival",
@@ -1683,7 +1683,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "¥900 (~6 USD)"
+  "yen": 990
  },
  {
   "id": "fairy-tale-library",
@@ -1934,7 +1934,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "¥900 (~6 USD)"
+  "yen": 990
  },
  {
   "id": "pokopea-land",
@@ -2234,7 +2234,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "US$7.20"
+  "yen": 1210
  },
  {
   "id": "doritama-school",
@@ -2493,7 +2493,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "¥900 (~6 USD)"
+  "yen": 990
  },
  {
   "id": "kawaisouni-land",
@@ -2741,7 +2741,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "US$7.20"
+  "yen": 1210
  },
  {
   "id": "esther-bunny-world",
@@ -3038,7 +3038,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "US$7.20"
+  "yen": 1210
  },
  {
   "id": "tamazon-jungle-tour",
@@ -3298,7 +3298,7 @@ const DLCS = [
     }
    }
   ],
-  "ticket": "¥900 (~6 USD)"
+  "yen": 990
  },
  {
   "id": "babys-dream",
@@ -3439,7 +3439,6 @@ const DLCS = [
    "toys": [],
    "accessories": []
   },
-  "price": "¥990",
   "fw": "2.9.0",
   "release": "2026-09-03",
   "minigame": {
@@ -3565,7 +3564,8 @@ const DLCS = [
      "es": "Sitter Poketchi explica Naptime: inclina el Uni y usa el sonajero con B para volver a dormir a los bebés inquietos. Cada bebé dormido llena la barra; si se acaba el tiempo o fallas tres veces, el juego termina."
     }
    }
-  ]
+  ],
+  "yen": 990
  },
  {
   "id": "galgal-street",

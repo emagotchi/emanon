@@ -1,6 +1,18 @@
-// Lista de recetas de todas las zonas y la rama base, en tablas de texto.
-// Va escrita también dentro del index.html (en español) para que Google, Bing y las IA la lean sin JavaScript;
-// main.js la vuelve a dibujar con esta misma función al cambiar de idioma.
+// Precio del ticket. La tienda cobra en yenes con el impuesto japonés incluido (10 %); al pagar, convierte el precio
+// sin ese impuesto a tu moneda y le suma el IVA de tu país. Ej.: Baby's Dream en Chile, sept. 2026: 900 × 5,79 × 1,19 = $6.201.
+// Cuánto vale 1 yen (noviembre 2026, aprox.): cámbialo aquí si el yen se mueve mucho.
+const YEN = { CLP: 6.22, EUR: 0.00565, MXN: 0.1178, USD: 0.00633 };
+const IVA = { CLP: 0.19, EUR: 0.21, MXN: 0.16 };
+// se redondea hacia arriba (a $100, 0,10 € y $5) para no mostrar menos de lo que se paga
+const local = (yen, cur, step) => Math.ceil(yen / 1.1 * YEN[cur] * (1 + IVA[cur]) / step - 1e-9) * step;
+function ticketPrice(yen, L) {
+    const jp = '¥' + yen.toLocaleString(L === 'es' ? 'es-CL' : 'en-US');
+    if (L !== 'es') return `${jp} (about US$${Math.round(yen / 1.1 * YEN.USD)})`;
+    const clp = local(yen, 'CLP', 100).toLocaleString('es-CL');
+    const eur = local(yen, 'EUR', 0.1).toFixed(2).replace('.', ',');
+    return `${jp} (unos $${clp} CLP · ${eur} € · $${local(yen, 'MXN', 5)} MXN)`;
+}
+
 function resumenHTML(L, t, nameOf) {
     const tx = o => (o && (o[L] || o.en)) || '';
     const sym = { male: '♂', female: '♀', either: '♂♀' };
@@ -13,7 +25,7 @@ function resumenHTML(L, t, nameOf) {
     const zone = d => {
         const meta = [d.year, `${d.chars.length} ${t('tamas')}`];
         if (d.free) meta.push(t('freeVal'));
-        else if (d.price || d.ticket) meta.push(d.price || d.ticket);
+        else if (d.yen) meta.push(ticketPrice(d.yen, L));
         if (d.soon) meta.push(`${t('release')} ${dateOf(d.release)}`);
         const rows = d.chars.map(c => {
             const it = c.it && d.items[c.it];
@@ -44,9 +56,10 @@ function accordionHTML(list) {
     return list.map(([q, a]) => `<details class="help-box"><summary>${q}</summary><div class="help-body">${a}</div></details>`).join('');
 }
 
-// preguntas frecuentes: {n} y {zonas} salen de los datos, así la lista de zonas no queda vieja
+// preguntas frecuentes: {n} y {zonas} salen de los datos
 function faqHTML(L, t) {
     const names = DLCS.map(d => d.soon ? `${d.name} (${t('release')} ${d.release.split('-').reverse().join('.')})` : d.name);
     const zonas = names.slice(0, -1).join(', ') + ` ${t('and')} ` + names[names.length - 1];
-    return accordionHTML(t('faq').map(([q, a]) => [q, a.replace('{n}', DLCS.length).replace('{zonas}', zonas)]));
+    return accordionHTML(t('faq').map(([q, a]) => [q, a.replace('{n}', DLCS.length).replace('{zonas}', zonas)
+        .replace('{p990}', ticketPrice(990, L)).replace('{p1210}', ticketPrice(1210, L))]));
 }
