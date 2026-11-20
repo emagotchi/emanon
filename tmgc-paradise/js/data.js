@@ -398,11 +398,7 @@ const tamagotchiData = {
                 }
             ]
         },
-        // ── Neon Planets ─────────────────────────────────────────────
-        // En vez de campos tiene 3 planetas; el planeta donde crece Babymarutchi decide el Kid.
-        // Comidas: image: null = todavía no hay sprite (se muestra solo el nombre).
-        // { tie: true } = Young que sale por empate de células (Indeterminate Cells).
-        // genes: personajes que solo salen por genes, agrupados por el Young que siguen.
+        // -- Neon Planets --
         {
             id: "galaxy-kid",
             isNew: true,
@@ -495,7 +491,7 @@ const tamagotchiData = {
                         { name: "Meowtchi", image: "assets/characters/new tmgc planet/land species/meowtchi.webp", careMistakes: "0", excellentCares: "5+" },
                         { name: "Okojotchi", image: "assets/characters/new tmgc planet/land species/okojotchi.webp", careMistakes: "0-1" },
                         { name: "Molmotchi", image: "assets/characters/new tmgc planet/land species/molmotchi.webp", careMistakes: "2-5" },
-                        { name: "Tenatchi", image: "assets/characters/new tmgc planet/forest species/tenatchi.webp", careMistakes: "6+" }
+                        { name: "Tenatchi", image: "assets/characters/new tmgc planet/land species/tenatchi.webp", careMistakes: "6+" }
                     ]
                 },
                 {
@@ -534,7 +530,7 @@ const tamagotchiData = {
                         { name: "Lessapantchi", image: "assets/characters/new tmgc planet/forest species/lessapantchi.webp", careMistakes: "0", excellentCares: "5+" },
                         { name: "Parorotchi", image: "assets/characters/new tmgc planet/forest species/parorotchi.webp", careMistakes: "0-1" },
                         { name: "Kanokotchi", image: "assets/characters/new tmgc planet/forest species/kanokotchi.webp", careMistakes: "2-5" },
-                        { name: "Yukiusatchi", image: "assets/characters/new tmgc planet/land species/yukiusatchi.webp", careMistakes: "6+" }
+                        { name: "Yukiusatchi", image: "assets/characters/new tmgc planet/forest species/yukiusatchi.webp", careMistakes: "6+" }
                     ]
                 }
             ],
