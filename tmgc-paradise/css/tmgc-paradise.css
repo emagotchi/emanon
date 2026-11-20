@@ -474,6 +474,18 @@ h4 {
     font-size: 1.6rem;
 }
 
+/* Neon Planets food with a known name but no sprite yet */
+.meal-unknown--nosprite {
+    font-size: 1.1rem;
+}
+
+/* Cell name under each Young (Neon Planets) */
+.young-cell-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
 .secret-img.secret-img--unknown {
     border-radius: var(--r-md);
     font-size: 3.2rem;
@@ -1130,6 +1142,20 @@ h4 {
 }
 .secret-reveal-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(159,212,255,.6); }
 .secret-reveal-btn.revealed { background: #cbd8ea; color: var(--text-dark); box-shadow: none; }
+
+/* Gene characters (Neon Planets) */
+.genes-card .secret-cond { margin-bottom: 14px; }
+.genes-list {
+    list-style: none; margin: 0; padding: 0; text-align: left;
+    border-top: 1px solid var(--line);
+}
+.genes-list li {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 8px 2px; border-bottom: 1px solid var(--line);
+}
+.genes-list li:last-child { border-bottom: 0; }
+.genes-via { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); }
+.genes-names { font-size: 13.5px; color: var(--text-dark); line-height: 1.5; }
 
 /* Link to genes generator */
 .help-body .tool-link {

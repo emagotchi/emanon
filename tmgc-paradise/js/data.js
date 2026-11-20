@@ -398,21 +398,30 @@ const tamagotchiData = {
                 }
             ]
         },
+        // ── Neon Planets ─────────────────────────────────────────────
+        // En vez de campos tiene 3 planetas; el planeta donde crece Babymarutchi decide el Kid.
+        // Comidas: image: null = todavía no hay sprite (se muestra solo el nombre).
+        // { tie: true } = Young que sale por empate de células (Indeterminate Cells).
+        // genes: personajes que solo salen por genes, agrupados por el Young que siguen.
         {
             id: "galaxy-kid",
             isNew: true,
             name: { es: "", en: "Galaxy Kid" },
             image: "assets/characters/cosmic field/galaxy-kid.webp",
             evolutionText: {
-                es: "Nuevo campo cósmico (コズミック星) del próximo lanzamiento ✧ <br> Disponible en la shell Neon Planets. <br> Todavía no se sabe cómo se obtienen sus células; esta sección se irá completando a medida que se confirmen los datos.",
-                en: "New Cosmic field (コズミック星) from the upcoming release ✧ <br> Available on the Neon Planets shell. <br> It's not known yet how its cells are obtained; this section will be filled in as the data is confirmed."
+                es: "En Neon Planets no hay campos sino 3 planetas, y el planeta donde crezca Babymarutchi decide su Kid. La shell parte en el <strong>Planeta Cósmico</strong> (コズミック星). <br> Los planetas funcionan igual que los campos: cuando Babymarutchi junta 4 células del planeta, evoluciona en Galaxy Kid. El ícono de esas células todavía no se conoce. <br> Las comidas nuevas aún no tienen sprite, así que por ahora solo aparecen sus nombres.",
+                en: "Neon Planets has 3 planets instead of fields, and the planet Babymarutchi grows up on decides its Kid. The shell starts on <strong>Cosmic Planet</strong> (コズミック星). <br> Planets work just like fields: once Babymarutchi collects 4 of the planet's cells, it evolves into Galaxy Kid. The icon for those cells isn't known yet. <br> The new foods don't have sprites yet, so only their names are shown for now."
             },
-            secret: { name: "Mimimimitchi", image: null, silhouette: null, condition: { es: "Aún no se sabe cómo se obtiene. Solo se conoce su nombre…", en: "It's not known yet how to obtain it. Only its name is known…" } },
+            secret: { name: "Mimimimitchi", image: "assets/characters/cosmic field/mimimimitchi.webp", silhouette: "assets/secrets/mimimimitchi_sil.png", condition: { es: "Se obtiene <strong>conectando</strong> tu Neon Planets con dos modelos Paradise distintos durante la etapa Young. Solo en el Planeta Cósmico. No evoluciona desde Mech Young.", en: "Obtained by <strong>connecting</strong> your Neon Planets with two different Paradise models during the Young stage. Only on Cosmic Planet. Cannot evolve from Mech Young." } },
             evolutions: [
                 {
-                    young: { name: "Piko Young", image: "assets/characters/cosmic field/piko-young.webp" },
-                    // comidas aún por confirmar: se muestran como "???"
-                    meals: [ { unknown: true } ],
+                    young: { name: "Piko Young", image: "assets/characters/cosmic field/piko-young.webp", cell: { es: "Célula Sparkle", en: "Sparkle Cell" } },
+                    meals: [
+                        { name: { es: "Sparkle Berry +1", en: "Sparkle Berry +1" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Sparkle Fruit +2", en: "Sparkle Fruit +2" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Stargaze Pie +4", en: "Stargaze Pie +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } },
+                        { name: { es: "Zero-Gravity Juice +4", en: "Zero-Gravity Juice +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } }
+                    ],
                     adults: [
                         { name: "Cosmitchi", image: "assets/characters/cosmic field/piko species/cosmitchi.webp", careMistakes: "0", excellentCares: "5+" },
                         { name: "Hoshimortchi", image: "assets/characters/cosmic field/piko species/hoshimortchi.webp", careMistakes: "0-1" },
@@ -421,9 +430,12 @@ const tamagotchiData = {
                     ]
                 },
                 {
-                    young: { name: "Slithr Young", image: "assets/characters/cosmic field/slithr-young.webp" },
-                    // comidas aún por confirmar: se muestran como "???"
-                    meals: [ { unknown: true } ],
+                    young: { name: "Slithr Young", image: "assets/characters/cosmic field/slithr-young.webp", cell: { es: "Célula Squiggle", en: "Squiggle Cell" } },
+                    meals: [
+                        { name: { es: "Squiggle Sausages +1", en: "Squiggle Sausages +1" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Squiggle Ham +2", en: "Squiggle Ham +2" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Invader Sandwich +4", en: "Invader Sandwich +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } }
+                    ],
                     adults: [
                         { name: "Ukiukitchi", image: "assets/characters/cosmic field/slithr species/ukiukitchi.webp", careMistakes: "0", excellentCares: "5+" },
                         { name: "Pochipotchi", image: "assets/characters/cosmic field/slithr species/pochipotchi.webp", careMistakes: "0-1" },
@@ -432,9 +444,12 @@ const tamagotchiData = {
                     ]
                 },
                 {
-                    young: { name: "Orbit Young", image: "assets/characters/cosmic field/orbit-young.webp" },
-                    // comidas aún por confirmar: se muestran como "???"
-                    meals: [ { unknown: true } ],
+                    young: { name: "Orbit Young", image: "assets/characters/cosmic field/orbit-young.webp", cell: { es: "Célula Whirly", en: "Whirly Cell" } },
+                    meals: [
+                        { name: { es: "Mobius Donut +1", en: "Mobius Donut +1" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Whirly Baumkuchen +2", en: "Whirly Baumkuchen +2" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Moonsault Donut +4", en: "Moonsault Donut +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } }
+                    ],
                     adults: [
                         { name: "Hanawatchi", image: "assets/characters/cosmic field/orbit species/hanawatchi.webp", careMistakes: "0", excellentCares: "5+" },
                         { name: "Nagarebotchi", image: "assets/characters/cosmic field/orbit species/nagarebotchi.webp", careMistakes: "0-1" },
@@ -443,9 +458,8 @@ const tamagotchiData = {
                     ]
                 },
                 {
-                    young: { name: "Mech Young", image: "assets/characters/cosmic field/mech-young.webp" },
-                    // comidas aún por confirmar: se muestran como "???"
-                    meals: [ { unknown: true } ],
+                    young: { name: "Mech Young", image: "assets/characters/cosmic field/mech-young.webp", cell: { es: "Células indeterminadas", en: "Indeterminate Cells" } },
+                    meals: [ { tie: true } ],
                     adults: [
                         { name: "Mamerobotchi", image: "assets/characters/cosmic field/mech species/mamerobotchi.webp", careMistakes: "0", excellentCares: "5+" },
                         { name: "Uchuhikotchi", image: "assets/characters/cosmic field/mech species/uchuhikotchi.webp", careMistakes: "0-1" },
@@ -453,6 +467,151 @@ const tamagotchiData = {
                         { name: "Parabolatchi", image: "assets/characters/cosmic field/mech species/parabolatchi.webp", careMistakes: "6+" }
                     ]
                 }
+            ],
+            genes: [
+                { young: "Slithr Young", names: ["Flatoohtchi"] },
+                { young: "Piko Young", names: ["Zatchi"] }
+            ]
+        },
+        {
+            id: "newtama-kid",
+            isNew: true,
+            name: { es: "", en: "Newtama Kid" },
+            image: "assets/characters/new tmgc planet/newtama-kid.webp",
+            evolutionText: {
+                es: "Si Babymarutchi crece en el <strong>Planeta New Tamagotchi</strong>, evoluciona en Newtama Kid. Este planeta se elige desde el menú de planetas de la shell Neon Planets. <br> No tiene personaje secreto (Mimimimitchi solo aparece en el Planeta Cósmico): sus personajes extra salen por genes y aparecen más abajo. <br> Las comidas nuevas aún no tienen sprite, así que por ahora solo aparecen sus nombres.",
+                en: "If Babymarutchi grows up on <strong>New Tamagotchi Planet</strong>, it evolves into Newtama Kid. You pick this planet from the planet menu on the Neon Planets shell. <br> It has no secret character (Mimimimitchi only appears on Cosmic Planet): its extra characters come from genes and are listed further down. <br> The new foods don't have sprites yet, so only their names are shown for now."
+            },
+            secret: null,
+            evolutions: [
+                {
+                    young: { name: "Land Young", image: "assets/characters/new tmgc planet/land-young.webp", cell: { es: "Célula Carne y Zanahoria", en: "Meat & Carrot Cell" } },
+                    meals: [
+                        { name: { es: "Zanahoria +1", en: "Carrot +1" }, image: "assets/meals/spring/carrot.webp", location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Carne Grande +2", en: "Big Meat +2" }, image: "assets/meals/volcano/big-meat.webp", location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Zanahoria Rallada +4", en: "Shredded Carrot +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } }
+                    ],
+                    adults: [
+                        { name: "Meowtchi", image: "assets/characters/new tmgc planet/land species/meowtchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Okojotchi", image: "assets/characters/new tmgc planet/land species/okojotchi.webp", careMistakes: "0-1" },
+                        { name: "Molmotchi", image: "assets/characters/new tmgc planet/land species/molmotchi.webp", careMistakes: "2-5" },
+                        { name: "Tenatchi", image: "assets/characters/new tmgc planet/forest species/tenatchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Water Young", image: "assets/characters/new tmgc planet/water-young.webp", cell: { es: "Célula Marisco", en: "Seafood Cell" } },
+                    meals: [
+                        { name: { es: "Moluscos +1", en: "Shellfish +1" }, image: "assets/meals/volcano/shellfish.webp", location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Marisco +2", en: "Seafood +2" }, image: "assets/meals/volcano/seafood.webp", location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Pescado Frito +4", en: "Fried Fish +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } },
+                        { name: { es: "Moluscos a la Parrilla +4", en: "Grilled Shellfish +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } }
+                    ],
+                    adults: [
+                        { name: "Irukatchi", image: "assets/characters/new tmgc planet/water species/irukatchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Axolopatchi", image: "assets/characters/new tmgc planet/water species/axolopatchi.webp", careMistakes: "0-1" },
+                        { name: "Mendakotchi", image: "assets/characters/new tmgc planet/water species/mendakotchi.webp", careMistakes: "2-5" },
+                        { name: "Kawazutchi", image: "assets/characters/new tmgc planet/water species/kawazutchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Sky Young", image: "assets/characters/new tmgc planet/sky-young.webp", cell: { es: "Célula Pollo y Maíz", en: "Chicken & Corn Cell" } },
+                    meals: [
+                        { name: { es: "Maíz +1", en: "Corn +1" }, image: "assets/meals/spring/corn.webp", location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Pollo Entero +2", en: "Whole Chicken +2" }, image: "assets/meals/volcano/whole-chicken.webp", location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Copos de Maíz +4", en: "Corn Flakes +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } }
+                    ],
+                    adults: [
+                        { name: "Horhotchi", image: "assets/characters/new tmgc planet/sky species/horhotchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Gemtchi", image: "assets/characters/new tmgc planet/sky species/gemtchi.webp", careMistakes: "0-1" },
+                        { name: "Mongatchi", image: "assets/characters/new tmgc planet/sky species/mongatchi.webp", careMistakes: "2-5" },
+                        { name: "Batchi", image: "assets/characters/new tmgc planet/sky species/batchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Forest Young", image: "assets/characters/new tmgc planet/forest-young.webp", cell: { es: "Células indeterminadas", en: "Indeterminate Cells" } },
+                    meals: [ { tie: true } ],
+                    adults: [
+                        { name: "Lessapantchi", image: "assets/characters/new tmgc planet/forest species/lessapantchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Parorotchi", image: "assets/characters/new tmgc planet/forest species/parorotchi.webp", careMistakes: "0-1" },
+                        { name: "Kanokotchi", image: "assets/characters/new tmgc planet/forest species/kanokotchi.webp", careMistakes: "2-5" },
+                        { name: "Yukiusatchi", image: "assets/characters/new tmgc planet/land species/yukiusatchi.webp", careMistakes: "6+" }
+                    ]
+                }
+            ],
+            genes: [
+                { young: "Land Young", names: ["Shyontchi", "Carbuclutchi", "T-Retchi", "Koalabutchi", "Meertchi", "Gorimatchi", "Mothmothtchi", "Yukitytchi"] },
+                { young: "Water Young", names: ["Platyputchi", "Plesiotchi", "Ammonotchi"] },
+                { young: "Sky Young", names: ["Phoenitchi", "Griffintchi", "Ptetchi"] },
+                { young: "Forest Young", names: ["Kokokonchi", "Qilintchi", "Luvkappatchi"] }
+            ]
+        },
+        {
+            id: "marutchi",
+            isNew: true,
+            name: { es: "", en: "Marutchi" },
+            image: "assets/characters/tmgc planet/marutchi.webp",
+            evolutionText: {
+                es: "Si Babymarutchi crece en el <strong>Planeta Tamagotchi</strong>, evoluciona en Marutchi. Este planeta se elige desde el menú de planetas de la shell Neon Planets. <br> No tiene personaje secreto (Mimimimitchi solo aparece en el Planeta Cósmico): sus personajes extra salen por genes y aparecen más abajo. <br> Las comidas nuevas aún no tienen sprite, así que por ahora solo aparecen sus nombres.",
+                en: "If Babymarutchi grows up on <strong>Tamagotchi Planet</strong>, it evolves into Marutchi. You pick this planet from the planet menu on the Neon Planets shell. <br> It has no secret character (Mimimimitchi only appears on Cosmic Planet): its extra characters come from genes and are listed further down. <br> The new foods don't have sprites yet, so only their names are shown for now."
+            },
+            secret: null,
+            evolutions: [
+                {
+                    young: { name: "Curl Young", image: "assets/characters/tmgc planet/curl-young.webp", cell: { es: "Célula Frutilla", en: "Strawberry Cell" } },
+                    meals: [
+                        { name: { es: "Frutilla +1", en: "Strawberry +1" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Matsutake +2", en: "Matsutake +2" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Tarta de Frutilla +4", en: "Strawberry Tart +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } }
+                    ],
+                    adults: [
+                        { name: "Memetchi", image: "assets/characters/tmgc planet/curl species/memetchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Furawatchi", image: "assets/characters/tmgc planet/curl species/furawatchi.webp", careMistakes: "0-1" },
+                        { name: "Makiko", image: "assets/characters/tmgc planet/curl species/makiko.webp", careMistakes: "2-5" },
+                        { name: "Gozarutchi", image: "assets/characters/tmgc planet/curl species/gozarutchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Sparkl Young", image: "assets/characters/tmgc planet/sparkl-young.webp", cell: { es: "Célula Tomate y Donut", en: "Tomato & Donut Cell" } },
+                    meals: [
+                        { name: { es: "Tomate +1", en: "Tomato +1" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Tamadonuts +2", en: "Tamadonuts +2" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Espagueti +4", en: "Spaghetti +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } }
+                    ],
+                    adults: [
+                        { name: "Lovelitchi", image: "assets/characters/tmgc planet/sparkl species/lovelitchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Melodytchi", image: "assets/characters/tmgc planet/sparkl species/melodytchi.webp", careMistakes: "0-1" },
+                        { name: "Moriritchi", image: "assets/characters/tmgc planet/sparkl species/moriritchi.webp", careMistakes: "2-5" },
+                        { name: "Kuromametchi", image: "assets/characters/tmgc planet/sparkl species/kuromametchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Fluffy Young", image: "assets/characters/tmgc planet/fluffly-young.webp", cell: { es: "Célula Bola de Arroz", en: "Rice Ball Cell" } },
+                    meals: [
+                        { name: { es: "Pan Largo +1", en: "Long Roll +1" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Bola de Arroz +2", en: "Rice Ball +2" }, image: null, location: { es: "Ingrediente", en: "Ingredient" } },
+                        { name: { es: "Almuerzo de Bolas de Arroz +4", en: "Rice Ball Lunch +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } },
+                        { name: { es: "Sándwich Enrollado +4", en: "Sandwich Roll +4" }, image: null, location: { es: "Plato de tienda", en: "Shop meal" } }
+                    ],
+                    adults: [
+                        { name: "Neliatchi", image: "assets/characters/tmgc planet/fluffy species/neliatchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Milktchi", image: "assets/characters/tmgc planet/fluffy species/milktchi.webp", careMistakes: "0-1" },
+                        { name: "Unimarutchi", image: "assets/characters/tmgc planet/fluffy species/unimarutchi.webp", careMistakes: "2-5" },
+                        { name: "Weeptchi", image: "assets/characters/tmgc planet/fluffy species/weeptchi.webp", careMistakes: "6+" }
+                    ]
+                },
+                {
+                    young: { name: "Tama Young", image: "assets/characters/tmgc planet/tama-young.webp", cell: { es: "Células indeterminadas", en: "Indeterminate Cells" } },
+                    meals: [ { tie: true } ],
+                    adults: [
+                        { name: "Mametchi", image: "assets/characters/tmgc planet/tama species/mametchi.webp", careMistakes: "0", excellentCares: "5+" },
+                        { name: "Mimitchi", image: "assets/characters/tmgc planet/tama species/mimitchi.webp", careMistakes: "0-1" },
+                        { name: "Kuchipatchi", image: "assets/characters/tmgc planet/tama species/kuchipatchi.webp", careMistakes: "2-5" },
+                        { name: "Pochitchi", image: "assets/characters/tmgc planet/tama species/pochitchi.webp", careMistakes: "6+" }
+                    ]
+                }
+            ],
+            genes: [
+                { young: "Fluffy Young", names: ["Omarutchi", "Pooptchi", "Shykutchi"] }
             ]
         }
     ]

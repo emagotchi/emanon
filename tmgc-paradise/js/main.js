@@ -22,7 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'forest-kid':   { field: 'forest field',   jp: 'もり',     color: '#6dd3ad' },
         'frozen-kid':   { field: 'glacier field',  jp: 'こおり',   color: '#9fb6cc' },
         'tropical-kid': { field: 'tropical field', jp: 'なんごく', color: '#ff9a8a' },
-        'galaxy-kid':   { field: 'cosmic field',   jp: 'コズミック星', color: '#8f86e0' }
+        'galaxy-kid':   { field: 'cosmic planet',  jp: 'コズミック星', color: '#8f86e0' },
+        'newtama-kid':  { field: 'new tama planet', jp: 'ニューたま星', color: '#6cc9d9' },
+        'marutchi':     { field: 'tama planet',    jp: 'たまごっち星', color: '#f2c94c' }
     };
 
     // "Land Kid" -> "landkid.dat"
@@ -65,6 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
             revealNameBtn: "✦ revelar nombre",
             newTag: "nuevo ✧",
             unknownYet: "por confirmar",
+            noSprite: "sprite pendiente",
+            tieInfo: "Este Young sale cuando hay un empate de células y ninguna comida gana:",
+            tieLabel: "empate",
+            tieSub: "ninguna célula gana",
+            genesTitle: "Personajes por genes",
+            genesBody: "No se crían solo con comida ni cuidados. Si tu Tama trae genes de uno de ellos, ignora la comida y sigue la rama Young de ese personaje; con 2 marcas de gen crece hasta convertirse en él.",
+            genesVia: "vía",
             toolsHeading: "Herramienta útil",
             toolsBody: "Para planear tus cruces, el <strong>Genes Generator</strong> te deja ver los genes y colores de cada Tamagotchi y hacerte una idea de qué combinar:",
             toolsLink: "Abrir Tamagotchi Paradise Genes Generator ↗"
@@ -100,6 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
             revealNameBtn: "✦ reveal name",
             newTag: "new ✧",
             unknownYet: "to be confirmed",
+            noSprite: "sprite pending",
+            tieInfo: "This Young comes out when the cells are tied and no food wins:",
+            tieLabel: "tie",
+            tieSub: "no cell wins",
+            genesTitle: "Gene characters",
+            genesBody: "They can't be raised from food or care alone. If your Tama carries genes from one of them, it ignores its diet and follows that character's Young line; with 2 gene marks it grows into the character itself.",
+            genesVia: "via",
             toolsHeading: "Handy tool",
             toolsBody: "To plan your breeding, the <strong>Genes Generator</strong> lets you preview the genes and colors of each Tamagotchi so you can decide what to mix:",
             toolsLink: "Open Tamagotchi Paradise Genes Generator ↗"
@@ -324,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ["Jade Forest", "Bosque, Tierra y Agua"],
                 ["Orange Tropics", "Empieza en Tropical · desbloquea Bosque y luego Hielo"],
                 ["White Glacier", "Empieza en Hielo · desbloquea Bosque y luego Tropical"],
-                ["Neon Planets ✧", "Campo cósmico (コズミック星) · resto por confirmar"]
+                ["Neon Planets ✧", "En vez de campos tiene 3 planetas: empieza en el Planeta Cósmico · el Planeta New Tamagotchi y el Planeta Tamagotchi se eligen desde el menú de planetas"]
             ],
             foodTitle: "Cuánto cuenta cada comida (y los platos cocinados)",
             foodIntro: "Cada 5 puntos de una misma categoría suman 1 ícono de célula (máximo 4 por categoría). La categoría con más puntos define el Young. Para llegar a 1 ícono necesitas más o menos: <strong>5× comida chica</strong> (+1), <strong>3× comida grande</strong> (+2) o <strong>2× plato cocinado</strong> por el Chef Shirotama. Los platos se desbloquean con el nivel de planeta.",
@@ -335,9 +351,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 ["Cielo", "Flap · Chirp · Bumble", "Filete de Pollo · Pie de Cerezas / Copos de Maíz · Gotitas de Flor"],
                 ["Bosque", "Roar · Toddle · Chirp", "Bollo al Vapor · Arroz con Bambú · Mermelada de Bayas"],
                 ["Tropical", "Roar · Toddle · Lick", "Hamburguesa Hawaiana · Gelatina de Frutas / Palitos de Plátano · Ensalada de Mariposa"],
-                ["Hielo", "Roar · Toddle · Glide", "Stroganoff de Res · Borscht / Té con Mermelada · Blinis"]
+                ["Hielo", "Roar · Toddle · Glide", "Stroganoff de Res · Borscht / Té con Mermelada · Blinis"],
+                ["Planeta Cósmico", "Piko · Slithr · Orbit", "Stargaze Pie / Zero-Gravity Juice · Invader Sandwich · Moonsault Donut"],
+                ["Planeta New Tamagotchi", "Land · Water · Sky", "Zanahoria Rallada · Pescado Frito / Moluscos a la Parrilla · Copos de Maíz"],
+                ["Planeta Tamagotchi", "Curl · Sparkl · Fluffy", "Tarta de Frutilla · Espagueti · Almuerzo de Bolas de Arroz / Sándwich Enrollado"]
             ],
-            foodNote: "Las ramas Sprout, Float y Rocky salen cuando solo come Pellets o cuando ninguna categoría domina.",
+            foodNote: "Las ramas Sprout, Float y Rocky salen cuando solo come Pellets o cuando ninguna categoría domina. En Neon Planets los platos dan +4 y las ramas Mech, Forest y Tama Young salen cuando hay empate entre células.",
             eggTitle: "Caza de Huevos: cómo conseguir los 9",
             eggSteps: [
                 ["1", "Antes de las 19:00 entra a <strong>Tama Field → Egg Hunt</strong> (Caza de Huevos) y elige Volcán o Fuente."],
@@ -427,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ["Jade Forest", "Forest, Land and Water"],
                 ["Orange Tropics", "Starts in Tropical · unlocks Forest, then Ice"],
                 ["White Glacier", "Starts in Ice · unlocks Forest, then Tropical"],
-                ["Neon Planets ✧", "Cosmic field (コズミック星) · rest to be confirmed"]
+                ["Neon Planets ✧", "3 planets instead of fields: starts on Cosmic Planet · New Tamagotchi Planet and Tamagotchi Planet are picked from the planet menu"]
             ],
             foodTitle: "How much each food counts (and cooked meals)",
             foodIntro: "Every 5 points of the same category add 1 cell icon (max 4 per category). The category with the most points decides the Young. For 1 icon you need roughly: <strong>5× small food</strong> (+1), <strong>3× big food</strong> (+2) or <strong>2× cooked meal</strong> by Chef Shirotama. Cooked meals unlock with planet level.",
@@ -438,9 +457,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 ["Sky", "Flap · Chirp · Bumble", "Chicken Steak · Cherry Pie / Corn Flakes · Flower Drops"],
                 ["Forest", "Roar · Toddle · Chirp", "Steamed Bun · Bamboo Rice · Berry Jam"],
                 ["Tropical", "Roar · Toddle · Lick", "Hawaiian Burger · Fruit Jelly / Banana Sticks · Butterfly Salad"],
-                ["Ice", "Roar · Toddle · Glide", "Beef Stroganoff · Borscht / Hot Tea with Jam · Blinis"]
+                ["Ice", "Roar · Toddle · Glide", "Beef Stroganoff · Borscht / Hot Tea with Jam · Blinis"],
+                ["Cosmic Planet", "Piko · Slithr · Orbit", "Stargaze Pie / Zero-Gravity Juice · Invader Sandwich · Moonsault Donut"],
+                ["New Tamagotchi Planet", "Land · Water · Sky", "Shredded Carrot · Fried Fish / Grilled Shellfish · Corn Flakes"],
+                ["Tamagotchi Planet", "Curl · Sparkl · Fluffy", "Strawberry Tart · Spaghetti · Rice Ball Lunch / Sandwich Roll"]
             ],
-            foodNote: "Sprout, Float and Rocky branches come from eating only Pellets or when no category is dominant.",
+            foodNote: "Sprout, Float and Rocky branches come from eating only Pellets or when no category is dominant. On Neon Planets cooked meals give +4, and the Mech, Forest and Tama Young branches come from a tie between cells.",
             eggTitle: "Egg Hunt: how to get all 9",
             eggSteps: [
                 ["1", "Before 7 PM open <strong>Tama Field → Egg Hunt</strong> and pick Volcano or Spring."],
@@ -792,8 +814,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `).join('');
 
-            // Generate meals 
+            // Generate meals
+            const isTie = branch.meals.length === 1 && branch.meals[0].tie;
             const mealsHtml = branch.meals.map(meal => {
+                // Young por empate de células (Neon Planets): no tiene comida propia
+                if (meal.tie) return `
+                <div class="meal-indicator meal-indicator--unknown">
+                    <div class="meal-images-wrapper"><div class="meal-unknown" aria-hidden="true">=</div></div>
+                    <span style="font-size: 0.9rem;">${texts[currentLang].tieLabel}</span>
+                    <span style="font-size: 0.75rem; color: var(--text-muted);">${texts[currentLang].tieSub}</span>
+                </div>`;
                 if (meal.unknown) return `
                 <div class="meal-indicator meal-indicator--unknown">
                     <div class="meal-images-wrapper"><div class="meal-unknown" aria-hidden="true">?</div></div>
@@ -805,7 +835,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return `
                 <div class="meal-indicator">
                     <div class="meal-images-wrapper">
-                        <img loading="lazy" decoding="async" src="${meal.image}" alt="${mealName}" title="${mealName}" class="main-meal-img">
+                        ${meal.image
+                            ? `<img loading="lazy" decoding="async" src="${meal.image}" alt="${mealName}" title="${mealName}" class="main-meal-img">`
+                            : `<div class="meal-unknown meal-unknown--nosprite" title="${texts[currentLang].noSprite}" aria-hidden="true">✧</div>`}
                     </div>
                     <span style="font-size: 0.9rem;">${mealName}</span>
                     <span style="font-size: 0.75rem; color: var(--text-muted);"><span class="loc-mark" aria-hidden="true">⌖</span> ${locName}</span>
@@ -820,13 +852,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img loading="lazy" decoding="async" src="${branch.young.image}" alt="${branch.young.name}">
                         ${(branch.young.cellImage || (branch.meals[0] && branch.meals[0].cellImage)) ? `<img loading="lazy" decoding="async" src="${branch.young.cellImage || branch.meals[0].cellImage}" class="young-cell-img" title="Cell Icon">` : ''}
                         <h3>${branch.young.name}</h3>
+                        ${branch.young.cell ? `<span class="young-cell-name">${branch.young.cell[currentLang] || branch.young.cell.en}</span>` : ''}
                     </div>
                     
                     <span class="arrow" aria-hidden="true">→</span>
                     
                     <!-- Meal Requirement(s) -->
                     <div class="evo-step meal-step">
-                        <span class="cell-info-text">${texts[currentLang].cellInfo}</span>
+                        <span class="cell-info-text">${isTie ? texts[currentLang].tieInfo : texts[currentLang].cellInfo}</span>
                         <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 15px; justify-content: center; width: 100%;">
                             ${mealsHtml}
                         </div>
@@ -847,6 +880,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Secret / connection character (one per shell)
         if (kidData.secret) {
             evolutionsContainer.appendChild(buildSecretCard(kidData.secret));
+        }
+
+        // Gene characters (Neon Planets): only obtainable through inherited genes
+        if (kidData.genes && kidData.genes.length) {
+            const t = texts[currentLang];
+            const genesEl = document.createElement('div');
+            genesEl.className = 'secret-card genes-card';
+            genesEl.innerHTML = `
+                <span class="secret-badge">✧ ${t.genesTitle}</span>
+                <p class="secret-cond">${t.genesBody}</p>
+                <ul class="genes-list">
+                    ${kidData.genes.map(g => `
+                    <li>
+                        <span class="genes-via">${t.genesVia} ${g.young}</span>
+                        <span class="genes-names">${g.names.join(' · ')}</span>
+                    </li>`).join('')}
+                </ul>
+            `;
+            evolutionsContainer.appendChild(genesEl);
         }
     }
 
