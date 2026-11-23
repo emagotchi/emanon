@@ -3681,35 +3681,86 @@ const DLCS = [
    }
   ],
   "items": {
-   "food-1": {
-    "type": "meal"
+   "radburger": {
+    "type": "meal",
+    "name": {
+     "en": "Radburger",
+     "es": "Hamburguesa Molona"
+    },
+    "price": "100G"
+    },
    },
-   "food-2": {
-    "type": "meal"
+   "ganguro-croissant": {
+    "type": "meal",
+    "name": {
+     "en": "Ganguro Croissant",
+     "es": "Cruasán Ganguro"
+     },
+    "price": "100G"
    },
-   "food-3": {
-    "type": "meal"
+   "platform-spaghetti": {
+    "type": "meal",
+    "name": {
+     "en": "Platform Spaghetti",
+     "es": "Espaguetis Plataforma"
+     },
+    "price": "100G"
    },
-   "food-4": {
-    "type": "meal"
+   "gal-handmade-bento": {
+    "type": "meal",
+    "name": {
+     "en": "Gal Handmade Bento",
+     "es": "Bento Casero Gal"
+     },
+    "price": "100G"
    },
-   "snacks-1": {
-    "type": "snack"
+   "deco-crepe": {
+    "type": "snack",
+    "name": {
+     "en": "Deco Crepe",
+     "es": "Tortita Decorada"
+     },
+    "price": "100G"
    },
-   "snacks-2": {
-    "type": "snack"
+   "marshmallow-swirly-pop": {
+    "type": "snack",
+    "name": {
+     "en": "Marshmallow Swirly Pop",
+     "es": "Piruleta de Nubes"
+     },
+    "price": "100G"
    },
-   "snacks-3": {
-    "type": "snack"
+   "shoppertorte": {
+    "type": "snack",
+    "name": {
+     "en": "Shoppertorte",
+     "es": "Torta de Compras"
+     },
+    "price": "100G"
    },
-   "snacks-4": {
-    "type": "snack"
+   "boba-pancake": {
+    "type": "snack",
+    "name": {
+     "en": "Boba Pancake",
+     "es": "Tortitas de Burbujas"
+     },
+    "price": "100G"
    },
-   "items-1": {
-    "type": "item"
+   "bang-curler": {
+    "type": "item",
+    "name": {
+     "en": "Bang Curler",
+     "es": "Rizador de Flequillo"
+     },
+    "price": "200G"
    },
-   "items-2": {
-    "type": "item"
+   "pri-machine": {
+    "type": "item",
+    "name": {
+     "en": "Pri Machine",
+     "es": "Fotomatón"
+     },
+    "price": "200G"
    }
   },
   "area": {
@@ -3737,6 +3788,58 @@ const DLCS = [
    "name": "Totally Rad Dance",
    "es": "Memoriza los comandos A, B y C; si te va bien, ganas 3000 Gotchi Points.",
    "en": "Memorize the A, B and C commands; good results earn 3000 Gotchi Points."
+  },
+  "pet": {
+   "es": "Baby Beartchi: deja cualquier mueble de Baby's Dream en el patio.",
+   "en": "Baby Beartchi: leave any Baby's Dream furniture in the backyard."
+  },
+  "shop": {
+   "accessories": [
+    {
+     "en": "",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "",
+     "price": "200G",
+     "icon": ""
+    }
+   ],
+   "furniture": [
+    {
+     "en": "Animal Print Sofa",
+     "price": "300G",
+     "icon": ""
+    },
+    {
+     "en": "Animal Print TV",
+     "price": "300G",
+     "icon": ""
+    },
+    {
+     "en": "Princess Sofa",
+     "price": "300G",
+     "icon": ""
+    },
+    {
+     "en": "Princess Vanity",
+     "price": "300G",
+     "icon": ""
+    }
+   ],
+   "rooms": [
+    {
+     "en": "Animal Print Room",
+     "price": "500G",
+     "icon": ""
+    },
+    {
+     "en": "Princess Room",
+     "price": "500G",
+     "icon": ""
+    }
+   ]
   }
  }
 ];
