@@ -3688,7 +3688,6 @@ const DLCS = [
      "es": "Hamburguesa Molona"
     },
     "price": "100G"
-    },
    },
    "ganguro-croissant": {
     "type": "meal",
@@ -3789,19 +3788,125 @@ const DLCS = [
    "es": "Memoriza los comandos A, B y C; si te va bien, ganas 3000 Gotchi Points.",
    "en": "Memorize the A, B and C commands; good results earn 3000 Gotchi Points."
   },
-  "pet": {
-   "es": "Baby Beartchi: deja cualquier mueble de Baby's Dream en el patio.",
-   "en": "Baby Beartchi: leave any Baby's Dream furniture in the backyard."
-  },
   "shop": {
    "accessories": [
     {
-     "en": "",
+     "en": "Side Ponytail Wig",
      "price": "200G",
      "icon": ""
     },
     {
-     "en": "",
+     "en": "Deco Wig",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Flower Wig",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Shaggy Wig",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Updo Wig",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Animal Print Ribbon",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Headdress with Bow",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Gal Glasses",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Mini Glasses",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Hoop Earrings",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Natural Makeup",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Glam Makeup",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Gal Tote Bag",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Brown Gal Purse",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Pink Gal Purse",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "School Bag with Charms",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Fliphone with Charms",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Plaid Scarf",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Leopard Print Shawl",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Gothic Umbrella",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Gal Aura",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Background Disco Ball",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Photo Op Wings",
+     "price": "200G",
+     "icon": ""
+    },
+    {
+     "en": "Glamour Stage",
      "price": "200G",
      "icon": ""
     }
