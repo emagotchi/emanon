@@ -3674,8 +3674,7 @@ const DLCS = [
     "n": "Radmimitchi",
     "img": "radmimitchi_Artwork.webp",
     "g": "female",
-    "it": "radburger",
-    "unconf": true
+    "it": "radburger"
    },
    {
     "n": "Luvlitchi",
@@ -3959,3 +3958,4 @@ const DLCS = [
   }
  }
 ];
+
