@@ -481,3 +481,12 @@ body {
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* recetas sin confirmar (vienen de la comunidad; Ema las va probando) */
+.rule-unconf { border-left-style: dashed; border-left-color: #e7a6c8; background: #fff6fb; }
+.pick .fd { position: relative; }
+.unconf-mark { position: absolute; top: 2px; right: 4px; font-style: normal; font-family: var(--font-mono); font-size: .68rem; line-height: 1; color: var(--pink); }
+.l-unconf { font-family: var(--font-mono); font-size: .66rem; color: var(--pink); }
+.item .for .unconf { color: var(--text-muted); }
+.recipes .kind.unconf { color: var(--pink); }
+.item .no-icon { display: flex; align-items: center; justify-content: center; height: 52px; width: 52px; margin: 0 auto 4px; border: 1px dashed var(--line); border-radius: 8px; font-family: var(--font-mono); color: var(--text-muted); }

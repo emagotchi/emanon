@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chars: 'Personajes', items: 'Comidas e ítems', area: 'Área',
             rule: 'Basta con darle su comida o snack, o jugar con su ítem, <b>una vez</b> antes de que sea adulto. Si cumples con varios, gana el que más usaste :3 Eso sí, tiene que ser del mismo género que tu tama (los ♂♀ sirven para ambos).',
             ruleSoon: 'Esta zona todavía no abre, así que aún no sabemos qué le gusta a cada uno. Vuelvo con la info apenas salga ♡',
+            unconf: 'sin confirmar', ruleUnconf: 'Los que dicen <b>sin confirmar</b> salieron de la comunidad y todavía los estoy probando uno por uno. Si quieres ir a la segura, espera a que les quite la marca ♡',
             feed: 'Dale', play: 'Juega con', toGet: 'para obtener a', unknown: 'todavía no se sabe qué darle ♡',
             meal: 'comida', snack: 'snack', item: 'ítem', meals: 'Comidas', snacks: 'Snacks', toys: 'Ítems para jugar',
             whatGive: 'QUÉ DARLE', awayTitle: '   vuelve pronto. . . el tama portal sigue abierto ⌯⌲   ', pickHint: 'toca una tarjeta y aparece en la pantalla', toTop: 'Volver arriba',
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sumTitle: 'todas las recetas', sumDesc: 'Lo mismo de los tickets, pero en lista: qué darle a cada personaje de las zonas del Tama Portal (los Tamaverse Ticket, que en el Uni aparecen en «ZONA DLC»), con la rama base al final ✧',
             thChar: 'Personaje', thGender: 'Género', thGive: 'Qué darle', thHow: 'Errores de cuidado',
             baseSumTitle: 'Rama base (sin DLC)', baseSumMeta: 'si tu tama no usa nada de las zonas', baseSumKids: 'Niño:', and: 'y',
-            updated: 'actualizado el 13 de noviembre de 2026',
+            updated: 'actualizado el 23 de noviembre de 2026',
             faqTitle: 'preguntas frecuentes',
             faq: [
                 ['¿Cómo compro y descargo un DLC?', '<p>Cada área se vende como <a href="https://ticketshop.tamagotchi-official.com/es-ES" target="_blank" rel="noopener"><b>Tamaverse Ticket</b> ↗</a> en la tienda oficial de Bandai. Al comprarlo te llega por correo un código de descarga de 16 dígitos. Very Berry Land es gratis.</p><p>Para canjearlo, conecta el Uni a Wi-Fi, ten el firmware al día y sigue estos pasos:</p><ol><li>Desde el menú de cuidados, selecciona el ícono de red.</li><li>Selecciona la opción de descarga.</li><li>Selecciona «DAR CÓDIGO».</li><li>Introduce el código de 16 dígitos que te llegó por correo.</li><li>Cuando aparezca «¡LISTO!», selecciona «SÍ» en la pantalla «¿DESCARGAR?».</li><li>Ya puedes visitar la nueva zona desde el portal Tama.</li></ol><p>El portal Tama te lleva a una sola zona. Para ir a otra, cámbiala en la opción «ZONA DLC».</p>'],
@@ -65,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chars: 'Characters', items: 'Food & items', area: 'Area',
             rule: 'Give its meal or snack, or play with its item, <b>at least once</b> before it becomes an adult. If several apply, the one used the most wins. It must match your Tamagotchi\'s gender (♂♀ ones work with both).',
             ruleSoon: 'This area isn\'t open yet, so we don\'t know what each one likes. I\'ll be back with the info as soon as it\'s out ♡',
+            unconf: 'unconfirmed', ruleUnconf: 'The ones marked <b>unconfirmed</b> come from the community and I\'m still testing them one by one. If you want to play it safe, wait until the mark is gone ♡',
             feed: 'Give', play: 'Play with', toGet: 'to get', unknown: 'requirement not known yet ♡',
             meal: 'meal', snack: 'snack', item: 'item', meals: 'Meals', snacks: 'Snacks', toys: 'Items to play with',
             whatGive: 'WHAT TO GIVE', awayTitle: '   come back soon. . . the tama portal is still open ⌯⌲   ', pickHint: 'tap a card and it shows up on the screen', toTop: 'Back to top',
@@ -79,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sumTitle: 'every recipe', sumDesc: 'Same as the tickets, but as a list: what to give each character in every Tama Portal area (the Tamaverse Tickets, shown as DL AREA on the Uni), with the base branch at the end ✧',
             thChar: 'Character', thGender: 'Gender', thGive: 'What to give', thHow: 'Care mistakes',
             baseSumTitle: 'Base branch (no DLC)', baseSumMeta: 'if your tama uses nothing from the areas', baseSumKids: 'Child:', and: 'and',
-            updated: 'updated November 13, 2026',
+            updated: 'updated November 23, 2026',
             faqTitle: 'faq',
             faq: [
                 ['How do I buy and download a DLC?', '<p>Each area is sold as a <a href="https://ticketshop.tamagotchi-official.com/" target="_blank" rel="noopener"><b>Tamaverse Ticket</b> ↗</a> on Bandai\'s official shop. After buying it you get a 16-digit download code by email. Very Berry Land is free.</p><p>To redeem it, connect the Uni to Wi-Fi, keep the firmware up to date and follow these steps:</p><ol><li>From the Care menu screen, select the Network icon.</li><li>Select <b>DOWNLOAD</b>.</li><li>Select <b>INPUT CODE</b>.</li><li>Input the 16-digit DL Code you received by email.</li><li>After the “DONE!” screen, select YES on the “DOWNLOAD?” screen.</li><li>You can now go to the new area from the Tama Portal.</li></ol><p>The Tama Portal only takes you to one area. To go to another, change it from <b>DL AREA</b>.</p>'],
@@ -188,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* pestaña personajes: el Uni + tarjetas sin nombre (el nombre sale en la pantalla) */
     function charsTab(d) {
-        return `<p class="rule">${d.soon ? t('ruleSoon') : t('rule')}</p>
+        return `<p class="rule">${d.soon ? t('ruleSoon') : t('rule')}</p>${d.chars.some(c => c.unconf) ? `<p class="rule rule-unconf">${t('ruleUnconf')}</p>` : ''}
         <div class="cast">
             <div class="uni-col">
                 <div class="uni">${PLATE}
@@ -201,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="roster"><p class="roster-hint">${t('pickHint')}</p>${d.chars.map((c, i) => `
                 <button class="pick" data-idx="${i}" aria-pressed="${i === ci}" aria-label="${c.n}"><div class="spr"><img class="${isPx(c) ? 'px' : ''}" src="${charImg(d, c)}" alt="" loading="lazy"></div>
-                <div class="fd">${c.it ? `<img class="px" src="${itemImg(d, c.it)}" alt="" loading="lazy">` : '?'}</div></button>`).join('')}
+                <div class="fd">${c.it ? `<img class="px" src="${itemImg(d, c.it)}" alt="" loading="lazy">${c.unconf ? `<i class="unconf-mark" title="${t('unconf')}">?</i>` : ''}` : '?'}</div></button>`).join('')}
             </div>
         </div>`;
     }
@@ -215,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#back').innerHTML = it
             ? `<div class="l-top"><span>${t('whatGive')}</span><span>${t(it.type)}</span></div>
                <div class="l-spr"><img class="${isPx(c) ? 'px' : ''}" src="${charImg(d, c)}" alt="" style="max-height:56px"><img class="px food ${anim ? 'hop' : ''}" src="${itemImg(d, c.it)}" alt="${nameOf(it.name)}"></div>
-               <div class="l-recipe">${it.type === 'item' ? t('play') : t('feed')} <b>${nameOf(it.name)}</b><br>${t('toGet')} <strong>${c.n}</strong></div><div class="pips">${pips}</div>`
+               <div class="l-recipe">${it.type === 'item' ? t('play') : t('feed')} <b>${nameOf(it.name)}</b><br>${t('toGet')} <strong>${c.n}</strong>${c.unconf ? `<br><span class="l-unconf">(${t('unconf')})</span>` : ''}</div><div class="pips">${pips}</div>`
             : `<div class="l-top"><span>${t('whatGive')}</span><span></span></div><div class="l-msg"><span>${c.n}</span><span>${t('unknown')}</span></div><div class="pips">${pips}</div>`;
         document.querySelectorAll('.pick').forEach(p => p.setAttribute('aria-pressed', +p.dataset.idx === ci));
     }
@@ -262,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!ks.length) return '';
             return `<div class="items-group"><h4>${title}</h4><div class="items">${ks.map(k => {
                 const it = d.items[k], c = who(k);
-                return `<div class="item"><img class="px" src="${itemImg(d, k)}" alt="" loading="lazy">${nameOf(it.name)}${it.price ? `<div class="price">${it.price}</div>` : ''}${c ? `<div class="for">→ ${c.n}</div>` : ''}</div>`;
+                return `<div class="item"><img class="px" src="${itemImg(d, k)}" alt="" loading="lazy">${nameOf(it.name)}${it.price ? `<div class="price">${it.price}</div>` : ''}${c ? `<div class="for">→ ${c.n}${c.unconf ? ` <span class="unconf">· ${t('unconf')}</span>` : ''}</div>` : ''}</div>`;
             }).join('')}</div></div>`;
         };
         return group('meal', t('meals')) + group('snack', t('snacks')) + group('item', t('toys'));
@@ -285,7 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameList = lst => `<ul class="names">${lst.map(x => `<li>${nameOf({ en: x.en })}<span>${x.price}</span></li>`).join('')}</ul>`;
         const shopCat = (lst, files, cap) => {
             if (!lst || !lst.length) return sheet(files, cap);
-            if (lst.every(x => x.icon)) return `<div class="shop-cat"><h5>${cap}</h5><div class="items">${lst.map(x => `<div class="item"><img class="px" src="${src(x.icon)}" alt="" loading="lazy">${nameOf({ en: x.en })}<div class="price">${x.price}</div></div>`).join('')}</div></div>`;
+            // con íconos recortados: grilla (los que aún no tienen ícono salen con "?")
+            if (lst.some(x => x.icon)) return `<div class="shop-cat"><h5>${cap}</h5><div class="items">${lst.map(x => `<div class="item">${x.icon ? `<img class="px" src="${src(x.icon)}" alt="" loading="lazy">` : '<span class="no-icon" aria-hidden="true">?</span>'}${nameOf({ en: x.en })}<div class="price">${x.price}</div></div>`).join('')}</div></div>`;
             return `<div class="shop-cat"><h5>${cap}</h5>${sheet(files, cap)}${nameList(lst)}</div>`;
         };
         return `<div class="area">

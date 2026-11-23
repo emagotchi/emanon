@@ -3647,37 +3647,49 @@ const DLCS = [
    {
     "n": "Mamedecotchi",
     "img": "mamedecotchi_Artwork.webp",
-    "g": "male"
+    "g": "male",
+    "it": "deco-crepe"
    },
    {
     "n": "Gangurpatchi",
     "img": "gangurpatchi_Artwork.webp",
-    "g": "male"
+    "g": "male",
+    "it": "ganguro-croissant"
    },
    {
     "n": "Bangsinotchi",
     "img": "bangsinotchi_Artwork.webp",
-    "g": "female"
+    "g": "female",
+    "it": "bang-curler",
+    "unconf": true
    },
    {
     "n": "Galhimetchi",
     "img": "galhimetchi_Artwork.webp",
-    "g": "female"
+    "g": "female",
+    "it": "marshmallow-swirly-pop",
+    "unconf": true
    },
    {
     "n": "Radmimitchi",
     "img": "radmimitchi_Artwork.webp",
-    "g": "female"
+    "g": "female",
+    "it": "radburger",
+    "unconf": true
    },
    {
     "n": "Luvlitchi",
     "img": "luvlitchi_Artwork.webp",
-    "g": "female"
+    "g": "female",
+    "it": "platform-spaghetti",
+    "unconf": true
    },
    {
     "n": "Cool Melody",
     "img": "coolMelody_Artwork.webp",
-    "g": "female"
+    "g": "female",
+    "it": "shoppertorte",
+    "unconf": true
    }
   ],
   "items": {
@@ -3781,7 +3793,6 @@ const DLCS = [
     "accessories-2.png"
    ]
   },
-  "soon": true,
   "fw": "3.0.0",
   "minigame": {
    "name": "Totally Rad Dance",
@@ -3793,117 +3804,117 @@ const DLCS = [
     {
      "en": "Side Ponytail Wig",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/side-ponytail-wig.webp"
     },
     {
      "en": "Deco Wig",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/deco-wig.webp"
     },
     {
      "en": "Flower Wig",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/flower-wig.webp"
     },
     {
      "en": "Shaggy Wig",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/shaggy-wig.webp"
     },
     {
      "en": "Updo Wig",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/updo-wig.webp"
     },
     {
      "en": "Animal Print Ribbon",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/animal-print-ribbon.webp"
     },
     {
      "en": "Headdress with Bow",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/headdress-with-bow.webp"
     },
     {
      "en": "Gal Glasses",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/gal-glasses.webp"
     },
     {
      "en": "Mini Glasses",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/mini-glasses.webp"
     },
     {
      "en": "Hoop Earrings",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/hoop-earrings.webp"
     },
     {
      "en": "Natural Makeup",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/natural-makeup.webp"
     },
     {
      "en": "Glam Makeup",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/glam-makeup.webp"
     },
     {
      "en": "Gal Tote Bag",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/gal-tote-bag.webp"
     },
     {
      "en": "Brown Gal Purse",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/brown-gal-purse.webp"
     },
     {
      "en": "Pink Gal Purse",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/pink-gal-purse.webp"
     },
     {
      "en": "School Bag with Charms",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/school-bag-with-charms.webp"
     },
     {
      "en": "Fliphone with Charms",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/fliphone-with-charms.webp"
     },
     {
      "en": "Plaid Scarf",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/plaid-scarf.webp"
     },
     {
      "en": "Leopard Print Shawl",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/leopard-print-shawl.webp"
     },
     {
      "en": "Gothic Umbrella",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/gothic-umbrella.webp"
     },
     {
      "en": "Gal Aura",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/gal-aura.webp"
     },
     {
      "en": "Background Disco Ball",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/background-disco-ball.webp"
     },
     {
      "en": "Photo Op Wings",
      "price": "200G",
-     "icon": ""
+     "icon": "shop/photo-op-wings.webp"
     },
     {
      "en": "Glamour Stage",
@@ -3915,22 +3926,22 @@ const DLCS = [
     {
      "en": "Animal Print Sofa",
      "price": "300G",
-     "icon": ""
+     "icon": "shop/animal-print-sofa.webp"
     },
     {
      "en": "Animal Print TV",
      "price": "300G",
-     "icon": ""
+     "icon": "shop/animal-print-tv.webp"
     },
     {
      "en": "Princess Sofa",
      "price": "300G",
-     "icon": ""
+     "icon": "shop/princess-sofa.webp"
     },
     {
      "en": "Princess Vanity",
      "price": "300G",
-     "icon": ""
+     "icon": "shop/princess-vanity.webp"
     }
    ],
    "rooms": [

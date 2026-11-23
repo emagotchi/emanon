@@ -53,7 +53,7 @@ function resumenHTML(L, t, nameOf) {
         const rows = d.chars.map(c => {
             const it = c.it && d.items[c.it];
             const give = it
-                ? `${it.type === 'item' ? t('play') : t('feed')} ${itemName(it.name)} <span class="kind">${t(it.type)}</span>`
+                ? `${it.type === 'item' ? t('play') : t('feed')} ${itemName(it.name)} <span class="kind">${t(it.type)}</span>${c.unconf ? ` <span class="kind unconf">${t('unconf')}</span>` : ''}`
                 : `<span class="kind">${t('unknown')}</span>`;
             return `<tr><td>${c.n}</td><td>${sym[c.g] || ''}</td><td>${give}</td><td>${it && it.price ? it.price : ''}</td></tr>`;
         }).join('');
